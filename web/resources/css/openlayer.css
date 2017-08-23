@@ -1,0 +1,154 @@
+
+.map:-moz-full-screen {
+    height: 100%;
+}
+.map:-webkit-full-screen {
+    height: 100%;
+}
+.map:fullscreen {
+    height: 100%;
+}
+/* position the rotate control lower than usual */
+.ol-rotate {
+    top: 3em;
+}
+#map {
+    position: relative;
+        height: 550px;
+}
+#popup {
+    padding-bottom: 45px;
+}
+
+
+.panel-default {
+    border-color: #FC2727;
+    margin-top: 22%;
+    width: 100%;
+
+
+
+}
+.panel {
+    margin-bottom: 0px;
+    background-color: #fff;
+    border: 1px solid #330066;
+    border-radius: 4px;
+    -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+    box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+.panel-body {
+    /*padding: 15px;*/
+    padding: 2%;
+}
+.panel-default>.panel-heading {
+    color: #093457;
+    background-color: #f5f5f5;
+    border-color: #ddd;
+}
+.panel-heading {
+    padding: 0 2%;
+    border-bottom: 1px solid transparent;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+}
+
+#boxm{
+    width: 18%;
+    font-size: 115%;
+    line-height: 100%;
+    /*    right: 1110px    ;*/
+    right: 70%;
+    /*    top: 16%;  change this value to place the menu higher or lower */
+    top: 25%;    
+    position: fixed;
+    z-index: 100;
+}
+
+#tabm{
+    float: left;
+    list-style: none outside none;
+    /*margin-top: -84%;*/
+    margin-top: -40%;
+    margin-left:205%;
+    padding: 0;
+    position: relative;
+    z-index: 99;
+}
+
+#tabm lim spanm{
+    display: block;
+    padding: 0 5px;
+    position: relative;
+}
+
+#linksm{
+
+    border-left: 1px solid #b4b8bb;
+    float: left;
+    padding: 11%;
+    width: 194%;
+}
+
+.showm, .hidem{
+    /* we specify the transition length for hiding and showing */
+    transition: margin-right .4s ease-in;
+    -webkit-transition: margin-right .4s ease-in;
+}
+
+.hidem{
+    /*margin-right:0px;*/
+    margin-right: 14%;
+}
+
+.showm{
+    /*margin-right: 366px;*/
+    margin-right: 49%;
+}
+
+#arrowm, .btm{
+    cursor: pointer;
+}
+
+.btm{
+    width: 77px;
+    height: 40px;
+    margin: -1px;
+    text-align:center;
+    border:1px solid #858fa6;
+    font: bold 13px Helvetica,Arial,sans-serif;
+    text-shadow:0px 0px 5px rgba(0, 0, 0, 0.75);
+    background:#014464;
+    background-image: -o-linear-gradient(left, #1F82AF, #002F44);
+    background-image: -ms-linear-gradient(left, #1F82AF, #002F44);
+    background-image: -moz-linear-gradient(left, #1F82AF, #002F44);
+    background-image: -webkit-linear-gradient(left, #1F82AF, #002F44);
+    background-image: -webkit-gradient(linear, left top, right top, from(#1F82AF), to(#002F44));
+}
+
+.btm a{
+    line-height: 40px;
+    color: #fff;
+    display: block;
+}
+
+.btm:hover{
+    transition: background .3s linear;
+    background: #32A3D3;
+    -o-transition: background .3s linear;
+    -moz-transition: background .3s linear;
+    -webkit-transition: background .3s linear;
+}
+.screen2 {
+    right: 0.5em;
+    top: 3.5em;
+}
+
+.subnavbar-inner{
+    width: auto; 
+    /* height: 63px;   */
+
+
+
+}
+

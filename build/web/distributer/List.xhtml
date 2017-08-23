@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="distributer"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.ListDistributerTitle}"></h:outputText></h3>
+            <h:form style="float: right;margin-right: 4px;"> <h:commandLink action="#{distributerController.prepareCreate}" value="#{bundle.ListAlertCreateLink}" styleClass="btn btn-primary"/></h:form>
+
+        </ui:define>
+        <ui:define name="body">
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==0 or userController.connectedUser.accesslevel==3}" >
+
+                <h:form styleClass="jsfcrud_list_form">
+
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+
+
+                    <h:outputText escape="false" value="#{bundle.ListDistributerEmpty}" rendered="#{distributerController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{distributerController.items.rowCount > 0}">
+
+
+                        <h:commandLink action="#{distributerController.previous}" value="#{bundle.Previous} #{distributerController.pagination.pageSize}" rendered="#{distributerController.pagination.hasPreviousPage}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                        <h:commandLink action="#{distributerController.next}" value="#{bundle.Next} #{distributerController.pagination.pageSize}" rendered="#{distributerController.pagination.hasNextPage}" style ="float:right;">
+                            <i class="icon-large icon-arrow-right"></i>
+                        </h:commandLink>
+                        <h:dataTable value="#{distributerController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass="responsive-table table-bordered">
+                            <h:column>
+                                <f:facet name="header" >
+
+                                    <h:outputText value="#{bundle.NO}"/>
+                                </f:facet>
+
+                                <h:outputText   value="#{driverController.items.rowIndex+1}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDistributerTitle_logopath}"/>
+                                </f:facet>
+                                <h:graphicImage id="logopath"  value="/img/#{item.logopath}" title="#{bundle.ViewDistributerTitle_logopath}" width="250"  style="height: 50px!important;"/>
+                                <h:outputText rendered="#{item.logopath==null or item.logopath==''}"  value="#{bundle.Undefined}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDistributerTitle_contact}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.contact}"/>
+                            </h:column>
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDistributerTitleparent}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.parentid.contact}"/>
+                                <h:outputText rendered="#{item.parentid.contact==null }"  value="#{bundle.Undefined}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.CreateDriverTitle_email}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.email}"/>
+                                <h:outputText rendered="#{item.email==''}"  value="#{bundle.Undefined}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDistributerTitle_addeddby}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.addeddby.username}"/>
+                            </h:column>
+                            <!--                            <h:column>
+                                                            <f:facet name="header">
+                                                                <h:outputText value="#{bundle.ListDistributerTitle_createdate}"/>
+                                                            </f:facet>
+                                                            <h:outputText value="#{item.createdate}">
+                                                                <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                                                            </h:outputText>
+                                                        </h:column>-->
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.Action}"/>
+                                </f:facet>
+
+                                <h:commandLink action="#{distributerController.prepareView}" title="#{bundle.More}" >                            
+                                    <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                    </i>
+                                </h:commandLink>
+
+
+                                <h:commandLink action="#{distributerController.prepareEdit}" title="#{bundle.Edit}">
+                                    <i class="btn-icon-only icon-edit" style="color: #D98200"> 
+                                    </i>
+                                </h:commandLink>
+
+
+                                <h:commandLink action="#{distributerController.destroy}" title="#{bundle.Destroy}">
+                                    <i class="btn-icon-only icon-remove" style="color: #A40000"> 
+                                    </i>
+                                </h:commandLink>
+
+
+
+                            </h:column>
+                        </h:dataTable>
+                        <center> <h:outputText value="#{distributerController.pagination.pageFirstItem + 1}..#{distributerController.pagination.pageLastItem + 1}/#{distributerController.pagination.itemsCount}"/></center>
+                    </h:panelGroup>
+                    <br />
+
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2 or userController.connectedUser.accesslevel==1}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+
+    </ui:composition>
+
+</html>

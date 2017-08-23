@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"> 
+
+    <h:head>
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <style type="text/css">
+            html , #map-canvas { height: 100%; margin: 0; padding: 0;
+                                 margin-top: 100px;
+
+            }
+
+        </style>
+
+
+    </h:head>
+    <ui:composition template="/hometemplate.xhtml" id="upf" >
+
+        <ui:param name="activeclass" value="monitoring" />
+        <ui:param name="containerDelete" value="yes"/>
+        <ui:param name="bodyid" value="yes"/>
+        <ui:define name="titlewidget">
+        </ui:define>
+        <ui:define name="titleunderpage"  >
+        </ui:define>
+        <ui:define  name="body"  >
+
+
+
+
+            <div id="pushmenu" class="pushmenu-push" >
+                <h:form style="margin-bottom: 0px!important;">
+                    <h:outputText rendered="#{positionController.initialselectlist()}"/>
+                    <h:outputText rendered="#{positionController.prepareDistributerTree()}"/>
+                </h:form>
+                <h:form id="formpushmenu" >
+
+
+                    <h:commandLink  id="geo_fence" action ="#{positionController.prepareGeoFenceView()}" target="_blank"  title="#{bundle.Geofence}" />
+
+
+
+
+                    <script  >
+                        //<![CDATA[
+
+                        var toggleadded = false;
+                        function changeid()
+                        {
+
+
+                            $menuLeft = $('.pushmenu-left');
+                            $nav_list = $('#nav_list');
+
+
+                            $(this).toggleClass('active');
+                            $('.pushmenu-push').toggleClass('pushmenu-push-toright');
+                            $menuLeft.toggleClass('pushmenu-open');
+
+                            var x = document.getElementsByClassName("btn");
+                            x[0].class = "btn btn-primary";
+
+
+                        }
+                        function changeidforopenstreetbotton()
+                        {
+
+                            var e = document.getElementById("nav_list");
+                            e.id = "nav_list2";
+
+                        }
+                        function changeidforopenstreetbotton1()
+                        {
+
+                            var e = document.getElementById("nav_list2");
+                            e.id = "nav_list";
+
+                        }
+
+
+
+
+                        $(document).ready(function () {
+
+
+                            $("menul").click(function () {
+
+                                var inputs = document.getElementsByTagName("zonetoggle");
+
+                                if (inputs[0].id === "statusshow")
+                                {
+                                    var e = document.getElementById("statusshow");
+                                    e.id = "statushide";
+                                }
+                                else {
+                                    var e1 = document.getElementById("statushide");
+                                    e1.id = "statusshow";
+                                }
+
+                                ;
+                            });
+                        });
+
+
+                        window.onload = changeid;
+
+                        //]]>
+
+                    </script>
+
+                    <zonetoggle id="statusshow">
+
+
+                        <nav class="pushmenu pushmenu-left" style="height: 20vh;">
+
+                            <c:if test="#{userController.connectedUser.accesslevel==2}"> 
+                                <h3>#{bundle.ListVehiculesTitle}</h3></c:if>  
+
+                            <!--                    <a href="#">Home</a>-->
+
+                            <div class="panel-body" style="height: 100%!important">
+                                <!--                                <p:accordionPanel>
+                                                                    <p:tab title="Godfather Part I">
+                                                                        <h:panelGrid columns="2" cellpadding="10">
+                                                                            <p:graphicImage name="demo/images/godfather/godfather1.jpg" />
+                                                                            <h:outputText
+                                                                                value="The story begins as Don Vito Corleone..." />
+                                                                        </h:panelGrid>
+                                                                    </p:tab>
+                                                                </p:accordionPanel>-->
+
+
+                                <p:panel rendered="#{userController.connectedUser.accesslevel!=2}" id="toggleable" header="#{bundle.ListVehiculesTitle}" toggleable="true" closable="fase" toggleSpeed="500" closeSpeed="500" widgetVar="panel"  >
+                                    <c:if test="#{userController.connectedUser.accesslevel!=2}">
+                                        <h:outputScript name="js/jquery.treefilter.js"/> 
+                                        <h:inputText id="my-search" style="width: 97%;" />
+                                        <p:tree  id="my-tree2"  style=" height: 30vh;width: 99%!important;border-bottom: 0px!important;border-top: 0px!important;"  value="#{positionController.root}"  selectionMode="single" var="node" selection="#{positionController.selectedNodes}"  >
+                                            <p:ajax event="select" listener ="#{positionController.testTree}"  onstart="setfirstrefresh();" oncomplete="refreshForAllMapsProcess();" update=":formpushmenu:device,:allMaps:array,:feedbackwidget:SpeedLimit,:Accuratefeedbackwidget:AccurateSpeedLimit" />                                          
+                                            <p:treeNode>  
+                                                <p:graphicImage value="../resources/images/delivery-truck.png" rendered="#{node['class'].simpleName eq 'Distributer'}"/><h:outputText value=" #{node.contact}" rendered="#{node['class'].simpleName eq 'Distributer'}" style="font-weight:bold;"/> 
+                                                <p:graphicImage value="../resources/images/user.png" rendered="#{node['class'].simpleName eq 'User'}"/><h:outputText value=" #{node.username}" rendered="#{node['class'].simpleName eq 'User'}" />
+                                            </p:treeNode>
+                                        </p:tree>
+                                        <script> $(function () {
+                                                var tree = new treefilter($("#formpushmenu\\:my-tree2"), {
+                                                    searcher: $("input#formpushmenu\\:my-search")
+                                                });
+                                            });
+                                        </script>
+                                    </c:if>
+                                </p:panel>
+
+                                <p:selectManyMenu id="device" value="#{positionController.vehiclesInMonitoring}" var="t"   converter="vehicleConverter"
+                                                  showCheckbox="true" style="width:350px;height: 70%; border-right: 0px!important;border-left: 0px!important;padding-left: 0px!important;padding-right: 0px!important;" filter="true" filterMatchMode="contains">
+
+                                    <p:ajax    listener ="#{positionController.refreshPosition()}"  update=":allMaps:array"/>
+                                    <c:if test="#{userController.connectedUser.accesslevel!=2}">
+
+                                        <p:ajax    update="my-tree2"/>
+                                    </c:if>
+
+                                    <p:ajax   onstart ="setfirstrefresh();" oncomplete="refreshForAllMapsProcess();" />
+                                    <p:ajax   update=":feedbackwidget:SpeedLimit" />
+
+                                    <p:ajax   update=":Accuratefeedbackwidget:AccurateSpeedLimit" />
+                                    <f:selectItems value="#{vehicleController.vehicles}"  id="selectedVehiculesList" />
+                                    <p:column id="columnselectitems"  >
+                                        <h:panelGrid columns="3"  id="paneldevices"  style="width: 100%!important;">
+                                            <h:outputText title="#{t.description}" value="#{t.description}" rendered="#{t.description!=''}" style="float: left;width: 130px;    overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"  /> 
+                                            <h:outputText  value="#{bundle.Undefined}" rendered="#{t.description=='' }" style="float: left;width: 130px;    overflow: hidden;white-space: nowrap;text-overflow: ellipsis;"  /> 
+
+                                            <h:panelGrid columns="2"   id="actionnavigation" style ="float: right;">
+                                                <div class="btn-group" id="buttonaction">
+                                                    <button id="actionbutton" type="button" Class="btn btn-primary " data-toggle="dropdown" style="border-bottom-right-radius: 4px!important; border-top-right-radius:4px!important; ">
+                                                        Actions
+                                                        <span class="caret"></span>
+                                                    </button>
+
+                                                    <ul class="dropdown-menu pull-right" role="menu">
+                                                        <li><a onclick="PF('dlg2').show();">#{bundle.FeedBackDevice}</a>
+                                                        </li>
+                                                        <li><a onclick="PF('AccurateFeedBackdlg').show();">#{bundle.AccurateFeedBack}</a>
+                                                        </li>
+                                                        <span id="spanPetrol">
+                                                            <li> <a onclick="PF('cutOffPetrolDialog').show();">#{bundle.CutOffPetrol} </a>
+                                                            </li>
+
+                                                            <li><a onclick="PF('restorePetrolDialog').show();"> #{bundle.RestorePetrol} </a>
+                                                            </li>
+                                                        </span>
+                                                        <li><a onclick="linkGeofence();"> #{bundle.Geofence} </a>
+                                                        </li>
+                                                        <li><a  data-toggle="modal"  data-target=".bs-example-modal-sm" > #{bundle.checkGPS} </a>
+                                                        </li>
+
+
+<!--                                                        <li><a onclick="linkTracking();"> #{bundle.Tracking} </a>
+</li>-->
+
+                                                        <li>	
+
+                                                        </li>
+
+
+                                                        <li>
+
+                                                            <h:commandLink id="roadbutton" action="RoadToMyCar.xhtml?faces-redirect=true" target="_blank"  title="#{bundle.navigationtoyourcar}" >
+
+                                                            </h:commandLink>
+
+
+
+                                                        </li>
+
+
+                                                    </ul>
+
+
+
+                                                </div>
+                                            </h:panelGrid>
+                                        </h:panelGrid>  
+
+                                    </p:column>
+
+                                </p:selectManyMenu>
+
+
+
+
+
+
+
+                            </div>
+                        </nav>
+
+
+                    </zonetoggle>
+                    <p:dialog header="#{bundle.CutOffPetrol}" widgetVar="cutOffPetrolDialog"   resizable="false">
+
+                        <h:outputText value="#{bundle.CutOffPetrolConfirmMessage}"/>
+
+
+                        <div class="controls">
+                            <h:selectOneRadio value="#{positionController.safetyCutPetrol}" styleClass ="radio inline">
+                                <f:selectItem itemValue="0" itemLabel="#{bundle.SafetyCutOffPetrol}" />  
+                                <f:selectItem itemValue="1" itemLabel="#{bundle.EmergencyCutOffPetrol}" />   
+                            </h:selectOneRadio>
+
+                        </div>
+
+                        <h:commandButton styleClass="btn-primary" value="#{bundle.Yes}" style="margin-right: 5px;" action="#{positionController.cutOffPetrol()}"/> 
+
+                        <h:commandButton type="button" value="#{bundle.Cancel}"  styleClass="btn-danger"   onclick="PF('cutOffPetrolDialog').hide();"  immediate ="true" />
+
+                    </p:dialog>
+                    <p:dialog header="#{bundle.confirmAction}" widgetVar="confirmActionPetrol"   resizable="false">
+
+                        <h:outputText id="confirmActionPetrolText" value="" />   <br/>                       
+                        <h:commandButton styleClass="btn-primary" value="#{bundle.Yes}" style="margin-right: 5px;" action="#{positionController.changeMydevicesPetrolStatus()}"/> 
+                        <h:commandButton styleClass="btn-danger"  value="#{bundle.Cancel}"   action ="#{positionController.hideConfirmAction()}" />
+
+
+                    </p:dialog>
+                    <p:dialog header="#{bundle.RestorePetrol}" widgetVar="restorePetrolDialog"   resizable="false">
+
+                        <h:outputText value="#{bundle.restorPetrolConfirmMessage}"/>
+                        <br/>   
+                        <h:commandButton styleClass="btn-primary" value="#{bundle.Yes}" style="margin-right: 5px;" action="#{positionController.restorPetrol()}"/>     
+                        <h:commandButton type="button" value="#{bundle.Cancel}"  styleClass="btn-danger"   onclick="PF('restorePetrolDialog').hide();" immediate ="true"/>
+
+                    </p:dialog>
+                </h:form>               
+
+
+                <!--feedback widget-->
+                <h:form id="feedbackwidget">
+                    <p:dialog header="#{bundle.FeedBackDevice}" widgetVar="dlg2"   resizable="false">
+
+                        <h:panelGrid columns="2" cellpadding="7" id="panelgridFeedBack">
+                            <h:messages id="messageFeedbackwidget" style="color:red;" /><h:outputLabel value=""/> 
+                            <h:outputLabel value="#{bundle.FromDate}"/> 
+                            <p:calendar   id="calendarFrom2" a:placeholder="* #{bundle.From}"  value="#{positionController.from}" pattern="yyyy/MM/dd HH:mm:ss" title="#{bundle.From}" required="true" requiredMessage="#{bundle.PleaseEnterFromDate}" />
+
+                            <h:outputLabel value="#{bundle.ToDate}"/> 
+                            <p:calendar id="calendarTo2" a:placeholder="* #{bundle.ToDate}"  value="#{positionController.to}" pattern="yyyy/MM/dd HH:mm:ss" title="#{bundle.To}" required="true" requiredMessage="#{bundle.PleaseEnterToDate}"/>
+                            <h:outputLabel value="#{bundle.SpeedLimit}"/> 
+                            <p:spinner  id="SpeedLimit" value="#{positionController.speedLimit}"  min="0" max="260" required="true" requiredMessage="#{bundle.PleaseEnterLimitSpeed}" />
+                        </h:panelGrid>                                   
+                        <p:commandLink value="#{bundle.Draw}"  update="panelgridFeedBack"  style="color: #fcfcfc; margin-left:  77%;"  styleClass="btn btn-primary" action="/device/FeedBack?faces-redirect=true"  >
+                            <!--                                        if we use openstreetmap to draw the feedback we needs:
+                                                                    *convert the positions from string to array (getJavaArray())
+                                                                    *print this array in openstreetmap and refresh it -->
+
+                            <!--                                        <f:actionListener binding ="getJavaArray();" />-->
+                            <!-- true== enable interpolated pointes in drowing feedback-->
+                            <f:actionListener binding="#{positionController.generateFeedBackJsonString(false)}"/>
+                        </p:commandLink>
+                    </p:dialog>
+                </h:form>
+
+
+
+                <!--Accurate Feed Back Widget-->                
+                <h:form id="Accuratefeedbackwidget">
+                    <p:dialog header="#{bundle.AccurateFeedBack}" widgetVar="AccurateFeedBackdlg"   resizable="false">
+
+                        <h:panelGrid columns="2" cellpadding="5" id="panelgridFeedBack">
+                            <h:messages id="messageaAccuratefeedbackwidget" style="color:red;" /><h:outputLabel value=""/> 
+
+                            <h:outputLabel value="#{bundle.FromDate}"/> 
+                            <p:calendar id="AccuratecalendarFrom" a:placeholder="* #{bundle.From}"  value="#{positionController.from}" pattern="yyyy/MM/dd HH:mm:ss" title="#{bundle.From}" required="true" requiredMessage="#{bundle.PleaseEnterFromDate}" >
+                                <p:ajax event="keyup"  listener="#{positionController.calculateMaxDate}" update="AccuratecalendarTo" />
+
+                            </p:calendar>
+                            <h:outputLabel value="#{bundle.ToDate}"/> 
+                            <p:calendar id="AccuratecalendarTo" a:placeholder="* #{bundle.ToDate}"  value="#{positionController.to}" pattern="yyyy/MM/dd HH:mm:ss" title="#{bundle.To}" required="true" requiredMessage="#{bundle.PleaseEnterToDate}" maxdate="#{positionController.maxDate}">
+                                <p:ajax event="keyup"   update="AccuratecalendarTo" />
+                            </p:calendar>
+                            <h:outputLabel value="#{bundle.SpeedLimit}"/> 
+                            <p:spinner  id="AccurateSpeedLimit"   value="#{positionController.speedLimit}"  min="0" max="260" required="true" requiredMessage="#{bundle.PleaseEnterLimitSpeed}"/>
+                        </h:panelGrid>                                   
+                        <p:commandLink value="#{bundle.Draw}"  update="panelgridFeedBack"    style="color: #fcfcfc; margin-left:  77%;"  styleClass="btn btn-primary"    >
+                            <!--                                        if we use openstreetmap to draw the feedback we needs:
+                                                                    *convert the positions from string to array (getJavaArray())
+                                                                    *print this array in openstreetmap and refresh it -->
+
+                            <!--                                        <f:actionListener binding ="getJavaArray();" />-->
+                            <!-- false== disable interpolated pointes in drowing feedback-->
+                            <f:actionListener binding="#{positionController.generateFeedBackJsonString(true)}"  />
+                        </p:commandLink>
+                    </p:dialog>
+                </h:form>
+
+
+
+
+                <div class="container1" style="overflow: hidden;">
+                    <div class="main" style="overflow: hidden;">
+                        <section class="buttonset">
+                            <h:panelGrid columns="4" id="panele" style="margin-top: -4px!important;">
+                                <menul> <div id="nav_list">Menu</div>  </menul>
+
+                                <h:form id="selectMapForm">   
+                                    <h:inputHidden value="#{language.language}" id="languageForPetrolMessages"/>
+                                    <p:selectOneMenu id="allMyvehiclesPetrol" value="#{positionController.petrolStatus}" rendered="#{userController.connectedUser.accesslevel==0 or userController.connectedUser.accesslevel==2}" style="width:150px;margin-bottom: 23px;" onchange="showPopupPetrolAllVehicles()"  >                    
+                                        <f:selectItem itemValue="-1" itemLabel="#{bundle.SelectAction}"  />                                       
+                                        <f:selectItem itemValue="0" itemLabel="#{bundle.RestorePetrol}"   />
+                                        <f:selectItem itemValue="1" itemLabel="#{bundle.SafetyCutOffPetrol}"/>
+                                        <f:selectItem itemValue="2" itemLabel="#{bundle.EmergencyCutOffPetrol}"/> 
+
+                                        <p:ajax update="allMyvehiclesPetrol" />
+                                    </p:selectOneMenu>
+                                    <h:outputText value=" "/>
+                                    <p:selectOneMenu id="country" value="#{userController.connectedUser.usedmap}" style="width:100px;margin-bottom: 23px;"   >                    
+                                        <f:selectItem itemValue="OpenStreetMap" itemLabel="#{bundle.OpenStreetMap}"  />
+                                        <f:selectItem itemValue="GoogleMap" itemLabel="#{bundle.GoogleMap}"/>
+                                        <p:ajax   update=":allMaps :selectMapForm"    />
+                                        <p:ajax listener="#{userController.updateUsedMap()}"/>
+                                    </p:selectOneMenu>
+                                    <h:outputText value="   "/>
+                                    <h:panelGroup rendered="#{userController.connectedUser.usedmap=='OpenStreetMap'}" >
+                                        <a id="export-png" class="btn" download="map.png"  ><i class="icon-download">#{bundle.Export}</i> </a>
+                                        <input id="swipe" class="swipe2" type="range" style="width: 30%"/>
+                                    </h:panelGroup>
+
+
+                                </h:form>
+                            </h:panelGrid>
+                        </section>
+
+                        <section class="content" style="overflow: hidden;">
+
+                            <h:form id="allMaps" style="height: 100%;margin: 0px;padding: 0px;   overflow: hidden;" >
+                                <c:if test="#{positionController.refreshPosition()}"/>
+                                <h:inputHidden id="array" value="#{positionController.array}" ></h:inputHidden>  
+                                <h:inputHidden id="usedMap" value="#{userController.connectedUser.usedmap}" ></h:inputHidden> 
+
+
+
+
+
+                                <!--OpenStreetMap-->
+                                <h:panelGroup id="OpenStreetMapform" rendered="#{userController.connectedUser.usedmap=='OpenStreetMap'}">
+
+                                    <div class="container-fluid">
+
+                                        <div class="row-fluid" >
+
+                                            <div class="span12">
+
+                                                <div id="map" class="map" ><div id="popup"></div></div>
+                                                <div id="no-download" class="alert alert-error" style="display: none">
+                                                    This example requires a browser that supports the
+                                                    <a href="http://caniuse.com/#feat=download">link download</a> attribute.
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <h:outputScript id="ma">openlayermap();</h:outputScript>
+
+
+                                    </div>
+                                </h:panelGroup>
+
+
+                                <!--GoogleMap-->
+
+
+
+
+                                <h:panelGroup id="GoogleMapForm" rendered="#{userController.connectedUser.usedmap=='GoogleMap'}">
+
+                                    <div class="container-fluid">
+
+                                        <div class="row-fluid">
+
+                                            <div class="span12">
+                                                <div id="clockdiv" style="position: fixed;
+                                                     z-index: 2;
+                                                     background-color: rgb(255, 255, 255);
+
+                                                     padding-top: 0px;
+                                                     border-top-width: 0px;
+                                                     border-top-style: solid;
+                                                     margin-top: 11px;
+                                                     margin-left: 60px;
+                                                     border-right-width: 0px;
+                                                     border-right-style: solid;
+                                                     padding-right: 40px;"> 
+                                                    #{bundle.RefreshAfter}
+                                                    <span class="seconds" style="color: red;"></span>
+                                                    #{bundle.Seconds}
+                                                </div>
+                                                <div id="devv"  style="height: 100%;margin: 0px!important; padding: 0px 0px 0px; "  ></div>
+
+
+                                            </div>
+                                        </div>
+                                        <h:outputScript >setLanguage("#{language.language}");</h:outputScript>
+                                        <h:outputScript >googlemapinitialize();</h:outputScript>
+
+
+                                    </div>
+                                </h:panelGroup>
+
+
+
+                                <p:poll interval="10"   listener ="#{positionController.refreshPosition()}"  update="allMaps:array"/>
+                                <p:poll interval="15" oncomplete="refreshForAllMapsProcess();" update="allMaps:usedMap" />
+
+
+
+
+
+
+                            </h:form>
+
+
+
+                        </section><!-- End Content -->
+                    </div><!-- End Main -->
+                </div><!-- End Container --> 
+
+
+                <!--check GPS -->
+                <h:form id="checkGPSForm" prependId="false">
+                    <!-- Small modal -->
+                    <div id="checkGPSmodal" class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel">  
+                        <div class="modal-dialog modal-sm" role="document">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">x</button>
+                                <h4 class="modal-title" id="myModalLabel">#{bundle.checkGPS}</h4>
+                            </div>
+                            <div class="modal-body">
+                                <h:outputLabel styleClass ="control-label" value="#{bundle.checkGPSMessage}" />                             
+                                <h:outputLabel styleClass ="control-label" value="#{bundle.NoteCheckGPS}" />                             
+
+                            </div>
+                            <div class="modal-footer">
+                                <h:commandButton   styleClass="btn btn-primary" actionListener="#{positionController.sendCommandCheckGPS()}" value="#{bundle.Send}"  />                                                        
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+
+
+                <script>
+
+
+                    deadline = new Date(Date.parse(new Date()) + 15000);
+                    initializeClock('clockdiv', deadline);
+                    if (#{userController.connectedUser.accesslevel==3 or userController.connectedUser.accesslevel==1}) {
+                        document.getElementById("spanPetrol").style.display = "none";
+
+                    }
+
+                    PrimeFaces.widget.Dialog.prototype.applyFocus = function () {
+                        var firstInput = this.jq.find(':not(:submit):not(:button):input:visible:enabled:first');
+                        if (!firstInput.hasClass('hasDatepicker')) {
+                            firstInput.focus();
+                        }
+                    }
+                    var e = document.getElementById("defaultif");
+                    e.id = "idbody";
+
+                    $(document).ready(function () {
+
+
+                        $menuLeft = $('.pushmenu-left');
+                        $nav_list = $('#nav_list');
+                        $nav_list.click(function () {
+
+                            $(this).toggleClass('active');
+                            $('.pushmenu-push').toggleClass('pushmenu-push-toright');
+                            $menuLeft.toggleClass('pushmenu-open');
+
+                        });
+                        setTimeout(function () {
+                            refreshForAllMapsProcess();
+                        }, 3000);
+                    });
+
+                    function linkGeofence() {
+                        document.getElementById('formpushmenu:geo_fence').click();
+                    }
+//                    function linkTracking() {
+//                        document.getElementById('formpushmenu:tracking').click();
+//                    }
+
+
+                    function showPopupPetrolAllVehicles() {
+                        var selectedValue = document.getElementById('selectMapForm:allMyvehiclesPetrol_input').value;
+                        var lang = document.getElementById('selectMapForm:languageForPetrolMessages').value;
+                        //<![CDATA[
+                        if (selectedValue === '0' && lang === 'en') {
+                            document.getElementById('formpushmenu:confirmActionPetrolText').textContent = 'Are you sure you want to restor petrol for all your vehicles ?';
+                            PF('confirmActionPetrol').show();
+                        }
+                        else if (selectedValue === '1' && lang === 'en') {
+                            document.getElementById('formpushmenu:confirmActionPetrolText').textContent = 'Are you sure you want to cut off petrol for all your vehicles when they will stopp ?';
+                            PF('confirmActionPetrol').show();
+                        }
+                        else if (selectedValue === '2' && lang === 'en') {
+                            document.getElementById('formpushmenu:confirmActionPetrolText').textContent = 'Are you sure you want to cut off petrol for all your vehicles immediately ?';
+                            PF('confirmActionPetrol').show();
+                        } else if (selectedValue === '0' && lang === 'fr') {
+                            document.getElementById('formpushmenu:confirmActionPetrolText').textContent = 'Etes-vous sûr que vous voulez restaurer essence sur tous vos véhicules ?';
+                            PF('confirmActionPetrol').show();
+                        }
+                        else if (selectedValue === '1' && lang === 'fr') {
+                            document.getElementById('formpushmenu:confirmActionPetrolText').textContent = 'Êtes-vous sûr que vous voulez couper essence sur tous vos véhicules quand ils sont en arret ?';
+                            PF('confirmActionPetrol').show();
+                        } else if (selectedValue === '2' && lang === 'fr') {
+                            document.getElementById('formpushmenu:confirmActionPetrolText').textContent = 'Êtes-vous sûr que vous voulez couper essence sur tous vos véhicules immédiatement ?';
+                            PF('confirmActionPetrol').show();
+                        }
+
+                        //]]>
+                    }
+
+
+                </script>
+
+            </div>
+
+        </ui:define>
+    </ui:composition>
+</html>
+

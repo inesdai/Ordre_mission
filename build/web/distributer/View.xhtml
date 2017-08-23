@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="distributer"/>
+        <ui:define name="titleunderpage">
+<!--            <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>-->
+        </ui:define>
+
+        <ui:define name="titlewidget">
+
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.Moredetails} "></h:outputText></h3>
+        </ui:define>
+
+
+
+        <ui:define name="body">
+
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==0 or userController.connectedUser.accesslevel==3}" >
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+
+                        <li>
+                            <h2>#{distributerController.selected.contact}</h2>	
+                        </li>
+
+                    </ul>
+                    <div class="tab-content" style="margin-left: 0px!important;">
+                        <div class="tab-pane active" id="edit-profile-vehicule">
+                            <h:form id="edit-profile-vehicule" class="form-horizontal" prependId="false">
+
+                                <h:panelGroup id="messagePanel" layout="block">
+                                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                </h:panelGroup> 
+
+
+                                <fieldset style="margin-left: 0px!important;">
+                                    <div class="row" style="margin-left: 0px!important;">
+
+                                        <div class="span12" style="margin-left: 0px!important;">
+                                            <div class="row-fluid stats-box" >
+                                                <div class="span6" style="margin-left: 0px!important;">
+                                                    <div class=" alert alert-success" style="margin-left: 0px!important;">
+                                                        #{bundle.DistributorinformationTitle}  
+                                                        <br></br>
+                                                        <br></br>
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="logopath">#{bundle.ViewDistributerLabel_logopath}</label>
+                                                            <div class="controls">
+                                                                <h:graphicImage id="logopath"  value="/img/#{distributerController.selected.logopath}" title="#{bundle.ViewDistributerTitle_logopath}" />
+
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="contact">#{bundle.ViewDistributerLabel_contact}</label>
+                                                            <div class="controls">
+
+                                                                <h:outputText value="#{distributerController.selected.contact}" title="#{bundle.ViewDistributerTitle_contact}" styleClass="span3"/>
+
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="mark">#{bundle.ViewDistributerLabel_createdate}</label>
+                                                            <div class="controls">
+
+                                                                <h:outputText value="#{distributerController.selected.createdate}" title="#{bundle.ViewDistributerTitle_createdate}" styleClass="span3">
+                                                                    <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                                                                </h:outputText>
+
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="mark">#{bundle.ViewDistributerLabel_isactive}</label>
+                                                            <div class="controls">
+
+                                                                <c:if test="#{distributerController.selected.isactive==1}">
+
+                                                                    &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-ok"></i> #{bundle.Active}</a>
+                                                                </c:if>
+
+                                                                <c:if test="#{distributerController.selected.isactive==0}">
+
+                                                                    &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-remove"></i> #{bundle.Desactive}</a>
+                                                                </c:if>
+
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="mark">#{bundle.ListDistributerTitle_parentid}</label>
+                                                            <div class="controls">
+                                                                    <h:outputText value="#{distributerController.selected.parentid.contact}" title="#{bundle.ListDistributerTitle_parentid}" styleClass="span3" rendered="#{distributerController.selected.parentid!=null}"/>
+                                                                <h:outputText value="#{bundle.Undefined}" title="#{bundle.ListDistributerTitle_parentid}" styleClass="span3" rendered="#{distributerController.selected.parentid==null}"/>
+
+
+
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                    </div>
+                                                </div>
+
+                                                <div class="span6" style="margin-left: 0px!important;">
+                                                    <div class=" alert alert-info" style="margin-left: 0px!important;">
+
+                                                        #{bundle.AdminDistributorinformationTitle}  
+                                                        <br></br>
+                                                        <br></br>
+                                                        <div  class ="control-group">	                                                                                                                        
+                                                            <label class="control-label" for="username">#{bundle.CreateUserLabel_username}</label>
+                                                            <div class="controls">
+                                                                <h:outputText    id="username" value="#{distributerController.adminDistributer.username}"
+                                                                                 title="#{bundle.CreateUserTitle_username}"  styleClass="span3" />
+
+
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="firstname">#{bundle.CreateUserLabel_firstname}</label>
+                                                            <div class="controls">
+                                                                <h:outputText  id="firstname" value="#{distributerController.adminDistributer.firstname}" title="#{bundle.CreateUserTitle_firstname}" styleClass="span3"/>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="lastname">#{bundle.CreateUserLabel_lastname}</label>
+                                                            <div class="controls">
+                                                                <h:outputText id="lastname" value="#{distributerController.adminDistributer.lastname}" title="#{bundle.CreateUserTitle_lastname}" styleClass="span3" />
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="mark">#{bundle.ViewDistributerLabel_addeddby}</label>
+                                                            <div class="controls">
+                                                                <h:outputText value="#{distributerController.selected.addeddby.username}" title="#{bundle.ViewDistributerTitle_addeddby}" styleClass="span3"/>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div> 
+                                    <br></br>
+
+                                </fieldset>
+
+                                <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                    <center> <h:link outcome="Edit" value="#{bundle.ViewVehicleEditLink}" styleClass="btn btn-small btn-success">
+                                            <i class="btn-icon-only icon-edit"></i>
+                                        </h:link> &nbsp;                                         
+                                        <h:link outcome="/distributer/List?faces-redirect=true" value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                                </div> <!-- /form-actions -->
+                            </h:form>
+                        </div>
+                    </div>
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2 or userController.connectedUser.accesslevel==1}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>

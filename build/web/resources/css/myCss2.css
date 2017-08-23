@@ -1,0 +1,74 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 17 déc. 2015, 11:01:29
+    Author     : user
+*/
+
+@media screen and (max-width: 770px) {
+ .mymargenbutoon{
+
+
+        width: 199px !important;
+        padding-bottom: 0px !important;
+        padding-top: 0px !important;
+        padding-left: 0px !important;
+        padding-right: 0px !important;
+
+    }
+    .pushmenu{ 
+        position: static!important;
+            width: 100%;
+
+    }
+ 
+    .pushmenu-push-toright{
+        left: 0px;
+    }
+    #nav_list{
+        /*opacity: 0;*/
+    }
+    .pushmenu-push{
+        margin-left: -20px;
+        margin-right: -20px;
+            height: 47vh!important;
+    }
+    .hidelistdevices{
+        /*opacity: 0;*/
+        height: 0px!important;
+    }
+    #formpushmenu{
+        margin-bottom: 0px!important;
+    }
+  
+    #statusshow{
+        
+        display: none;
+    }
+      #statushide{
+        
+        display: initial;
+    }
+    .pushmenu-left{
+ 
+    height: 52vh !important;
+    }
+  
+.iconAffectDevice{
+        padding-right:8px;
+    padding-left: 8px;
+     display: inline;
+    height:16px;
+    width:10px;      
+    background:url(../images/affectgps.png) ; 
+}
+ 
+}
+
+    #formpushmenu:toggleable_header{
+    background: #1B4263!important;
+    
+}

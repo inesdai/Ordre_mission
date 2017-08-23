@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="device"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">  <h:outputText value="#{bundle.EditDeviceTitle}"></h:outputText></h3>
+        </ui:define>
+        <ui:define name="body">
+
+
+
+
+            <div class="tabbable">
+                <ul class="nav nav-tabs">
+
+                    <li>
+                        <h2>#{deviceController.selected.imei}</h2>	
+                    </li>
+
+                </ul>
+                <div class="tab-content" style="margin-left: 0px!important;">
+                    <div class="tab-pane active" id="edit-profile-vehicule">
+                        <h:form id="editdeviceform" class="form-horizontal" prependId="false">
+                            <h:panelGroup id="messagePanel" layout="block">
+                                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                            </h:panelGroup>
+                            <fieldset style="margin-left: 0px!important;">
+                                <div class="row" style="margin-left: 0px!important;">
+
+                                    <div class="span12" style="margin-left: 0px!important;">
+
+
+                                        <div class="row-fluid stats-box" >
+                                            <div class="span6" style="margin-left: 0px!important;">
+<!--                                                <div  class ="control-group">
+                                                    <label class="control-label" for="name">#{bundle.CreateDeviceLabel_name}</label>
+                                                    <div class="controls">
+
+                                                        <p:inputText id="name"  a:placeholder="#{bundle.CreateDeviceTitle_name}"  value="#{deviceController.selected.name}" 
+                                                                     title="#{bundle.CreateDeviceTitle_name}"  styleClass="span3" />
+
+                                                    </div>
+                                                </div>-->
+
+                                                <div  class ="control-group">											
+                                                    <label class="control-label" for="imei">#{bundle.CreateDeviceLabel_imei}</label>
+                                                    <div class="controls">
+                                                        <h:inputText id="imei" a:placeholder="* #{bundle.CreateDeviceTitle_imei}" value="#{deviceController.selected.imei}" 
+                                                                     title="#{bundle.CreateDeviceTitle_imei}" required="true" requiredMessage="#{bundle.Requiredmessageimeidevice}"  styleClass="span3" rendered="#{userController.connectedUser.accesslevel==0}"/>                                                                             
+                                                        <h:outputText id="imei2" value="#{deviceController.selected.imei}"  title="#{bundle.CreateDeviceTitle_imei}"  rendered="#{userController.connectedUser.accesslevel!=0}"/>
+
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+
+                                                <div  class ="control-group">											
+                                                    <label class="control-label" for="simcard">#{bundle.ViewDeviceLabel_simcard}</label>
+                                                    <div class="controls">
+                                                        <p:inputText id="simcard" a:placeholder="* #{bundle.CreateDeviceTitle_simcard}"  value="#{deviceController.selected.simcard}"  title="#{bundle.CreateDeviceTitle_simcard}" 
+                                                                     styleClass="span3" rendered="#{userController.connectedUser.accesslevel!=2}" required="true" requiredMessage="#{bundle.SimCardRequireMessage}"/>
+                                                        <h:outputText id="simcard2" value="#{deviceController.selected.simcard}"  title="#{bundle.CreateDeviceTitle_simcard}"  rendered="#{userController.connectedUser.accesslevel==2}"/>
+
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="urgentnumber1">#{bundle.CreateDeviceLabel_urgentnumber1}</label>
+                                                    <div class="controls">
+
+                                                        <p:inputText id="urgentnumber1" a:placeholder="#{bundle.CreateDeviceTitle_urgentnumber1}"  value="#{deviceController.selected.urgentnumber1}"  title="#{bundle.CreateDeviceTitle_urgentnumber1}"  styleClass="span3"/>
+
+                                                    </div> <!-- /controls -->
+                                                </div> <!-- /control-group -->
+
+                                            </div>
+                                            <div class="span6" style="margin-left: 0px!important;">
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="urgentnumber2">#{bundle.CreateDeviceLabel_urgentnumber2}</label>
+                                                    <div class="controls">
+                                                        <p:inputText id="urgentnumber2" a:placeholder="#{bundle.CreateDeviceTitle_urgentnumber2}"  value="#{deviceController.selected.urgentnumber2}"  title="#{bundle.CreateDeviceTitle_urgentnumber2}"  styleClass="span3" />
+                                                    </div> <!-- /controls -->
+                                                </div> <!-- /control-group -->
+                                                <div  class ="control-group">											
+                                                    <label class="control-label" for="urgentnumber3">#{bundle.CreateDeviceLabel_urgentnumber3}</label>
+                                                    <div class="controls">
+
+                                                        <p:inputText a:placeholder="#{bundle.CreateDeviceTitle_urgentnumber3}"  value="#{deviceController.selected.urgentnumber3}"  title="#{bundle.CreateDeviceTitle_urgentnumber3}"  styleClass="span3"/>
+
+                                                    </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+                                                <div  class ="control-group">											
+                                                    <label class="control-label" for="subscription">#{bundle.subscription}</label>
+                                                    <div class="controls">
+
+                                                        <h:selectOneMenu id="subscription" value="#{deviceController.periodeSubscription}" styleClass="span3"   disabled="#{userController.connectedUser.accesslevel!=0}">  
+                                                            <f:selectItem itemValue="1" itemLabel="1 #{bundle.Month}" ></f:selectItem>
+                                                            <f:selectItem itemValue="3" itemLabel="3 #{bundle.months}" ></f:selectItem>
+                                                            <f:selectItem itemValue="6" itemLabel="6 #{bundle.months}"  ></f:selectItem>                                                                        
+                                                            <f:selectItem itemValue="9" itemLabel="9 #{bundle.months}"  ></f:selectItem>  
+                                                            <f:selectItem itemValue="12" itemLabel="12 #{bundle.months}"  ></f:selectItem>  
+                                                        </h:selectOneMenu>      
+                                                     </div> <!-- /controls -->				
+                                                </div> <!-- /control-group -->
+
+
+                                                <!--                                                <div  class ="control-group">											
+                                                                                                    <label class="control-label" for="activatedate">#{bundle.ViewDeviceLabel_activationdate}</label>
+                                                                                                    <div class="controls">
+                                                                                                        <p:calendar id="activatedate" a:placeholder="* #{bundle.CreateDeviceTitle_activatedate}" value="#{deviceController.selected.activatedate}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-120:c+2" title="#{bundle.CreateDeviceTitle_activatedate}" onfocus="blur();" rendered="#{userController.connectedUser.accesslevel==0}" />
+                                                                                                        <h:outputText id="activatedate2" value="#{deviceController.selected.activatedate}" title="#{bundle.CreateDeviceTitle_activatedate}" rendered="#{userController.connectedUser.accesslevel!=0}">
+                                                                                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                                                                        </h:outputText>
+                                                                                                    </div>  /controls 				
+                                                                                                </div>  /control-group 
+                                                
+                                                                                                <div  class ="control-group">											
+                                                                                                    <label class="control-label" for="expirationdate">#{bundle.CreateDeviceLabel_expirationdate}</label>
+                                                                                                    <div class="controls">
+                                                                                                        <p:calendar id="expirationdate" a:placeholder="#{bundle.CreateDeviceTitle_expirationdate}" value="#{deviceController.selected.expirationdate}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-120:c+2" title="#{bundle.CreateDeviceTitle_expirationdate}" onfocus="blur();" rendered="#{userController.connectedUser.accesslevel==0}"/>
+                                                                                                        <h:outputText id="expirationdate2" value="#{deviceController.selected.expirationdate}" title="#{bundle.CreateDeviceTitle_expirationdate}" rendered="#{userController.connectedUser.accesslevel!=0}">
+                                                                                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                                                                        </h:outputText>
+                                                                                                    </div>  /controls 				
+                                                                                                </div>  /control-group 
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                                                                <div  class ="control-group">											
+                                                                                                    <label class="control-label" for="useractivationdate">#{bundle.CreateDeviceLabel_useractivationdate}</label>
+                                                                                                    <div class="controls">
+                                                                                                        <p:calendar id="useractivationdate" a:placeholder="#{bundle.CreateDeviceTitle_useractivationdate}" value="#{deviceController.selected.useractivationdate}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-120:c+2" title="#{bundle.CreateDeviceTitle_useractivationdate}" onfocus="blur();" rendered="#{userController.connectedUser.accesslevel==0}" />
+                                                                                                        <h:outputText id="useractivationdate2" value="#{deviceController.selected.useractivationdate}" title="#{bundle.CreateDeviceTitle_useractivationdate}" rendered="#{userController.connectedUser.accesslevel!=0}">
+                                                                                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                                                                        </h:outputText>
+                                                                                                    </div>  /controls 				
+                                                                                                </div>  /control-group 
+                                                
+                                                
+                                                
+                                                
+                                                                                                <div  class ="control-group">											
+                                                                                                    <label class="control-label" for="userexpirationdate">#{bundle.CreateDeviceLabel_userexpirationdate}</label>
+                                                                                                    <div class="controls">
+                                                                                                        <p:calendar id="userexpirationdate" a:placeholder="#{bundle.CreateDeviceTitle_userexpirationdate}" value="#{deviceController.selected.userexpirationdate}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-120:c+2" title="#{bundle.CreateDeviceTitle_userexpirationdate}" onfocus="blur();" rendered="#{userController.connectedUser.accesslevel==0}" />
+                                                                                                        <h:outputText id="userexpirationdate2" value="#{deviceController.selected.userexpirationdate}" title="#{bundle.CreateDeviceTitle_userexpirationdate}" rendered="#{userController.connectedUser.accesslevel!=0}">
+                                                                                                            <f:convertDateTime pattern="yyyy-MM-dd" />
+                                                                                                        </h:outputText>
+                                                                                                    </div>  /controls 				
+                                                                                                </div>  /control-group -->
+                                                <!--                                                <c:if test="#{userController.connectedUser.accesslevel==2}">
+                                                                                                <div  class ="control-group">											
+                                                                                                    <label class="control-label" for="vehicleid">#{bundle.ViewDeviceLabel_vehicleid}</label>
+                                                                                                    <div class="controls">
+                                                                                                        <h:selectOneMenu id="vehicleid" value="#{deviceController.selected.vehicleid}" label="#{bundle.ListDeviceTitle_vehicleid}"  styleClass="span3" >
+                                                                                                            <f:selectItem itemLabel="#{bundle.ChooseVehicle}" noSelectionOption="true" itemDisabled="true"/> 
+                                                                                                            <f:selectItems value="#{vehicleController.itemsAvailableSelectOneForDriver}"  />
+                                                                                                        </h:selectOneMenu>                                                        </div>  /controls 				
+                                                                                                </div>  /control-group 
+                                                                                             </c:if>-->
+
+
+
+                                            </div>
+                                        </div>
+
+                                        &nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;#{bundle.Requiredfield}
+
+
+                                    </div> 
+
+                                </div> 
+                                <br></br>
+
+                            </fieldset>
+
+                            <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                <center> <h:commandLink action="#{deviceController.update}" value="#{bundle.EditVehicleSaveLink}" class="btn btn-primary"/>&nbsp;                                          
+                                    <h:commandLink  action="#{deviceController.prepareList()}"   value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                            </div> <!-- /form-actions -->
+
+                        </h:form>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+
+        </ui:define>
+    </ui:composition>
+</html>

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="logs"/>
+
+        <ui:define name="titleunderpage">
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">    <h:outputText value="#{bundle.ListLogsTitle}"></h:outputText></h3>
+        </ui:define>
+
+        <ui:define name="body"> 
+
+
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==0}" >
+
+                <h:form  styleClass="jsfcrud_list_form" id="listlogsForm"  >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+
+
+                    <h:outputText escape="false" value="#{bundle.ListLogsEmpty}" rendered="#{logsController.items.rowCount == 0}"/>
+
+                        <h:commandLink action="#{logsController.previous}" value="#{bundle.Previous} #{logsController.pagination.pageSize}" rendered="#{logsController.pagination.hasPreviousPage and logsController.filter==false}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                        <h:commandLink  action="#{logsController.next}" value="#{bundle.Next} #{logsController.pagination.pageSize}" rendered="#{logsController.pagination.hasNextPage and logsController.filter==false}"  style ="float:right;">
+                            <i class="icon-large icon-arrow-right"></i>
+
+                        </h:commandLink>
+                        <p:panel   header="#{bundle.Search}" toggleable="true"  collapsed="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >             
+                            <div>                
+                                <h:outputText value=" #{bundle.CreateUserLabel_username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />  
+                                <h:inputText  value="#{logsController.login}" styleClass="span3" title="#{bundle.ListUserTitle_username}"/>   
+
+                                <h:outputText   value="&nbsp;#{bundle.CreateDeviceLabel_imei}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />  
+                                <h:inputText  value="#{logsController.imei}" styleClass="span3" title="#{bundle.CreateDeviceTitle_imei}"/> 
+                            </div>
+                            <div>
+
+
+                                <h:outputText  value="#{bundle.CreateLogsLabel_description} &nbsp;&nbsp;&nbsp;&nbsp;" />  
+                                <h:selectOneMenu id="UserType" value="#{logsController.selected.description}" 
+                                                 title="#{bundle.CreateLogsTitle_description}"  styleClass="span3" >
+                                    <f:selectItem itemValue="" itemLabel="#{bundle.AllTypes}" ></f:selectItem>
+                                    <f:selectItem itemValue="Login" itemLabel="#{bundle.Login}" ></f:selectItem>
+                                    <f:selectItem itemValue="Logout" itemLabel="#{bundle.Logout}" ></f:selectItem>
+                                    <f:selectItem itemValue="Cut off Petrol" itemLabel="#{bundle.CutOffPetrol}" ></f:selectItem>
+                                    <f:selectItem itemValue="Restore Petrol" itemLabel="#{bundle.RestorePetrol}" ></f:selectItem>
+                                    <f:selectItem itemValue="Add Device" itemLabel="#{bundle.AddDevice}" ></f:selectItem>
+                                    <f:selectItem itemValue="Remove Device" itemLabel="#{bundle.RemoveDevice}"  ></f:selectItem>
+                                </h:selectOneMenu>
+
+                                <h:outputText   value="&nbsp;#{bundle.ViewLogsLabel_ipaddress}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />  
+                                <h:inputText  value="#{logsController.selected.ipaddress}" styleClass="span3" title="#{bundle.ViewLogsTitle_ipaddress}"/> 
+
+
+                                <p:commandLink value="#{bundle.Search}"  styleClass="btn btn-primary" action="#{logsController.filterUsers()}" style="margin-top: 0px;float: right;color: #fcfcfc;" update="listlogsForm"  >
+                                </p:commandLink>
+                            </div> 
+                            &nbsp;
+                            <br />  
+                        </p:panel>
+                    <h:panelGroup rendered="#{logsController.items.rowCount > 0 or userController.filter==true}">
+
+                        <h:dataTable value="#{logsController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass="responsive-table table-bordered" rendered="#{logsController.items.rowCount > 0}">
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListLogsTitle_userid}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.userid.username}" rendered="#{item.userid!=null and item.userid!=''}"/>
+                                <h:outputText value="#{bundle.Undefined}" rendered="#{item.userid==null or item.userid==''}"/>
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListLogsTitle_deviceid}"/>
+                                </f:facet>
+                                <h:panelGroup rendered="#{item.deviceid!=null and item.deviceid!=''}">
+                                    <h:outputText value="#{item.deviceid.imei}"/> [ <h:outputText value="#{item.deviceid.vehicleid.description}"/>
+                                    <h:outputText rendered="#{item.deviceid.vehicleid.description==null or item.deviceid.vehicleid.description=='' }"  value="#{bundle.Undefined}" />]
+                                </h:panelGroup>
+                                <h:outputText value="#{bundle.Undefined}" rendered="#{item.deviceid==null or item.deviceid==''}"/>
+                            </h:column> 
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListLogsTitle_description}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.description}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListLogsTitle_ipaddress}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.ipaddress}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListLogsTitle_datetime}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.datetime}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                                </h:outputText>
+                            </h:column>                                               
+
+                            <!--                            <h:column class="td-actions">
+                                                            <f:facet name="header">
+                                                                <h:outputText value="#{bundle.Action}"/>
+                                                            </f:facet>
+                                                            <h:commandLink action="#{logsController.prepareView}" title="#{bundle.More}" >                            
+                                                                <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                                                </i>
+                                                            </h:commandLink>
+                                                        </h:column>-->
+                        </h:dataTable>
+                        <center>  <h:outputText value="#{logsController.pagination.pageFirstItem + 1}..#{logsController.pagination.pageLastItem + 1}/#{logsController.pagination.itemsCount}"  rendered="#{logsController.filter==false}" /></center>
+
+
+                    </h:panelGroup>                   
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=0}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home" />
+            </h:panelGroup>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

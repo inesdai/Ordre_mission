@@ -1,0 +1,267 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:outputStylesheet name="css/pages/signin.css" />
+    <title>Facelet Title</title>
+
+   
+        <ui:composition template="/hometemplate.xhtml">
+                   <ui:param name="activeclass" value="user"/>
+            <ui:define name="titleunderpage">
+                <h:outputText value=""></h:outputText>
+            </ui:define>
+
+            <ui:define name="titlewidget">
+                <h3 style="top:0px;">   <h:outputText value="#{bundle.UpdateProfile}"></h:outputText></h3>
+            </ui:define>
+            <ui:define name="body">      
+
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+
+                        <li>
+                            <h2>#{userController.selected.username}</h2>	
+                            <h5>#{bundle.YourDistributer} #{userController.selected.distributerid.contact} </h5>  
+
+                            <c:if test="#{userController.selected.accesslevel==0 and userController.selected.resetpassword==0 }"> <h5>#{bundle.YourDivices} #{deviceController.devices.size()} #{bundle.Devices}</h5></c:if>
+                            <c:if test="#{userController.selected.resetpassword==1}"> <h5> #{bundle.MoreDetails}</h5></c:if>
+
+                        </li>
+
+                    </ul>
+                    <div class="tab-content" style="margin-left: 0px!important;">
+                        <div class="tab-pane active" id="edit-profile-vehicule">
+                            <h:form id="editprofilevehiculeform" class="form-horizontal" prependId="false">
+                                <h:panelGroup id="messagePanel" layout="block">
+                                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                </h:panelGroup> 
+                                <fieldset style="margin-left: 0px!important;">
+                                    <div class="row" style="margin-left: 0px!important;">
+
+                                        <div class="span12" style="margin-left: 0px!important;">
+                                            <div class="row-fluid stats-box" >
+                                                <div class="span6" style="margin-left: 0px!important;">
+
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="username">#{bundle.CreateUserLabel_username}</label>
+                                                        <div class="controls">
+                                                            <p:inputText  a:placeholder="* #{bundle.CreateUserTitle_username}"   id="username" value="#{userController.selected.username}"
+                                                                          title="#{bundle.CreateUserTitle_username}" required="true" requiredMessage="#{bundle.usernamerequiremessage}" styleClass="span3" readonly="#{userController.selected.accesslevel==2 or userController.selected.accesslevel==1 }"/>
+
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="firstname">#{bundle.CreateUserLabel_firstname}</label>
+                                                        <div class="controls">
+                                                            <h:inputText a:placeholder="#{bundle.CreateUserTitle_firstname}" id="firstname" value="#{userController.selected.firstname}" title="#{bundle.CreateUserTitle_firstname}"   styleClass="span3" />
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="lastname">#{bundle.CreateUserLabel_lastname}</label>
+                                                        <div class="controls">
+                                                            <h:inputText a:placeholder="#{bundle.CreateUserTitle_lastname}" id="lastname" value="#{userController.selected.lastname}" title="#{bundle.CreateUserTitle_lastname}"   styleClass="span3"/>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="password">#{bundle.CreateUserLabel_password}</label>
+                                                        <div class="controls">
+                                                            <p:password a:placeholder="*#{bundle.CreateUserTitle_password}" id="turkishFeedback" value="#{userController.selected.password}" feedback="true"
+                                                                        promptLabel="#{bundle.interpassword}" weakLabel="#{bundle.weakpassword}"
+                                                                        goodLabel="#{bundle.midlevelpassword}" strongLabel="#{bundle.powerfullpassword}" required="true" requiredMessage="#{bundle.passwordrequiremessage}" styleClass="span3" readonly="#{userController.selected.userid!=userController.connectedUser.userid}" />
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="confirmpassword">#{bundle.Confirm_Password}</label>
+                                                        <div class="controls">
+                                                            <p:password a:placeholder="*#{bundle.Confirm_Passwordtitle}" id="confirm" value="#{userController.selected.confirmPassword}" title="#{bundle.CreateUserTitle_password}" required="true" requiredMessage="#{bundle.confirmpasswordrequiremessage}"  styleClass="span3" readonly="#{userController.selected.userid!=userController.connectedUser.userid}"/>                                                                       
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                </div>
+                                                <div class="span6" style="margin-left: 0px!important;">
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="email">#{bundle.CreateUserLabel_email}</label>
+                                                        <div class="controls">
+                                                            <p:inputText a:placeholder="#{bundle.CreateUserTitle_email}" id="email"   title ="#{bundle.CreateUserTitle_email}" size="40"
+                                                                        
+                                                                         validatorMessage="#{bundle.InvalidMailFormat}"
+                                                                         value="#{userController.selected.email}" styleClass="span3" >
+                                                                <f:validateRegex
+                                                                    pattern="(^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$)?" />
+
+                                                            </p:inputText>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <c:if test="#{userController.connectedUser.accesslevel==0 and  userController.selected.userid!=userController.connectedUser.userid }">
+                                                        <!-- show type user in editing my profile-->
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="UserType">#{bundle.UserType}</label>
+                                                            <div class="controls">
+                                                                <h:selectOneMenu value="#{userController.selected.accesslevel}" rendered="#{userController.connectedUser.accesslevel==0 and  userController.selected.userid!=userController.connectedUser.userid }" 
+                                                                                 onchange="submit()" valueChangeListener="#{userController.accesslevelCodeChanged}"  >                                        
+                                                                    <f:selectItem itemValue="2" itemLabel="#{bundle.CreateCustomerTitle_username}" ></f:selectItem>
+                                                                    <f:selectItem itemValue="1" itemLabel="#{bundle.CreateAgentTitle_username}"  ></f:selectItem>
+                                                                    <f:selectItem itemValue="3" itemLabel="#{bundle.CreateAdminDistributorTitle_username}" > </f:selectItem> 
+                                                                    <c:if test="#{userController.connectedUser.admincreateaccess==1}">
+                                                                        <f:selectItem itemValue="0" itemLabel="#{bundle.CreateAdminTitle_username}"  > </f:selectItem>                            
+                                                                    </c:if>
+                                                                </h:selectOneMenu>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+
+                                                    </c:if>
+
+
+
+                                                    <c:if test="#{userController.selected.userid==userController.connectedUser.userid }">
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="UserType">#{bundle.UserType}</label>
+                                                            <div class="controls">
+                                                                <!-- modify type of user   (only for admin that have permession)-->
+                                                                <c:if test="#{userController.selected.accesslevel==0}">
+                                                                    <li style="line-height: 32px;">
+                                                                        <h3>   <i class="icon-large icon-user">
+
+                                                                            </i> #{bundle.CreateAdminTitle_username}
+                                                                        </h3></li> 
+
+                                                                </c:if>
+                                                                <c:if test="#{userController.selected.accesslevel==1}">
+                                                                    <li style="line-height: 32px;">
+                                                                        <h3>  <i class="icon-large icon-user">
+
+                                                                            </i> #{bundle.CreateAgentTitle_username}
+                                                                        </h3></li>
+                                                                </c:if>
+                                                                <c:if test="#{userController.selected.accesslevel==2}">
+                                                                    <li style="line-height: 32px;">
+                                                                        <h3>   <i class="icon-large icon-user">
+
+                                                                            </i> #{bundle.CreateCustomerTitle_username}
+                                                                        </h3></li>  
+                                                                </c:if>
+                                                                <c:if test="#{userController.selected.accesslevel==3}">
+                                                                    <li style="line-height: 32px;">
+                                                                        <h3>   <i class="icon-large icon-user">
+
+                                                                            </i> #{bundle.CreateAdminDistributorTitle_username}
+                                                                        </h3></li>
+                                                                </c:if>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                    </c:if>
+
+
+
+
+
+                                                    <c:if test="#{userController.selected.userid==userController.connectedUser.userid or(userController.selected.userid!=userController.connectedUser.userid and userController.connectedUser.admincreateaccess==2 ) }">
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="UserType">#{bundle.CreateUserLabel_admincreateaccess}</label>
+                                                            <div class="controls">
+                                                                <c:if test="#{userController.connectedUser.admincreateaccess=='1'}">
+
+                                                                    <a class="btn btn-small" ><i class="icon-ok"></i> #{bundle.truecreate}</a>
+                                                                </c:if>
+
+                                                                <c:if test="#{userController.connectedUser.admincreateaccess=='2'}">
+
+                                                                    <a class="btn btn-small" ><i class="icon-remove"></i> #{bundle.falsecreate}</a>
+                                                                </c:if>
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                    </c:if>
+
+
+                                                    <c:if test="#{userController.connectedUser.accesslevel==0 and userController.selected.userid!=userController.connectedUser.userid and userController.connectedUser.admincreateaccess==1}">
+                                                        <div  class ="control-group">											
+                                                            <label class="control-label" for="admincreateaccess">* #{bundle.CreateUserLabel_admincreateaccess}</label>
+                                                            <div class="controls">
+                                                                <!--change  type user in editing my profile only for admin that have permission-->
+                                                                <h:selectOneRadio  required="true" value="#{userController.selected.admincreateaccess}"  requiredMessage="#{bundle.createadminrequiremessage}" rendered="#{userController.connectedUser.accesslevel==0 and userController.selected.userid!=userController.connectedUser.userid and userController.connectedUser.admincreateaccess==1}" >
+                                                                    <f:selectItem itemValue="1" itemLabel="#{bundle.Able}"  />
+                                                                    <f:selectItem itemValue="2" itemLabel="#{bundle.Desable}" />                            
+                                                                </h:selectOneRadio>
+
+                                                            </div> <!-- /controls -->				
+                                                        </div> <!-- /control-group -->
+                                                    </c:if>
+
+
+
+
+
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="phonenumber">#{bundle.CreateUserLabel_phonenumber}</label>
+                                                        <div class="controls">
+                                                            <p:inputText a:placeholder="#{bundle.CreateUserTitle_phonenumber}" id="phonenumber" title="#{bundle.CreateUserTitle_phonenumber}" value="#{userController.selected.phonenumber}"  styleClass="span3"  />
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="birthDateCal">#{bundle.CreateUserLabel_dateofbirth}</label>
+                                                        <div class="controls">
+                                                            <p:calendar a:placeholder="#{bundle.CreateDriverTitle_dateofbirth}" id="birthDateCal" value="#{userController.selected.dateofbirth}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-120:c+2" title="#{bundle.CreateDriverTitle_dateofbirth}" onfocus="blur();" />
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                </div>
+
+
+                                            </div>
+
+                                            &nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;#{bundle.Requiredfield}
+
+
+
+                                        </div>
+                                    </div> 
+                                    <br></br>
+
+                                </fieldset>
+
+                                <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                    <center> <h:commandLink action="#{userController.update}" value="#{bundle.Update}" class="btn btn-primary"/>&nbsp;                                          
+                                        <h:link outcome="/user/List?faces-redirect=true" value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                                </div> <!-- /form-actions -->
+
+                            </h:form>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+     
+
+            </ui:define>
+        </ui:composition>
+ 
+</html>
+
+
+
+
+
+
+
+
+
+

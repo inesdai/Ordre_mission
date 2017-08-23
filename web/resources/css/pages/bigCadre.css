@@ -1,0 +1,44 @@
+.login-fields .username input {
+    font-family: 'Open Sans';
+    /*font-size: 20px;*/
+    color: #fff;
+    padding: 11px 15px 10px 40px;
+    //background-color: #fdfdfd;
+    width: 255px;
+    //height: 71px;
+    display: block;
+    margin: 0;
+    
+    //background-image: url(../../images/cadre-blanc.png);
+    //background-size: 255px 71px;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    background: transparent;
+    background-image: url(../../images/cadre-blancBig.png);
+    text-shadow:none;
+}
+
+.login-fields .pwd input {
+    font-family: 'Open Sans';
+    /*font-size: 20px;*/
+    color: #fff;
+    padding: 11px 15px 10px 40px;
+    //background-color: #fdfdfd;
+    width: 255px;
+    //height: 71px;
+    display: block;
+    margin: 0;
+    
+    //background-image: url(../../images/cadre-blanc.png);
+    //background-size: 255px 71px;
+    border: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    text-shadow:none;
+    background: transparent;
+    background-image: url(../../images/cadre-pwdBig.png);
+ 
+}

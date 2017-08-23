@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="device"/>
+
+        <ui:define name="titleunderpage">
+        </ui:define>
+        
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">    <h:outputText value="#{bundle.ListDeviceTitle}"></h:outputText></h3>
+            <h:form style="float: right;margin-right: 4px;">           <h:commandLink action="#{deviceController.prepareCreate}" value="#{bundle.ListAlertCreateLink}" styleClass="btn btn-primary" rendered="#{userController.connectedUser.accesslevel==0}" /></h:form>
+
+        </ui:define>
+
+        <ui:define name="body"> 
+
+
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+
+
+            <h:form  styleClass="jsfcrud_list_form" id="listDevicesForm"  >
+
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+
+
+
+                <h:panelGroup id="testDiv"  >
+                    <h:commandLink id="previous" action="#{deviceController.previous}" value="#{bundle.Previous} #{deviceController.pagination.pageSize}" rendered="#{deviceController.pagination.hasPreviousPage and deviceController.filter==false}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                    <h:commandLink id="next" action="#{deviceController.next}" value="#{bundle.Next} #{deviceController.pagination.pageSize}" rendered="#{deviceController.pagination.hasNextPage and deviceController.filter==false}" style ="float:right;">
+                        <i class="icon-large icon-arrow-right"></i>
+
+                    </h:commandLink>                       
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListDeviceEmpty}" rendered="#{deviceController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{deviceController.items.rowCount > 0 or deviceController.filter==true}">
+
+                    &nbsp;
+
+                    <p:panel   header="#{bundle.Search}" toggleable="true"  collapsed="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel"  rendered="#{userController.connectedUser.accesslevel!=2}">             
+                        <div>
+                            <h:outputText   value="#{bundle.CreateDeviceLabel_imei}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />  
+                            <h:inputText  value="#{deviceController.selected.imei}" styleClass="span3" title="#{bundle.CreateDeviceTitle_imei}"/> 
+
+                            <h:outputText value=" #{bundle.CreateDeviceLabel_simcard}&nbsp;&nbsp;" />  
+                            <h:inputText  value="#{deviceController.selected.simcard}" styleClass="span3" title="#{bundle.CreateDeviceTitle_simcard}"/>   
+                            <h:outputText  value=" #{bundle.SubscriptionStatus} &nbsp;&nbsp;&nbsp;" /> 
+                            <h:selectOneMenu id="UserType" value="#{deviceController.subscriptionStatus}" 
+                                             title="#{bundle.UserTypeTitle}"  styleClass="span2" >
+                                <f:selectItem itemValue="0" itemLabel="#{bundle.AllType}" ></f:selectItem>
+                                <f:selectItem itemValue="1" itemLabel="#{bundle.Available}" ></f:selectItem>
+                                <f:selectItem itemValue="2" itemLabel="#{bundle.Expired}" ></f:selectItem>
+
+                            </h:selectOneMenu>
+
+                        </div>
+                        <div>
+
+
+                            <h:outputText  value=" #{bundle.Affected} &nbsp;&nbsp;" />  
+                            <h:inputText   value="#{deviceController.affectedToSearch}" styleClass="span3" title="#{bundle.AffectedTo}"/>  
+                            <h:outputText  value="&nbsp;#{bundle.ViewDeviceLabel_vehicleid}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />   
+                            <h:inputText   value="#{deviceController.vehiculeSearch}" styleClass="span3" title="#{bundle.ViewDeviceTitle_vehicleid}"/>  
+
+
+
+
+                            <p:commandLink value="#{bundle.Search}"  styleClass="btn btn-primary"  style="margin-top: 0px;float: right;color: #fcfcfc;" actionListener="#{deviceController.filterDevices()}" update="@form" >                                
+                            </p:commandLink>
+
+                        </div> 
+                        &nbsp;
+                        <br />  
+                    </p:panel>
+
+                    &nbsp;
+                    <br /> 
+                    <div   >  
+                        <c:if test="#{userController.connectedUser.accesslevel!=2}">
+                            <div  style="width: 20%; float: left;">
+                                <h:outputText  value=" #{bundle.DistributerTitle}" /> 
+                                <h:outputScript name="js/jquery.treefilter.js"/> 
+
+                                <p:tree     style="width: 100%;"  value="#{deviceController.root}"  selectionMode="single" var="node" selection="#{deviceController.selectedNodes}"  >
+                                    <p:ajax event="select" listener ="#{deviceController.refreshTableDevices()}"    update="@form"/>                                                                          
+                                    <p:treeNode>  
+                                        <p:graphicImage value="../resources/images/delivery-truck.png" rendered="#{node['class'].simpleName eq 'Distributer'}"/><h:outputText value=" #{node.contact}" rendered="#{node['class'].simpleName eq 'Distributer'}" style="font-weight:bold;"/> 
+                                    </p:treeNode>
+                                </p:tree>
+                                <h:outputText id="test"/>
+                            </div>
+                        </c:if>
+                        <c:if test="#{userController.connectedUser.accesslevel!=2}">
+                            <div  style="width: 78%;float: right;">
+
+
+                                <h:dataTable id="listDevicesTable" value="#{deviceController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass ="responsive-table table-bordered" rendered="#{deviceController.items.rowCount > 0 and  deviceController.refreshAffection()}"  >
+
+                                    <h:column>
+                                        <f:facet name="header" >
+
+                                            <h:outputText value="#{bundle.NO}"/>
+                                        </f:facet>
+
+                                        <h:outputText   value="#{deviceController.items.rowIndex+1}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_imei}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.imei}"/>
+
+                                    </h:column>
+
+
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_simcard}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.simcard}"/>
+                                        <h:outputText rendered="#{item.simcard=='' }"  value="#{bundle.Undefined}" />
+
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_vehicleid}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.vehicleid.description}"/>
+                                        <h:outputText rendered="#{item.vehicleid.description==null or item.vehicleid.description=='' }"  value="#{bundle.Undefined}" />
+                                    </h:column>
+
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_activatedate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.activatedate}">
+                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                        </h:outputText>
+                                        <h:outputText rendered="#{item.activatedate==null }"  value="#{bundle.Undefined}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_expirationdate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.expirationdate}">
+                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                        </h:outputText>
+                                        <h:outputText rendered="#{item.expirationdate==null }"  value="#{bundle.Undefined}" />
+                                    </h:column>
+
+
+                                    <h:column rendered="#{userController.connectedUser.accesslevel!=2}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.AffectedTo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{deviceController.affectedToDevice(item.deviceid)}"/>
+                                        <h:outputText rendered="#{deviceController.affectedToDevice(item.deviceid)=='' or deviceController.affectedToDevice(item.deviceid)==null}"  value="#{bundle.NotAffected}" />
+                                    </h:column>
+
+
+
+
+
+                                    <h:column class="td-actions">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.Action}"/>
+                                        </f:facet>
+
+                                        <h:commandLink action="#{deviceController.prepareView}" title="#{bundle.More}">                            
+                                            <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                            </i>
+                                        </h:commandLink>
+
+
+                                        <h:commandLink action="#{deviceController.prepareEdit}" title="#{bundle.Edit}" >
+                                            <i class="btn-icon-only icon-edit" style="color: #D98200"> 
+                                            </i>
+                                        </h:commandLink>
+
+
+
+                                        <c:if test="#{userController.connectedUser.accesslevel!=2}">
+                                            <c:if test="#{userController.connectedUser.accesslevel==0}">
+                                                <a >
+                                                    <i  class="btn-icon-only icon-remove  openRemoveDevice" style="color: #A40000" data-id="#{item.deviceid}" onclick="PF('confirmDestroyDevice').show();" title="#{bundle.Destroy}"> 
+
+                                                    </i>
+
+                                                </a>
+                                            </c:if>
+                                            <a >  
+                                                <i  class=" iconAffectDevice openAffectDevice" style="color: #A40000" data-id="#{item.deviceid}" onclick="PF('affectDevice').show();" title="#{bundle.UserDevice}"> 
+                                                    <input type="hidden" id="selectedDevice" name="selectedDevice"/>
+
+                                                </i>
+                                            </a>
+
+
+
+                                        </c:if>
+
+
+
+
+                                    </h:column>
+
+
+
+                                </h:dataTable>
+                                <center> 
+                                    <h:panelGroup id="pagination">
+                                        <h:outputText  value="#{deviceController.pagination.pageFirstItem + 1}..#{deviceController.pagination.pageLastItem + 1}/#{deviceController.pagination.itemsCount}" rendered="#{deviceController.filter==false}" />
+                                    </h:panelGroup>
+
+
+
+                                </center>
+
+
+
+                            </div> 
+                        </c:if>
+                        
+                          <c:if test="#{userController.connectedUser.accesslevel==2}">
+                            
+
+
+                                <h:dataTable id="listDevicesTable" value="#{deviceController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass ="responsive-table table-bordered" rendered="#{deviceController.items.rowCount > 0 and  deviceController.refreshAffection()}"  >
+
+                                    <h:column>
+                                        <f:facet name="header" >
+
+                                            <h:outputText value="#{bundle.NO}"/>
+                                        </f:facet>
+
+                                        <h:outputText   value="#{deviceController.items.rowIndex+1}"/>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_imei}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.imei}"/>
+
+                                    </h:column>
+
+
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_simcard}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.simcard}"/>
+                                        <h:outputText rendered="#{item.simcard=='' }"  value="#{bundle.Undefined}" />
+
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_vehicleid}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.vehicleid.description}"/>
+                                        <h:outputText rendered="#{item.vehicleid.description==null or item.vehicleid.description=='' }"  value="#{bundle.Undefined}" />
+                                    </h:column>
+
+
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_activatedate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.activatedate}">
+                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                        </h:outputText>
+                                        <h:outputText rendered="#{item.activatedate==null }"  value="#{bundle.Undefined}" />
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.ListDeviceTitle_expirationdate}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{item.expirationdate}">
+                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                        </h:outputText>
+                                        <h:outputText rendered="#{item.expirationdate==null }"  value="#{bundle.Undefined}" />
+                                    </h:column>
+
+
+                                    <h:column rendered="#{userController.connectedUser.accesslevel!=2}">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.AffectedTo}"/>
+                                        </f:facet>
+                                        <h:outputText value="#{deviceController.affectedToDevice(item.deviceid)}"/>
+                                        <h:outputText rendered="#{deviceController.affectedToDevice(item.deviceid)=='' or deviceController.affectedToDevice(item.deviceid)==null}"  value="#{bundle.NotAffected}" />
+                                    </h:column>
+
+
+
+
+
+                                    <h:column class="td-actions">
+                                        <f:facet name="header">
+                                            <h:outputText value="#{bundle.Action}"/>
+                                        </f:facet>
+
+                                        <h:commandLink action="#{deviceController.prepareView}" title="#{bundle.More}">                            
+                                            <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                            </i>
+                                        </h:commandLink>
+
+
+                                        <h:commandLink action="#{deviceController.prepareEdit}" title="#{bundle.Edit}" >
+                                            <i class="btn-icon-only icon-edit" style="color: #D98200"> 
+                                            </i>
+                                        </h:commandLink>
+
+
+
+                                        <c:if test="#{userController.connectedUser.accesslevel!=2}">
+                                            <c:if test="#{userController.connectedUser.accesslevel==0}">
+                                                <a >
+                                                    <i  class="btn-icon-only icon-remove  openRemoveDevice" style="color: #A40000" data-id="#{item.deviceid}" onclick="PF('confirmDestroyDevice').show();" title="#{bundle.Destroy}"> 
+
+                                                    </i>
+
+                                                </a>
+                                            </c:if>
+                                            <a >  
+                                                <i  class=" iconAffectDevice openAffectDevice" style="color: #A40000" data-id="#{item.deviceid}" onclick="PF('affectDevice').show();" title="#{bundle.UserDevice}"> 
+                                                    <input type="hidden" id="selectedDevice" name="selectedDevice"/>
+
+                                                </i>
+                                            </a>
+
+
+
+                                        </c:if>
+
+
+
+
+                                    </h:column>
+
+
+
+                                </h:dataTable>
+                                <center> 
+                                    <h:panelGroup id="pagination">
+                                        <h:outputText  value="#{deviceController.pagination.pageFirstItem + 1}..#{deviceController.pagination.pageLastItem + 1}/#{deviceController.pagination.itemsCount}" rendered="#{deviceController.filter==false}" />
+                                    </h:panelGroup>
+
+
+
+                                </center>
+
+
+
+                         
+                        </c:if>
+
+                    </div>
+
+                    <!--confirm destroy widget-->
+                    <p:dialog header="#{bundle.ConfirmDestroyDeviceMessageTitle}" widgetVar="confirmDestroyDevice"   resizable="false">
+
+                        <div class="controls">
+                            <h:outputText value="#{bundle.ConfirmDestroyDeviceMessageContent}"/>	 
+                        </div>
+                        <input type="hidden" name="devicetoremove" id="devicetoremove"/>
+                        <h:commandButton styleClass="btn btn-danger" value="#{bundle.Confirm}" style="margin-right: 5px;" action="#{deviceController.destroyWithConfirm()}" rendered="#{userController.connectedUser.accesslevel==0}"/> 
+
+                        <h:commandButton type="button" value="#{bundle.Cancel}"  styleClass="btn"   onclick="PF('confirmDestroyDevice').hide();"  immediate ="true" />
+
+                    </p:dialog>
+                    <!--affect device widget-->
+
+                    <h:commandButton id="selectedTreeDevice" actionListener="#{devicedistributorController.selectedTreeDevice()}"  style="display: none;"  />
+
+                </h:panelGroup>
+                <br />
+                <h:outputScript name="js/jquery.treefilter.js"/> 
+                <script>
+                    $(document).on("click", ".openRemoveDevice", function () {
+                        var selectedrow = $(this).data('id');
+                        $('#devicetoremove').val(selectedrow);
+                    });
+                    $(document).on("click", ".openAffectDevice", function () {
+                        var selectedrow = $(this).data('id');
+                        $('#devicetoaffect').val(selectedrow);
+                        $('#selectedDevice').val(selectedrow);
+
+//                         $("#listDevicesForm\\:selectedTreeDevice").click();
+                    });
+
+
+
+
+                </script>
+
+            </h:form>
+            <h:form id="treeForm" prependId="false">
+                <p:dialog header="#{bundle.AffectDeviceMessageTitle}" widgetVar="affectDevice" resizable="yes">
+
+                    <h:message id="message5" for="my-tree" style="color:red;" /> <br/>
+
+                    <div class="controls">
+                        <h:panelGrid columns="1">
+                            <h:outputText value="#{bundle.ChooseUserOrDistributor}"/>	 
+                            <h:inputText id="my-search" style="" />
+
+                            <h:outputText />
+
+                            <p:tree  id="my-tree" style="height: 35vh; z-index: 5!important;" value="#{devicedistributorController.root}"  selectionMode="single" var="node" selection="#{devicedistributorController.selectedNodes}" required="true" requiredMessage="#{bundle.selectuserrequiremessage}" >
+                                <p:treeNode > 
+
+                                    <p:graphicImage value="../resources/images/delivery-truck.png" rendered="#{node['class'].simpleName eq 'Distributer'}"/><h:outputText value=" #{node.contact}" rendered="#{node['class'].simpleName eq 'Distributer'}" style="font-weight:bold;"/> 
+                                    <p:graphicImage value="../resources/images/user.png" rendered="#{node['class'].simpleName eq 'User'}"/><h:outputText value=" #{node.username}" rendered="#{node['class'].simpleName eq 'User'}" />
+                                </p:treeNode>
+
+                            </p:tree>
+                        </h:panelGrid>
+                    </div>
+                    <div class="controls">
+                        <h:commandButton  styleClass="button btn btn-success" value="#{bundle.Confirm}"   action="#{devicedistributorController.affectdevice()}" rendered="#{userController.connectedUser.accesslevel!=2}"  >
+                            <input type="hidden" name="devicetoaffect" id="devicetoaffect"/>
+                        </h:commandButton>
+                        <h:commandButton type="button" value="#{bundle.Cancel}"  styleClass="button btn "  style="margin-right: 1%;" onclick="PF('affectDevice').hide();"  immediate ="true" />
+                    </div>
+
+                </p:dialog>
+                <script> $(function () {
+
+                        var tree = new treefilter($("#my-tree"), {
+                            searcher: $("input#my-search")
+                        });
+                    });
+                </script>
+            </h:form>
+
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <head>
+
+        <title>TODO supply a title</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <style type="text/css">
+            html, body, #devv { height: 100%; margin: 0; padding: 0;}
+        </style>
+
+    </head>
+
+    <ui:composition template="/hometemplate.xhtml" id="upf">
+        <ui:param name="activeclass" value="monitoring"/>
+        <ui:param name="speed" value="S"/>
+
+        <ui:define name="titlewidget">
+        </ui:define>
+        <ui:define name="titleunderpage">
+        </ui:define>
+        <ui:param name="containerDelete" value="yes"/>
+        <ui:define name="body">
+
+            <h:outputLabel value=""/>
+            <h:panelGrid columns="5"  style="margin-bottom:0px;margin-top: 0px;" cellpadding="3">
+                <h2> <h:outputText value="#{bundle.SpeedAnimation}" /></h2>
+                <p:selectOneButton  id="speedSelect" value="S" onchange="reactToChangedSelect(this.value);">
+                    <f:selectItem itemLabel="#{bundle.Fast}" itemValue="F"   />
+                    <f:selectItem itemLabel="#{bundle.Medium}" itemValue="M" />
+                    <f:selectItem itemLabel="#{bundle.Slow}" itemValue="S" />
+                </p:selectOneButton>     
+                <h:form style="margin-bottom: 0px!important;">
+
+                    <h2> <i id="stopButton" class="btn-icon-only icon-pause" style="color: #093457" onclick="stopAnim();"> 
+                          Pause</i></h2>
+               
+
+
+                </h:form>
+            </h:panelGrid>
+
+            <div id="devv"  style="height: 73vh;margin: 0px; padding: 0px 400px 0px; "  ></div>
+            <h:inputHidden id="jsonString" value="#{positionController.jsonString}"  />
+            <h:inputHidden id="jsonOverSpeedPositions" value="#{positionController.jsonOverSpeedPositions}"  />
+            <h:inputHidden id="jsonStopPoints" value="#{positionController.jsonStopPoints}"  />
+            <h:inputHidden id="infoWindowFeedback" value="#{positionController.infoWindowFeedback}"  />
+            <h:inputHidden id="interpolated" value="#{positionController.interpolated}"  />      
+
+            <h:outputScript>drawfeedBackGooglemap();</h:outputScript>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

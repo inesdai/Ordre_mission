@@ -1,0 +1,426 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+        <script src="https://code.jquery.com/jquery-1.11.2.min.js"/>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol.js"/>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs2n9svhqi7H1mddr3OEj6acbw7kQlx_o"></script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=drawing"></script>
+
+    
+    <h:outputScript name="js/turf.min.js" />           
+    <h:outputScript name="js/jquery-1.7.2.min.js" />
+    <h:outputScript name="js/bootstrap.js" />
+    <h:outputScript name="js/markerwithlabel.js" />
+    <h:outputScript name="js/base.js"/>
+
+
+
+
+
+ 
+        <meta charset="utf-8"/>
+        <title>Account Upgrade - Bootstrap Admin Template</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>    
+
+        
+        
+       
+        
+
+   
+
+        <!-- Le HTML5 shim, for IE6-8 support of HTML5 elements -->
+        <!--[if lt IE 9]>
+          <script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+ 
+
+    <body>
+
+        <div class="navbar navbar-fixed-top">
+
+            <div class="navbar-inner">
+
+                <div class="container">
+
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </a>
+
+                    <a class="brand" href="index.html">
+                        Bootstrap Admin Template				
+                    </a>		
+
+                    <div class="nav-collapse">
+                        <ul class="nav pull-right">
+                            <li class="dropdown">						
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-cog"></i>
+                                    Account
+                                    <b class="caret"></b>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:;">Settings</a></li>
+                                    <li><a href="javascript:;">Help</a></li>
+                                </ul>						
+                            </li>
+
+                            <li class="dropdown">						
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-user"></i> 
+                                    EGrappler.com
+                                    <b class="caret"></b>
+                                </a>
+
+                                <ul class="dropdown-menu">
+                                    <li><a href="javascript:;">Profile</a></li>
+                                    <li><a href="javascript:;">Logout</a></li>
+                                </ul>						
+                            </li>
+                        </ul>
+
+                        <form class="navbar-search pull-right">
+                            <input type="text" class="search-query" placeholder="Search"/>
+                        </form>
+
+                    </div><!--/.nav-collapse -->	
+
+                </div> <!-- /container -->
+
+            </div> <!-- /navbar-inner -->
+
+        </div> <!-- /navbar -->
+
+
+
+
+
+       <div class="subnavbar">
+
+            <div class="subnavbar-inner">
+
+                <div class="container">
+
+                    <ul class="mainnav">
+                        <li class="#{(activeclass=='home')?'active':'dropdown'}">
+                            <h:link outcome="/indexinitial">                       
+                                <i class="icon-large icon-home"></i>
+                                <span>#{bundle.home}</span>
+                                <b class="caret"></b>                                
+                            </h:link>	
+                        </li>
+
+
+                        <h:panelGroup >
+                            <li class="#{(activeclass=='user')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-user"></i>
+                                    <span>#{bundle.Users}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{userController.prepareCreate}"   >                              
+
+                                                <z><span >#{bundle.Createuser}</span></z>
+
+                                            </h:commandLink></li> 
+                                        <li>      <h:commandLink action="#{userController.prepareList()}"  >                                
+                                                <span>#{bundle.Showusers}</span>
+
+                                            </h:commandLink></li>
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup>
+
+                        <h:panelGroup >
+                            <li class="#{(activeclass=='distributer')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-group"></i>
+                                    <span>#{bundle.Distributer}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{distributerController.prepareCreate}"   >                              
+
+                                                <z><span >#{bundle.CreateDistributerTitle}</span></z>
+
+                                            </h:commandLink></li> 
+                                        <li>     <h:commandLink action="#{distributerController.prepareList()}"  >                                
+                                                <span>#{bundle.ShowDistributer}</span>
+
+                                            </h:commandLink></li>
+
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup> 
+
+
+
+
+                        <h:panelGroup >
+                            <li class="#{(activeclass=='device')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-inbox"></i>
+                                    <span>#{bundle.Device}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form ><ul class="dropdown-menu">
+                                        <li>   
+
+
+                                            <h:commandLink  action="#{deviceController.prepareCreate}" >                              
+                                            
+                                                    <f:actionListener  binding="#{vehicleController.prepareCreateDefaultVehicle()}"  />
+                                          
+                                                <span >#{bundle.Createdevice}</span>
+
+                                            </h:commandLink> </li>
+
+                                        <li>  <h:commandLink  action="#{devicedistributorController.prepareAffectDevice}" >                              
+
+                                                <span >#{bundle.UserDevice}</span>
+                                                <!--admin can affect devices for any users-->
+                                                <f:actionListener binding="#{userController.prepareGetMyUser()}"/>
+                                                
+                                                    <f:actionListener  binding="#{deviceController.prepareaffect()}"  />
+                                                
+                                                
+                                                    <f:actionListener  binding="#{devicedistributorController.prepareGetMyDevice()}"  />
+                                                
+
+                                            </h:commandLink> </li>
+                                        <li>      <h:commandLink  action="#{deviceController.prepareList()}" >                               
+
+                                                <span >#{bundle.Showdevice}</span> 
+
+                                            </h:commandLink></li> 
+
+
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='vehicle')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-truck"></i>
+                                    <span>#{bundle.Vehicle}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+
+                                        <li>      <h:commandLink action="#{vehicleController.prepareList()}"  >                             
+                                                <span>#{bundle.ShowVehicles}</span>
+
+                                            </h:commandLink></li>
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup>
+
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='driver')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-group"></i>
+                                    <span>#{bundle.Driver}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{driverController.prepareCreate}"   >                              
+
+                                                <z><span >#{bundle.CreateDriverTitle}</span></z>
+
+                                            </h:commandLink></li> 
+
+
+                                        <li>       <h:commandLink  action="#{driverController.prepareList()}" >                          
+                                                <span>#{bundle.ShowDrivers}</span>
+
+                                            </h:commandLink></li>
+
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup> 
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='monitoring')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-road"></i>
+                                    <span>#{bundle.Monitoring}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form> <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{positionController.prepareMonitoring()}"   >                              
+
+                                                <z><span >#{bundle.Monitoring}</span></z>
+
+                                            </h:commandLink></li> 
+
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup> 
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='alerts')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-tasks"></i>
+                                    <span>#{bundle.Alert}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form> <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{alertController.prepareCreate()}"   >                              
+
+                                                <z><span >#{bundle.ViewAlertCreateLink}</span></z>
+
+                                            </h:commandLink></li> 
+                                        <li>       <h:commandLink  action="#{alertController.prepareList()}" >                          
+                                                <span>#{bundle.ViewAlertShowAllLink}</span>
+
+                                            </h:commandLink></li>
+
+
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup> 
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='notification')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-bell"></i>
+                                    <span>notification list</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form> <ul class="dropdown-menu">
+
+                                        <li>       <h:commandLink  action="#{notificationController.prepareList()}" >                          
+                                                <span>#{bundle.ViewNotificationShowAllLink}</span>
+
+                                            </h:commandLink></li>
+
+
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup> 
+
+                    </ul>
+
+                </div> <!-- /container -->
+
+            </div> <!-- /subnavbar-inner -->
+
+        </div> <!-- /subnavbar -->
+
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        <div class="main">
+
+
+                <div class="main-inner">
+
+
+                    <div class="container" >
+
+                        <div class="row">
+
+                            <div class="span12">      		
+
+                                <div class="widget ">
+
+                                    <div class="widget-header">
+
+                                        <h:panelGroup rendered="#{activeclass!='monitoring'}"> 
+                                            <i class="icon-user" style="height: 25px;"></i> 
+                                        </h:panelGroup>
+                                        <h3 style="  top:0px;">
+                                            <ui:insert name="titlewidget">Default Title</ui:insert></h3>
+
+                                    </div>  
+                                    <div class="widget-content">
+
+                                        <h1>
+
+                                            <ui:insert name="titleunderpage" >Default Title</ui:insert>
+                                        </h1>
+                                        <br/>
+
+                                        <p>
+
+                                            <ui:insert name="body">Default Body</ui:insert>
+                                        </p>
+
+
+
+                                    </div>  
+
+
+                                </div>  
+
+
+                            </div>
+
+                        </div> 
+
+                    </div>  
+
+                </div>  
+            </div> <!-- /main --> 
+
+ 
+
+
+
+
+ 
+
+
+        <!-- Le javascript
+        ================================================== -->
+        <!-- Placed at the end of the document so the pages load faster -->
+        <script src="js/jquery-1.7.2.min.js"></script>
+
+        <script src="js/bootstrap.js"></script>
+        <script src="js/base.js"></script>
+
+    </body>
+
+</html>

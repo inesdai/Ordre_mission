@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"                      
+       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+       xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+        <title>VEGA-TRACKING</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/> 
+
+
+
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/offlinetemplate.xhtml">
+            <ui:define name="title">
+                <h:outputText value="#{bundle.CreatePositionTitle}"></h:outputText>
+            </ui:define>
+            <ui:define name="body">
+
+
+
+
+                <div class="account-container">
+
+                    <div class="content clearfix">
+
+                        <h:form id="formLogin" >
+
+                            <div style="text-align: center">
+                                <h1>#{bundle.MemberLogin}</h1>		
+                            </div>
+                            <div class="login-fields">
+                                
+                              
+
+                            </div> <!-- /login-fields -->
+
+                            <div class="login-actions">
+
+                                <span class="login-checkbox">
+                                    <input id="Field" name="Field" type="checkbox" class="field login-checkbox" value="First Choice" tabindex="4" />
+
+<!--                            <h:outputLabel class="choice" value="#{userController.keepSigned}" >Keep me signed in</h:outputLabel>  -->
+                                </span>
+                                <br />
+                                <p:commandButton value="#{bundle.SignIn}" styleClass="button btn"   id="Login" action="#{userController.login()}" update=":formLogin:messages"/>
+
+
+                                <div class="login-extra">
+                                    <h:link outcome="/ForgotPassword" style="color:#fff">#{bundle.ForgotPassword}</h:link>
+
+                                </div> <!-- /login-extra -->
+                            </div> <!-- .actions -->
+
+
+                        </h:form>
+
+                    </div> <!-- /content -->
+
+                </div> <!-- /account-container -->
+
+
+                <h:outputScript  name="js/jquery-1.7.2.min.js" />
+                <h:outputScript  name="js/bootstrap.js"/>
+                <h:outputScript  name="js/signin.js" />
+
+
+            </ui:define>
+
+        </ui:composition>
+    </h:body>
+</html>

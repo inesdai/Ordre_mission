@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <!--    <script src="https://code.jquery.com/jquery-1.11.2.min.js"/>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol.js"/>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs2n9svhqi7H1mddr3OEj6acbw7kQlx_o"></script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=drawing"></script>
+
+
+
+    <h:outputScript name="js/turf.min.js" />           
+    <!--<h:outputScript name="js/jquery-1.7.2.min.js" />-->
+    <h:outputScript name="js/bootstrap.js" />
+    <h:outputScript name="js/markerwithlabel.js" />
+    <h:outputScript name="js/base.js"/>
+
+
+    <h:outputScript name="PushMenu/js/jquery-1.10.2.js"/> 
+    <h:outputScript name="PushMenu/js/jquery-ui.min.js"/> 
+    <h:outputScript name="PushMenu/js/hamburgerMenu.js"/> 
+
+    <h:outputScript name="js/excanvas.min.js"/> 
+    <h:outputScript name="js/chart.min.js"/> 
+    <h:outputScript name="js/moment.min.js"/> 
+    <h:outputScript name="js/moment-timezone-with-data.js"/> 
+
+
+
+
+    <f:view locale="#{language.locale}"/>
+
+
+
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>#{bundle.applicationname}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/> 
+
+        <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>  -->
+        <!--         <link  href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" />-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol.css" type="text/css"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>
+
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script> 
+        <!--favicon-->
+
+        <h:outputStylesheet name="css/bootstrap.min.css"/>
+
+        <h:outputStylesheet name="css/bootstrap-responsive.min.css"/>
+        <h:outputStylesheet name="css/font-awesome.css" />
+        <h:outputStylesheet name="css/style.css" />
+        <h:outputStylesheet name="css/openlayer.css" />
+
+        <h:outputStylesheet name="css/pages/faq.css" /> 
+        <h:outputStylesheet  name="css/pages/signin.css" /> 
+        <h:outputStylesheet  name="css/myCss.css"   />
+
+        <h:outputStylesheet  name="css/pages/dashboard.css" />
+        <h:outputStylesheet  name="css/myCss2.css" media="screen and (max-width: 770px)" />
+
+
+
+        <h:outputStylesheet  name="PushMenu/css/hamburger.css"/>
+        <h:outputStylesheet  name="css/pages/reports.css"/>
+        <h:outputStylesheet name="css/jquery.treefilter.css"/>
+    </h:head>
+
+
+    <h:body id="defaultif" >
+
+        <div class="navbar navbar-fixed-top">
+            <div class="navbar-inner">
+                <div class="container">
+
+                    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+
+                    </a>
+
+
+                    <h:link class="brand" outcome="/device/Monitoring.xhtml">
+
+                        <c:if test="#{userController.connectedUser.distributerid.logopath!=''}">
+                            <h:graphicImage    value="/img/#{userController.connectedUser.distributerid.logopath}"  width="250"  style="height: 50px!important;" rendered="#{userController.connectedUser.distributerid.logopath!=null}"/>
+                            <h:graphicImage    value="/img/defaultDistributerPicture.png"  width="250"  style="height: 50px!important;" rendered="#{userController.connectedUser.distributerid.logopath==null}"/>
+
+                        </c:if>
+                    </h:link>	
+
+
+
+
+                    <div class="nav-collapse" >
+                        <ul class="nav pull-right">
+                            <li class="dropdown">						
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <h4 style="font-size: 16px;"> <i class="icon-user"></i> 
+                                        #{userController.connectedUser.username}
+                                        <b class="caret"></b></h4>
+                                </a>
+
+                                <h:form>
+                                    <ul class="dropdown-menu">
+
+                                        <li><h:commandLink styleClass="icon-cog"  action="#{userController.editAcoount()}" >&nbsp;&nbsp;#{bundle.Account}</h:commandLink ></li>
+                                        <li><h:commandLink styleClass="icon-wrench"  action="#{applicationsettingController.applicationSetting()}" rendered="#{userController.connectedUser.accesslevel==0}">&nbsp;&nbsp;#{bundle.ApplicationSetting}</h:commandLink ></li>
+                                        <li><h:commandLink styleClass="icon-signout" action="#{userController.logout()}" >&nbsp;&nbsp;#{bundle.Logout}</h:commandLink></li>
+
+                                    </ul>
+                                </h:form>
+                            </li>
+                        </ul>
+
+
+
+                    </div>
+
+
+
+                    <!--/.nav-collapse -->	
+
+                </div> <!-- /container -->
+
+            </div> <!-- /navbar-inner -->
+
+        </div> <!-- /navbar -->
+
+        <div class="subnavbar">
+
+            <div class="subnavbar-inner">
+
+                <div class="container">
+
+                    <ul class="mainnav">
+<!--                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='home')?'active':'dropdown'}">
+                                <h:link outcome="/indexinitial">                       
+                                    <i class="icon-large icon-home"></i>
+                                    <span>#{bundle.home}</span>
+                                    <b class="caret"></b>                                
+                                </h:link>	
+                            </li>
+                        </h:panelGroup>-->
+
+
+
+ <!--<h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">-->
+                        <li class="#{(activeclass=='monitoring')?'active dropdown':'dropdown'}" >	
+                            <a  href="/gpstracker/faces/device/Monitoring.xhtml">
+
+                                <i class="icon-globe"></i>
+                                <span>#{bundle.Monitoring}</span>
+
+                            </a>
+                        </li>
+                        <!--</h:panelGroup>-->
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==0 or userController.connectedUser.accesslevel==3}">
+                            <li class="#{(activeclass=='distributer')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-group"></i>
+                                    <span>#{bundle.Distributer}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{distributerController.prepareCreate}"   >                              
+
+                                                <z><span >#{bundle.CreateDistributerTitle}</span></z>
+
+                                            </h:commandLink></li> 
+                                        <li>     <h:commandLink action="#{distributerController.prepareList()}"  >                                
+                                                <span>#{bundle.ListDistributerTitle}</span>
+
+                                            </h:commandLink></li>
+
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup> 
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==0 or userController.connectedUser.accesslevel==3 or userController.connectedUser.accesslevel==1}">
+                            <li class="#{(activeclass=='user')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-user"></i>
+                                    <span>#{bundle.Users}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{userController.prepareCreate}"   >                              
+
+                                                <z><span >#{bundle.Createuser}</span></z>
+
+                                            </h:commandLink></li> 
+                                        <li>      <h:commandLink action="#{userController.prepareList()}"  >                                
+                                                <span>#{bundle.ListUserTitle}</span>
+
+                                            </h:commandLink></li>
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup>
+
+
+
+
+
+
+                        <h:panelGroup >
+                            <li class="#{(activeclass=='device')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-inbox"></i>
+                                    <span>#{bundle.Device}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form ><ul class="dropdown-menu">
+                                        <li>   
+
+
+                                            <h:commandLink  action="#{deviceController.prepareCreate}" rendered="#{userController.connectedUser.accesslevel==0}">                              
+                                                <c:if test="true">
+                                                    <f:actionListener  binding="#{vehicleController.prepareCreateDefaultVehicle()}"  />
+                                                </c:if>
+                                                <span >#{bundle.Createdevice}</span>
+                                                <f:actionListener  binding="#{devicedistributorController.prepareDistributerTree()}"  />
+
+                                            </h:commandLink> </li>
+
+                                        <li>  <h:commandLink  action="#{devicedistributorController.prepareAffectDevice}"  rendered="false">                              
+
+                                                <span >#{bundle.UserDevice}</span>
+                                                <!--admin can affect devices for any users-->
+                                                <f:actionListener binding="#{userController.prepareGetMyUser()}"/>
+                                                <c:if test="#{userController.connectedUser.accesslevel==0}">
+                                                    <f:actionListener  binding="#{deviceController.prepareaffect()}"  />
+                                                    <f:actionListener  binding="#{devicedistributorController.prepareDistributerTree()}"  />
+
+                                                </c:if>
+                                                <c:if test="#{userController.connectedUser.accesslevel!=0}">
+                                                    <f:actionListener  binding="#{devicedistributorController.prepareGetMyDevice()}"  />
+                                                    <f:actionListener  binding="#{devicedistributorController.prepareDistributerTree()}"  />
+                                                </c:if>   
+
+                                            </h:commandLink> </li>
+                                        <li>      <h:commandLink  action="#{deviceController.prepareList()}" >                               
+
+                                                <span >#{bundle.ListDeviceTitle}</span> 
+                                                <f:actionListener binding="#{userController.prepareGetMyUser()}"/>
+                                                <f:actionListener  binding="#{devicedistributorController.prepareDistributerTree()}"  />
+
+                                            </h:commandLink></li> 
+
+
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup>
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='vehicle')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-truck"></i>
+                                    <span>#{bundle.Vehicle}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+
+                                        <li>      <h:commandLink action="#{vehicleController.prepareList()}"  >                             
+                                                <span>#{bundle.ListVehiculesTitle}</span>
+
+                                            </h:commandLink></li>
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup>
+
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='driver')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-group"></i>
+                                    <span>#{bundle.Driver}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form > <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{driverController.prepareCreate}"   >                              
+
+                                                <z><span >#{bundle.CreateDriverTitle}</span></z>
+
+                                            </h:commandLink></li> 
+
+
+                                        <li>       <h:commandLink  action="#{driverController.prepareList()}" >                          
+                                                <span>#{bundle.ListDriverTitle}</span>
+
+                                            </h:commandLink></li>
+
+
+                                    </ul></h:form>    				
+                            </li>
+                        </h:panelGroup> 
+
+
+
+
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='alerts')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-tasks"></i>
+                                    <span>#{bundle.Alert}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form> <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{alertController.prepareCreate()}"   >                              
+
+                                                <z><span >#{bundle.ViewAlertCreateLink}</span></z>
+
+                                            </h:commandLink></li> 
+                                        <li>       <h:commandLink  action="#{alertController.prepareList()}" >                          
+                                                <span>#{bundle.ViewAlertShowAllLink}</span>
+
+                                            </h:commandLink></li>
+
+
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup> 
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='notification')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-bell"></i>
+                                    <span>#{bundle.Notifications}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form> <ul class="dropdown-menu">
+
+                                        <li>       <h:commandLink  action="#{notificationController.prepareList()}" >                          
+                                                <span>#{bundle.ViewNotificationShowAllLink}</span>
+
+                                            </h:commandLink></li>
+
+
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup> 
+
+                        <!--<h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">-->
+                        <li class="#{(activeclass=='statistics')?'active dropdown':'dropdown'}" >				
+                            <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                <i class="icon-large icon-bar-chart"></i>
+                                <span>#{bundle.Statistics}</span>
+                                <b class="caret"></b>
+                            </a>	
+
+                            <h:form> <ul class="dropdown-menu">
+
+                                    <li><h:commandLink  action="#{vehicleController.prepareMovingOverview()}" >                          
+                                            <span>#{bundle.MovingOverview}</span>
+                                        </h:commandLink>
+                                    </li>
+                                    <li><h:commandLink  action="#{vehicleController.prepareAlarmOverview()}" >                          
+                                            <span>#{bundle.AlarmOverview}</span>
+                                        </h:commandLink>
+                                    </li>
+                                    <li><h:commandLink  action="#{vehicleController.prepareDeviceStatistics()}" >                          
+                                            <span>#{bundle.DeviceStatistics}</span>
+                                        </h:commandLink>
+                                    </li>
+                                    <li><h:commandLink  action="#{vehicleController.prepareAlarmDetails()}" >                          
+                                            <span>#{bundle.AlarmDetails}</span>
+                                        </h:commandLink>
+                                    </li>
+
+
+                                </ul>
+
+                            </h:form>    				
+                        </li>
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel==0}">
+                            <li class="#{(activeclass=='logs')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-warning-sign"></i>
+                                    <span>#{bundle.Logs}</span>
+                                    <b class="caret"></b>
+                                </a>	
+
+                                <h:form> <ul class="dropdown-menu">
+
+                                        <li><h:commandLink  action="#{logsController.prepareList()}" >                          
+                                                <span>#{bundle.ListLogsTitle}</span>
+                                            </h:commandLink>
+                                        </li>                                                                         
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup>
+
+                        <!--</h:panelGroup>--> 
+
+                    </ul>
+
+                </div> <!-- /container -->
+
+            </div> <!-- /subnavbar-inner -->
+
+        </div> <!-- /subnavbar -->
+
+
+        <c:if test="#{containerDelete!='yes'}">
+
+            <div class="main">
+
+
+                <div class="main-inner">
+
+
+                    <div class="container" >
+
+                        <div class="row">
+
+                            <div class="span12">      		
+
+                                <div class="widget ">
+
+                                    <div class="widget-header">
+
+                                        <h:panelGroup rendered="#{activeclass!='monitoring'}" > 
+
+                                            <i class="icon-user" style="height: 25px;"></i> 
+
+
+                                            <ui:insert name="titlewidget">Default Title</ui:insert>
+
+                                        </h:panelGroup>
+                                    </div>  
+                                    <div class="widget-content">
+
+                                        <h1>
+
+                                            <ui:insert name="titleunderpage" >Default Title</ui:insert>
+                                        </h1>
+
+
+
+
+                                        <ui:insert name="body">Default Body
+
+
+
+                                        </ui:insert>
+
+
+
+
+                                    </div> 
+
+
+
+
+                                </div>  
+
+
+                            </div>
+
+                        </div> 
+
+                    </div>  
+
+                </div>  
+
+            </div> <!-- /main --> 
+
+
+
+        </c:if>
+        <c:if test="#{containerDelete=='yes'}">
+
+
+            <ui:insert name="body"  >Default Body</ui:insert>
+
+
+        </c:if>
+        <c:if test="#{containerDelete!='yes'}">
+
+        </c:if>
+
+    </h:body >
+
+
+
+</html>

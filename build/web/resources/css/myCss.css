@@ -1,0 +1,460 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11 déc. 2015, 08:57:38
+    Author     : user
+*/
+.ui-inputfield { box-shadow: none !important; }
+.ui-spinner-input {
+
+    text-align: left !important;  
+}
+
+/*div.upload {
+    width: 157px!important;
+    height: 57px!important;
+    background: url(https://lh6.googleusercontent.com/-dqTIJRTqEAQ/UJaofTQm3hI/AAAAAAAABHo/w7ruR1SOIsA/s157/upload.png)!important;
+    overflow: hidden!important;
+        position: relative;
+    bottom: -57px;
+    left: -3px;
+}*/
+
+
+#tableAlertForm th,#tableAlertForm table,#tableAlertForm caption,#tableAlertForm tbody,#tableAlertForm tfoot,#tableAlertForm thead,#tableAlertForm tr,#tableAlertForm td {
+    /*          margin: 0!important;
+              padding: 0!important;
+              border: 0!important;*/
+    outline: 0!important;
+    font-size: 100%!important;
+    /*vertical-align: baseline!important;*/
+    background: transparent!important;
+    color: black!important;
+}
+#tableAlertForm th{
+
+    padding: 6px;
+    text-align: left;
+    font-weight: bold;
+}
+#tableAlertForm table{
+
+    border-collapse: collapse;
+    border-spacing: 0px;
+}
+
+
+
+
+
+.mymargenbutoon{
+
+
+    width: 300px !important;
+    padding-bottom: 0px !important;
+    padding-top: 0px !important;
+    padding-left: 0px !important;
+    padding-right: 0px !important;
+
+}
+
+
+/*div.upload input {
+    display: block !important;
+    width: 157px !important;
+    height: 57px !important ;
+    opacity: 1 !important ;
+    overflow: hidden !important;
+}*/
+
+
+
+body {
+    margin: 0;
+}
+
+.pushmenu { /*this is the nav*/
+    background: #1B4263;;
+    font-family: Arial, Helvetics, sans-serif;
+    /*width: 240px;*/
+    width: 320px;
+    height: 100%!important;
+    position:fixed;
+}
+#formpushmenu\:toggleable_header{
+    background: #1B4263!important;  
+    border: 0px!important;
+    padding: 0px!important;
+    padding-top: 15px!important;
+    height: 31px!important;
+    margin-top: 0px!important;
+    border-radius:0px!important;
+
+}
+#formpushmenu .ui-widget-header{
+    text-shadow: none!important;
+}
+#formpushmenu .ui-widget-header{
+    color: white!important;
+}
+#formpushmenu\:toggleable{
+    border: 0px!important;
+    padding: 0px!important;
+     margin-top: -6px!important;
+}
+#formpushmenu\:toggleable_toggler{
+       border: 0px!important;
+    padding: 0px!important; 
+   
+}
+#formpushmenu .ui-tree-container{
+    height: 29vh!important;
+}
+#formpushmenu\:toggleable_content{
+    padding: 0px!important;
+}
+.container1{
+    margin-left: 0px;
+    height: 100%;
+
+}
+
+
+.pushmenu h3 {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 20px;
+    margin: 0;
+    background: #1B4263;    
+    height: 16px;
+}
+
+.pushmenu a {
+    display: block; /* drops the nav vertically*/
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    border-top: 1px solid #fff;
+    border-bottom: 1px solid #B2AFAA;
+    padding: 14px;
+}
+
+
+/*color when cursor on right list*/
+.pushmenu a:hover {
+    background:#001323;
+}
+
+.pushmenu a:active {
+    background: #454f5c;
+    color: #fff;
+}
+
+.pushmenu-left {
+    /*left: -240px;*/
+    left: -320px;
+
+}
+
+.pushmenu-left.pushmenu-open {
+    left: 0;
+}
+
+.pushmenu-push {
+    overflow-x: hidden;
+    position: relative;
+    left: 0;
+    height: 78%!important;
+}
+
+.pushmenu-push-toright {
+    /*left: 240px;*/
+    left: 320px;
+}
+
+/*Transition*/
+.pushmenu, .pushmenu-push {
+    -webkit-transition: all 0.3s ease;
+    -moz-transition: all 0.3s ease;
+    transition: all 0.3s ease;  
+}
+
+#nav_list {
+    background: url(http://www.onlywebpro.com/demo/jquery/icon_nav.png) no-repeat left top;
+    cursor: pointer;
+    /*    height: 27px;*/
+    height: 54px;
+    width: 33px;
+    text-indent: -99999em;
+    margin-bottom: 18px;
+
+}
+
+
+nav-list.active {
+    background-position: -33px top;
+}
+
+.buttonset {
+    background:#1B4263;
+    /*#00A287;*/
+    height: 16px;
+    padding: 10px 2px 20px;
+}
+
+section.content {
+
+    font-family: Arial, Helvetica, sans-serif;
+    /*    padding: 10px 20px;*/
+    padding-right: 0%;
+    padding-left: 0%;
+    padding-top: 0%;
+    padding-bottom: 0%;
+    height: 90%;
+}
+
+body{overflow-x: hidden;
+
+}
+
+#footer {display:none;}
+
+#monitoringform .dropdown-toggle,#selectMapForm .swipe2 ,#selectMapForm .btn {
+    margin: 0 0 23px!important;
+}
+
+.container-fluid{
+    padding-right: 0px!important;
+    padding-left: 0px!important;
+    height: 100%;
+
+}
+#idbody{
+
+    height: 100vh!important;
+}
+.row-fluid{
+    height: 100%!important;
+}
+.span12{
+    height: 100%!important;
+
+}
+.ui-selectmanymenu{
+
+    /*    width: 290px!important;*/
+    width: 100% !important;
+}
+
+
+
+#formpushmenu .ui-selectlistbox-item{
+    color: #000000!important;
+    background: #fff!important;
+}
+
+#monitoringform .btn-group{            
+    margin-top: 23px;
+    float: right;
+
+}
+
+
+#buttonaction a{
+    /*background: red;*/
+}
+
+/*button background grey color*/
+#formpushmenu .btn:hover{
+    background-color: #9E9E9E!important;
+}
+#formpushmenu .btn-danger:hover{
+    background-color: #bd2b1f!important;
+}
+#formpushmenu .myh4{
+    margin-top: 2px!important;
+    margin-bottom: 2px!important;
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 15px 20px;
+    margin: 0;
+    background: #1B4263;
+    height: 16px;
+    margin-left: -12px!important;
+    margin-right: -6px!important;
+}
+
+
+#selectMapForm{
+    /*margin-bottom: 0px!important;*/
+}
+#nav_list2
+{ 
+    background: url(http://www.onlywebpro.com/demo/jquery/icon_nav.png) no-repeat left top;
+    cursor: pointer;
+    /*    height: 27px;*/
+
+    width: 33px;
+    text-indent: -99999em;
+    height: 69px!important;
+}
+
+#geafencesbottons .resetbotton{
+
+    margin-bottom: 0px!important;
+} 
+
+#formpushmenu{margin-bottom: 0px;}
+
+#formGeoFence, #feedbackwidget, #Accuratefeedbackwidget{
+    margin-bottom: 0px;
+}
+#formpushmenu  ul{
+    /*left: 0%!important;*/
+    left: -50% !important;
+}
+#formpushmenu a{
+    padding: 0px!important;
+    /*color: #000;*/ 
+    text-decoration: none; 
+
+    font-size: 13px; 
+    text-align: left; 
+    padding: 2px 5px; 
+    /*background: #fff;*/ 
+    border-bottom: 0px;
+    border-top: 0px;
+
+
+    display: block; 
+    position: relative; 
+
+    font-family: sans-serif;
+    font-weight: initial;
+
+}
+#formpushmenu\:roadbutton    {
+
+    width: 32px!important;
+    height: 32px!important;
+    background: #fff;
+    color: #000;
+    border-bottom-color: #fff!important;
+    border-top: 1px solid #fff!important;
+    background-image: url(../images/deviation.png)  !important; 
+}
+
+
+#formpushmenu\:roadbutton:hover{
+
+    width: 32px!important;
+    height: 32px!important;
+    background-image: url(../images/deviationhover.png)  !important; 
+
+}
+#formpushmenu\:actionbutton:hover{
+    background: red;
+}
+
+
+#formpushmenu .ui-selectlistbox-listcontainer{
+    height: 100%!important;
+}
+
+.myTextStyle { 
+    color: #000; 
+    text-decoration: none; 
+    font-style: italic; 
+    font-size: 13px; 
+    text-align: center; 
+    padding: 2px 5px; 
+    background: #fff; 
+    width: 120px; 
+    margin: 0 auto; 
+    display: block; 
+    position: relative; 
+    top: -10px; 
+    font-family: "Droid serif", serif; 
+}
+
+#formpushmenu .ui-selectlistbox-item{
+    /*    width: 157px!important;
+        height: 57px!important;
+        background: url(https://lh6.googleusercontent.com/-dqTIJRTqEAQ/UJaofTQm3hI/AAAAAAAABHo/w7ruR1SOIsA/s157/upload.png)!important;
+        overflow: hidden!important;
+            position: relative;
+        bottom: -57px;
+        left: -3px;*/    
+}
+#formpushmenu   .ui-state-highlight{
+    text-shadow: 0px 0px 0px!important;
+    /*color:  #fff!important;*/
+}
+
+#formpushmenu .ui-state-hover{
+    box-shadow :  0px 0px 0px!important;
+}
+
+/* .primefacesInputCss*/
+#edit-profile-vehicule input,textarea{
+    font-size: 130%!important;
+    line-height: 18px!important;
+    color: #9C9C99!important;
+
+    font-family: 'Open Sans'!important;
+    box-shadow: none!important;
+
+
+
+}
+.ui-inputtext,.hasDatepicker,.ui-spinner-input{
+    height: 20px;
+}
+
+.span3{
+    height: 20px;
+}
+#geofenceZoneDate .ui-corner-all{
+
+    border-radius: 0px!important;
+
+    margin-bottom: 0px!important;
+
+
+}
+
+
+.container .brand {
+    padding-bottom: 0px!important;
+    padding-top: 0px!important;
+}
+
+.pushmenu-left{
+
+    height: 90vh !important;
+}
+
+.iconAffectDevice{
+    padding-right:8px;
+    padding-left: 8px;
+    display: inline;
+    height:16px;
+    width:10px;
+    background:url(../images/affectgps.png) ; 
+}
+.iconAffectDevice:hover{
+    padding-right:8px;
+    padding-left: 8px;
+    display: inline;
+    height:16px;
+    width:10px;
+    background:url(../images/affectgpshover.png) ;  
+
+}
+

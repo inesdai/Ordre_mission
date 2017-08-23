@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="vehicle"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">  <h:outputText value="#{bundle.Moredetails}"></h:outputText></h3>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+
+
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+
+                        <li>
+                            <h2>#{vehicleController.selected.description} (IMEI:#{vehicleController.selected.device.imei})</h2>	
+
+                        </li>
+
+                    </ul>
+                  
+                     
+                           
+ 
+ 
+                    <div class="tab-content" style="margin-left: 0px!important;">
+                        <div class="tab-pane active" id="edit-profile-vehicule">
+                            <h:form id="edit-profile-vehicule" class="form-horizontal" prependId="false">
+
+                                <h:panelGroup id="messagePanel" layout="block">
+                                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                </h:panelGroup> 
+                              
+                                         
+                                             
+                                <fieldset style="margin-left: 0px!important;">
+                            
+                                    <div class="row" style="margin-left: 0px!important;">
+ 
+                                        <div class="span12" style="margin-left: 0px!important;">
+    
+
+                                            <div class="row-fluid stats-box" >
+                                          
+                                                <div class="span6" style="margin-left: 0px!important;">
+                                                    
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="mark">#{bundle.ViewVehicleLabel_mark}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="mark" value="#{vehicleController.selected.mark}" title="#{bundle.ViewVehicleTitle_mark}" />
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.mark=='' or vehicleController.selected.mark==null}"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="model">#{bundle.ViewVehicleLabel_model}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="model" value="#{vehicleController.selected.model}" title="#{bundle.ViewVehicleTitle_model}" />
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.model==''or vehicleController.selected.model==null }"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+
+                                                    <div class="control-group">	
+                                                        <label class="control-label" for="icon">#{bundle.ViewVehicleLabel_icon}</label>
+                                                        <div class="controls">
+
+                                                            <h:outputText  value="#{bundle.Undefined}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='0' or vehicleController.selected.icon==null }"/>
+                                                            <h:outputText  value="#{bundle.SmallCar}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='1'}"/>
+                                                            <h:outputText  value="#{bundle.BigCar}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='2'}"/>
+                                                            <h:outputText   value="#{bundle.SmallTruck}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='3'}"/>
+                                                            <h:outputText  value="#{bundle.BigTruck}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='4'}"/>
+                                                            <h:outputText  value="#{bundle.SmallBus}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='5'}"/>
+                                                            <h:outputText  value="#{bundle.BigBus}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='6'}"/>
+                                                            <h:outputText  value="#{bundle.Armored}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='7'}"/>
+                                                            <h:outputText  value="#{bundle.Moto}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='8'}"/>
+                                                            <h:outputText  value="#{bundle.Ship}" title="#{bundle.ViewVehicleTitle_icon}" rendered="#{vehicleController.selected.icon=='9'}"/>
+
+                                                        </div> <!-- /controls -->
+                                                    </div> <!-- /control-group -->			
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="typefuel">#{bundle.ViewVehicleLabel_typefuel}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append"> 
+                                                                <h:outputText id="typefuel" value="#{vehicleController.selected.typefuel}" title="#{bundle.ViewVehicleTitle_typefuel}"/>
+                                                                <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.typefuel==null}"/>
+
+                                                            </div> <!-- /controls -->
+                                                        </div>
+                                                    </div> <!-- /control-group -->
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="fuelconsumption">#{bundle.ViewVehicleLabel_fuelconsumption}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="fuelconsumption" value="#{vehicleController.selected.fuelconsumption} #{bundle.LiterKM}" title="#{bundle.ViewVehicleTitle_fuelconsumption}" rendered="#{vehicleController.selected.fuelconsumption!=null and   vehicleController.selected.fuelconsumption!=0}"/>
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.fuelconsumption==null or vehicleController.selected.fuelconsumption==0}"/>
+
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="startkm">#{bundle.ViewVehicleLabel_startkm}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append">
+                                                                <h:outputText id="startkm" value="#{vehicleController.selected.startkm} #{bundle.Km}" title="#{bundle.ViewVehicleTitle_startkm}"  rendered="#{vehicleController.selected.startkm!=null}"/>
+                                                                <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.startkm==null}"/>
+
+                                                            </div>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="OverSpeedVehicle">#{bundle.OverSpeedVehicle}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="OverSpeedVehicle" value="#{vehicleController.selected.maxSpeed}" title="#{bundle.OverSpeedVehicle}"/>
+
+
+                                                        </div> <!-- /controls -->				
+                                                                                                        </div> <!-- /control-group -->
+                                           
+
+                                                          
+                                                     
+                                                            <div class="control-group">									
+                                                        <label class="control-label" for="problemsvehicle">#{bundle.ViewVehicleLabel_problemsvehicle}</label>
+                                                   <div class="controls">
+                                                         #{vehicleController.selected.problemsvehicle}
+  
+                                                                 <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.problemsvehicle=='' or vehicleController.selected.problemsvehicle==null}"/>
+                                                         
+                                                          </div>      
+                                                            </div>
+                                                        			
+                             
+
+ 
+
+              
+                                              
+ 
+                                                </div>
+
+                                                <div class="span6" style="margin-left: -5px!important;">
+                                                                                          <div class="control-group">											
+                                                        <label class="control-label" for="TechnicalInspectionDate">#{bundle.TechnicalInspectionDate}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="TechnicalInspectionDate" value="#{vehicleController.selected.technicalInspectionDate}" title="#{bundle.TechnicalInspectionDateTitle}" rendered="#{vehicleController.selected.technicalInspectionDate!=null}"/>
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.technicalInspectionDate==null}"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="technicalInspectiondPeriod">#{bundle.technicalInspectiondPeriod}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="technicalInspectiondPeriod" value="#{vehicleController.selected.technicalInspectiondPeriod} #{bundle.Years}" title="#{bundle.technicalInspectiondPeriodTitle}" />
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                          <div class="control-group">											
+                                                        <label class="control-label" for="RemmeberBeforetechnical">#{bundle.RemmeberBefore}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="RemmeberBeforetechnical" value="#{vehicleController.selected.rememberbeforetechnical} #{bundle.RememberDays}" title="#{bundle.RemmeberBeforeTitle}" />
+                                                            
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="lastoilchange">#{bundle.ViewVehicleLabel_lastoilchange}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="lastoilchange" value="#{vehicleController.selected.lastoilchange} #{bundle.Km}" title="#{bundle.ViewVehicleTitle_lastoilchange}" rendered="#{vehicleController.selected.lastoilchange!=null}"/>
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.lastoilchange==null}"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="periodoilchange">#{bundle.ChangeEvery}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="periodoilchange" value="#{vehicleController.selected.periodoilchange} #{bundle.Km}" title="#{bundle.ViewVehicleTitle_periodoilchange}" rendered="#{vehicleController.selected.periodoilchange!=null}"/>
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.periodoilchange==null}"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="RemmeberBefore">#{bundle.RemmeberBefore}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="RemmeberBefore" value="#{vehicleController.selected.rememberbeforeoil} #{bundle.RememberDays}" title="#{bundle.RemmeberBeforeTitle}"/>
+                                                            
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="insurancephone">#{bundle.ViewVehicleLabel_insurancephone}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="insurancephone" value="#{vehicleController.selected.insurancephone}" title="#{bundle.ViewVehicleTitle_insurancephone}"/>
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.insurancephone=='' or vehicleController.selected.insurancephone==null}"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="password2">#{bundle.ViewVehicleLabel_dateassurance}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="password2" value="#{vehicleController.selected.dateassurance}" title="#{bundle.ViewVehicleTitle_dateassurance}">
+                                                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                            </h:outputText>
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.dateassurance==null or vehicleController.selected.dateassurance=='' }"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="periodassurance">#{bundle.ViewVehicleLabel_periodassurance}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{bundle.After} #{bundle.Year}" title="#{bundle.ViewVehicleTitle_periodassurance}" rendered="#{vehicleController.selected.periodassurance=='1'}"/>
+                                                            <h:outputText id="periodassurance" value="#{bundle.After} #{bundle.Semester}" title="#{bundle.ViewVehicleTitle_periodassurance}" rendered="#{vehicleController.selected.periodassurance=='2'}"/>
+                                                            <h:outputText value="#{bundle.After} #{bundle.Quarter}" title="#{bundle.ViewVehicleTitle_periodassurance}" rendered="#{vehicleController.selected.periodassurance=='3'}"/>
+                                                            <h:outputText value="#{bundle.Undefined}" rendered="#{vehicleController.selected.periodassurance==null or vehicleController.selected.periodassurance=='' }"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="isactive">#{bundle.ViewVehicleLabel_isactive}</label>
+                                                        <div class="controls">
+                                                            <c:if test="#{vehicleController.selected.isactive==1}">
+
+                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-ok"></i> #{bundle.Active}</a>
+                                                            </c:if>
+
+                                                            <c:if test="#{vehicleController.selected.isactive==0}">
+
+                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-remove"></i> #{bundle.Desactive}</a>
+                                                            </c:if> 
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="createdate">#{bundle.ViewVehicleLabel_createdate}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="createdate" value="#{vehicleController.selected.createdate}" title="#{bundle.ViewVehicleTitle_createdate}">
+                                                                <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                                                            </h:outputText>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+
+
+
+
+
+
+
+                                                </div>
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div> 
+                                    <br></br>
+
+                                </fieldset>
+
+                                <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                    <center> <h:link outcome="Edit" value="#{bundle.ViewVehicleEditLink}" styleClass="btn btn-small btn-success">
+                                            <i class="btn-icon-only icon-edit"></i>
+                                        </h:link> &nbsp;                                         
+                                        <h:link outcome="/vehicle/List?faces-redirect=true" value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                                </div> <!-- /form-actions -->
+                            </h:form>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{Bundle.EditLogsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{Bundle.EditLogsLabel_logID}" for="logID" />
+                    <h:inputText id="logID" value="#{logsController.selected.logID}" title="#{Bundle.EditLogsTitle_logID}" required="true" requiredMessage="#{Bundle.EditLogsRequiredMessage_logID}"/>
+                    <h:outputLabel value="#{Bundle.EditLogsLabel_datetime}" for="datetime" />
+                    <h:inputText id="datetime" value="#{logsController.selected.datetime}" title="#{Bundle.EditLogsTitle_datetime}" required="true" requiredMessage="#{Bundle.EditLogsRequiredMessage_datetime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{Bundle.EditLogsLabel_description}" for="description" />
+                    <h:inputText id="description" value="#{logsController.selected.description}" title="#{Bundle.EditLogsTitle_description}" />
+                    <h:outputLabel value="#{Bundle.EditLogsLabel_userid}" for="userid" />
+                    <h:selectOneMenu id="userid" value="#{logsController.selected.userid}" title="#{Bundle.EditLogsTitle_userid}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{Bundle.EditLogsLabel_deviceid}" for="deviceid" />
+                    <h:selectOneMenu id="deviceid" value="#{logsController.selected.deviceid}" title="#{Bundle.EditLogsTitle_deviceid}" >
+                        <f:selectItems value="#{deviceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{Bundle.EditLogsLabel_ipaddress}" for="ipaddress" />
+                    <h:inputText id="ipaddress" value="#{logsController.selected.ipaddress}" title="#{Bundle.EditLogsTitle_ipaddress}" />
+                </h:panelGrid>
+                <h:commandLink action="#{logsController.update}" value="#{Bundle.EditLogsSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{Bundle.EditLogsViewLink}"/>
+                <br />
+                <h:commandLink action="#{logsController.prepareList}" value="#{Bundle.EditLogsShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{Bundle.EditLogsIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

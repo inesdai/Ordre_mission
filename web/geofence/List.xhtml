@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:composition template="/hometemplate.xhtml">
+
+        <ui:define name="titlewidget">
+
+
+
+
+            <h3 style="top:0px;">    <h:outputText value="#{bundle.ListGeofenceTitle} #{geofenceController.vehicleInMonitoring.description}"></h:outputText></h3>
+            <h:form style="float: right;margin-right: 4px;">                  <h:inputHidden rendered="#{geofenceController.prepareListByVehicle()}"/>
+                <h:commandLink action="#{geofenceController.prepareCreateGeofence()}" value="#{bundle.ListAlertCreateLink}" styleClass="btn btn-primary"/></h:form>
+
+
+
+        </ui:define>
+        <ui:define name="titleunderpage">
+
+        </ui:define>
+        <ui:define name="body">
+
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+
+
+
+
+            <h:form styleClass="jsfcrud_list_form" id="geofenceZoneForm">
+
+                <!--                geofence== valCir or valPoly save data -->
+
+                <h:inputHidden id="validGeofenceZone" value="#{geofenceController.validGeofence}"/>
+                <h:inputHidden id="GeofenceZone" value="#{geofenceController.geofenceZone}"/>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+
+                <h:outputText escape="false" value="#{bundle.ListGeofenceEmpty}" rendered="#{geofenceController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{geofenceController.items.rowCount > 0}">
+
+                    <h:dataTable value="#{geofenceController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass="responsive-table table-bordered">
+                        <h:column>
+                            <f:facet name="header" >
+
+                                <h:outputText value="#{bundle.NO}"/>
+                            </f:facet>
+
+                            <h:outputText   value="#{geofenceController.items.rowIndex+1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.Name}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.geofencename}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.From}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.activatetime}" rendered="#{item.activatetime!=null}">
+                                <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                            </h:outputText>
+                            <h:outputText value="-" rendered="#{item.activatetime==null}">
+
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.To}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.desactivatetime}" rendered="#{item.desactivatetime!=null}">
+                                <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                            </h:outputText>
+                            <h:outputText value="-" rendered="#{item.desactivatetime==null}">
+
+                            </h:outputText>
+                        </h:column>
+
+
+
+
+
+
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListGeofenceTitle_typegeofence}"/>
+                            </f:facet>
+                            <h:outputText value="#{bundle.ActionGeofenceNotification}" rendered="#{item.typegeofence==11}"/>
+                            <h:outputText value="#{bundle.ActionGeofenceEmergencyCutOffPetrol}" rendered="#{item.typegeofence==21}"/>
+                            <h:outputText value="#{bundle.ActionGeofenceSafetyCutOffPetrol}" rendered="#{item.typegeofence==31}"/>
+                            <h:outputText value="#{bundle.ActionGeofenceNotification}" rendered="#{item.typegeofence==12}"/>
+                            <h:outputText value="#{bundle.ActionGeofenceEmergencyCutOffPetrol}" rendered="#{item.typegeofence==22}"/>
+                            <h:outputText value="#{bundle.ActionGeofenceSafetyCutOffPetrol}" rendered="#{item.typegeofence==32}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.Action}"/>
+                            </f:facet>
+                            <h:commandLink action="#{geofenceController.prepareShowGeofence}" title="#{bundle.print}">
+                                <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                </i>
+                            </h:commandLink>                            
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{geofenceController.destroyOneGeoFence()}" title="#{bundle.Destroy}">
+                                <i class="btn-icon-only icon-remove" style="color: #A40000"> 
+                                </i>
+                            </h:commandLink>
+                        </h:column>
+                    </h:dataTable>
+
+                </h:panelGroup>
+                <p:dialog id="geofenceDialogId" header="#{bundle.CreateGeofenceTitle_geofencezone}" widgetVar="geoFenceZone" style="width: 50px!important;height: 70vh!important;"  resizable="false">
+                    <p:commandLink styleClass="btn btn-primary"  value="#{bundle.EditAlertSaveLink}" style="position:absolute; right: 2px;color: #fcfcfc; " onclick ="saveCircle();" rendered="#{geofenceController.printOrEdit==true}"/>     
+
+                    <center> <h:outputText value="#{bundle.CreateGeofenceTitle_geofencezone}"/></center>
+                    <br />
+                    <div id="geofenceMap"  style=" height: 77vh;margin: 0px; padding: 0px 400px 0px; "></div>
+
+
+
+                </p:dialog>
+
+
+
+
+            </h:form>
+
+            <h:form id="geofenceZoneDate">
+
+                <p:dialog header="#{bundle.NewGeoFence}" widgetVar="geofenceDialogDateId"  resizable="false" id="geofenceDialogDateId">
+                    <h:panelGrid columns="1" cellpadding="5" id="panelgridGeofenceDate" style="margin-bottom: 0px!important;">
+                        <h:messages id="messageaAccuratefeedbackwidget" style="color:red;" /><h:outputLabel value=""/> 
+                        <h:panelGrid columns="2" style="margin-top: 0px!important;">
+                            <h:outputLabel value="#{bundle.Name}"/>
+                            <p:inputText id="name"  a:placeholder="* #{bundle.NameGeoFence}"  value="#{geofenceController.selected.geofencename}" 
+                                         title="#{bundle.Name}" required="true" requiredMessage="#{bundle.RequiredMessageName}" />
+                            <h:outputLabel value="#{bundle.vehicules}"/>
+                            <p:selectCheckboxMenu id="selectvehicle" value="#{geofenceController.vehicles}"  label="#{bundle.ViewDeviceTitle_vehicleid}" converter="vehicleConverter" required="true"  requiredMessage="#{bundle.RequiredMessageForVehicleDriver}"    style="width: 87%!important;"  filter="true" filterMatchMode="startsWith" >
+                                <f:selectItems value="#{vehicleController.vehicles}"  itemValue="#{vehicle}" />
+                            </p:selectCheckboxMenu>
+                            <h:outputLabel value="#{bundle.FromDate}"/> 
+                            <p:calendar id="calendarFrom" a:placeholder="#{bundle.From}"  value="#{geofenceController.selected.activatetime}"  locale="de" navigator="true" pattern="yyyy-MM-dd HH:mm:ss" yearRange="c:c+100" title="#{bundle.From}"  />
+                            <h:outputLabel value="#{bundle.ToDate}"/> 
+                            <p:calendar id="calendarTo" a:placeholder="#{bundle.To}"    value="#{geofenceController.selected.desactivatetime}" locale="de" navigator="true" pattern="yyyy-MM-dd HH:mm:ss" yearRange="c:c+100" title="#{bundle.To}"    />
+                            <h:outputLabel value="#{bundle.CreateAlertLabel_action}"/> 
+                            <h:selectOneMenu value="#{geofenceController.actionGeofence}" style="width: 88%!important;"  >
+                                <f:selectItem itemValue="1" itemLabel="#{bundle.ActionGeofenceNotification}" />
+                                <f:selectItem itemValue="2" itemLabel="#{bundle.ActionGeofenceSafetyCutOffPetrol}" />
+                                <f:selectItem itemValue="3" itemLabel="#{bundle.ActionGeofenceEmergencyCutOffPetrol}" />
+                            </h:selectOneMenu>
+                            <h:outputText value="* #{bundle.Requiredfield}"/>
+                            <h:outputText value=""/>      
+
+                        </h:panelGrid>
+                    </h:panelGrid>
+                    <p:commandLink value="#{bundle.CreateUserSaveLink}"  style="color: #fcfcfc; margin-left:  77%;"  styleClass="btn btn-primary" update="panelgridGeofenceDate"  action="/geofence/List?faces-redirect=true">
+
+                        <f:actionListener  binding="#{geofenceController.create()}"  />
+
+                    </p:commandLink>
+
+                </p:dialog>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</html>

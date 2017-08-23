@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="notification"/>
+        <ui:define name="titleunderpage">
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.ListNotificationTitle}"></h:outputText></h3>
+        </ui:define>
+
+
+
+        <ui:define name="body">
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                <h:form styleClass="jsfcrud_list_form" id="tableAlertForm2" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+                    <h:inputHidden rendered="#{notificationController.prepareList()}"/>
+
+                    <h:outputText escape="false" value="#{bundle.ListNotificationEmpty}" rendered="#{notificationController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{notificationController.items.rowCount > 0}">
+                        &nbsp;
+
+                        <h:commandLink action="#{notificationController.previous}" value="#{bundle.Previous} #{notificationController.pagination.pageSize}" rendered="#{notificationController.pagination.hasPreviousPage}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                        <h:commandLink action="#{notificationController.next}" value="#{bundle.Next} #{notificationController.pagination.pageSize}" rendered="#{notificationController.pagination.hasNextPage}" style ="float:right;">&nbsp;
+                            <i class="icon-large icon-arrow-right"></i>
+                        </h:commandLink>
+
+                        <h:dataTable id="tblNotification2" value="#{notificationController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass ="responsive-table table-bordered" rendered="#{notificationController.items.rowCount > 0}"  >
+                           
+                            <h:column>
+                                <f:facet name="header" >
+
+                                    <h:outputText value="#{bundle.NO}"/>
+                                </f:facet>
+
+                                <h:outputText   value="#{notificationController.items.rowIndex+1}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotificationTitle_typenotification}"/>
+                                </f:facet>
+                                <h:outputText rendered="#{item.typenotification==0 }"  value="Notification Systeme " />
+                                <h:outputText rendered="#{item.typenotification!=0 }"  value="Alerte" /> 
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotificationTitle_description}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.description}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotificationTitle_timenotification}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.timenotification}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotificationTitle_satus}"/>
+                                </f:facet>
+                                <h:outputText rendered="#{item.satus==0}"  value="#{bundle.readed}" />
+                                <h:outputText rendered="#{item.satus!=0}"  value="#{bundle.unreaded}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListNotificationTitle_deviceid}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.deviceid.name}"/>
+                            </h:column>
+                        </h:dataTable>
+                        <center>   <h:outputText value="#{notificationController.pagination.pageFirstItem + 1}..#{notificationController.pagination.pageLastItem + 1}/#{notificationController.pagination.itemsCount}"/></center>
+                    </h:panelGroup>
+                    <h:panelGrid columns="1" style="position: absolute;bottom: 10px;right: 10px;">
+                        <h:commandLink action="#{notificationController.generateDownloadPDF()}">
+                            <p:graphicImage value="../resources/images/pdf-icon.png"/>
+                        </h:commandLink>
+                    </h:panelGrid>
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>

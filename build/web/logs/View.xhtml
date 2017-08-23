@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{Bundle.ViewLogsTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{Bundle.ViewLogsLabel_logID}"/>
+                    <h:outputText value="#{logsController.selected.logID}" title="#{Bundle.ViewLogsTitle_logID}"/>
+                    <h:outputText value="#{Bundle.ViewLogsLabel_datetime}"/>
+                    <h:outputText value="#{logsController.selected.datetime}" title="#{Bundle.ViewLogsTitle_datetime}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{Bundle.ViewLogsLabel_description}"/>
+                    <h:outputText value="#{logsController.selected.description}" title="#{Bundle.ViewLogsTitle_description}"/>
+                    <h:outputText value="#{Bundle.ViewLogsLabel_userid}"/>
+                    <h:outputText value="#{logsController.selected.userid}" title="#{Bundle.ViewLogsTitle_userid}"/>
+                    <h:outputText value="#{Bundle.ViewLogsLabel_deviceid}"/>
+                    <h:outputText value="#{logsController.selected.deviceid}" title="#{Bundle.ViewLogsTitle_deviceid}"/>
+                    <h:outputText value="#{Bundle.ViewLogsLabel_ipaddress}"/>
+                    <h:outputText value="#{logsController.selected.ipaddress}" title="#{Bundle.ViewLogsTitle_ipaddress}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{logsController.destroyAndView}" value="#{Bundle.ViewLogsDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{Bundle.ViewLogsEditLink}"/>
+                <br />
+                <h:commandLink action="#{logsController.prepareCreate}" value="#{Bundle.ViewLogsCreateLink}" />
+                <br />
+                <h:commandLink action="#{logsController.prepareList}" value="#{Bundle.ViewLogsShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{Bundle.ViewLogsIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

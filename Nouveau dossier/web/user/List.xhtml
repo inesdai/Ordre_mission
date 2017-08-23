@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="user"/>
+        <ui:define name="titleunderpage">
+<!--            <h:outputText value="#{bundle.ListUserTitle}"></h:outputText>-->
+        </ui:define>
+
+        <ui:define name="titlewidget">
+
+            <h3 style="top:0px;">  <h:outputText value="#{bundle.ListUserTitle}"></h:outputText></h3>
+            <h:form style="float: right;margin-right: 4px;"> <h:commandLink  action="#{userController.prepareCreate}" value="#{bundle.ListAlertCreateLink}" styleClass="btn btn-primary" /> </h:form>
+        </ui:define> 
+
+
+
+        <ui:define name="body">
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:form styleClass="jsfcrud_list_form" id="listUsersForm">
+
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+                    <h:outputText escape="false" value="#{bundle.ListUserEmpty}" rendered="#{userController.items.rowCount==0}"/>
+                    <h:panelGroup rendered="#{userController.items.rowCount > 0 or userController.filter==true}">
+
+                        <h:commandLink action="#{userController.previous}" value="#{bundle.Previous} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasPreviousPage and userController.filter==false}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                        <h:commandLink  action="#{userController.next}" value="#{bundle.Next} #{userController.pagination.pageSize}" rendered="#{userController.pagination.hasNextPage and userController.filter==false}"  style ="float:right;">
+                            <i class="icon-large icon-arrow-right"></i>
+
+                        </h:commandLink>
+
+                        <p:panel   header="#{bundle.Search}" toggleable="true"  collapsed="true" toggleSpeed="500" closeSpeed="500" widgetVar="panel" >             
+                            <div>
+                                <h:outputText   value="#{bundle.ListUserTitle_firstname} / #{bundle.CreateUserLabel_lastname}&nbsp;&nbsp;" />  
+                                <h:inputText  value="#{userController.selected.firstname}" styleClass="span3" title="#{bundle.ListUserTitle_firstname} / #{bundle.ListUserTitle_lastname}"/> 
+
+                                <h:outputText value=" #{bundle.CreateUserLabel_username}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />  
+                                <h:inputText  value="#{userController.selected.username}" styleClass="span3" title="#{bundle.ListUserTitle_username}"/>   
+                            </div>
+                            <div>
+                                <h:outputText  value="#{bundle.CreateDriverLabel_email} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" />   
+                                <h:inputText   value="#{userController.selected.email}" styleClass="span3" title="#{bundle.CreateDriverTitle_email}"/>  
+
+                                <h:outputText  value="&nbsp;#{bundle.CreateUserLabel_accesslevel} &nbsp;&nbsp;&nbsp;" />  
+                                <h:selectOneMenu id="UserType" value="#{userController.selected.accesslevel}" 
+                                                 title="#{bundle.UserTypeTitle}"  styleClass="span3" >
+                                    <f:selectItem itemValue="4" itemLabel="#{bundle.AllType}" ></f:selectItem>
+                                    <f:selectItem itemValue="3" itemLabel="#{bundle.CreateAdminDistributorTitle_username}" ></f:selectItem>
+                                    <f:selectItem itemValue="2" itemLabel="#{bundle.CreateCustomerTitle_username}" ></f:selectItem>
+                                    <f:selectItem itemValue="1" itemLabel="#{bundle.CreateAgentTitle_username}"  ></f:selectItem>
+                                    <c:if test="#{userController.connectedUser.accesslevel=='0'}">
+                                        <f:selectItem itemValue="0" itemLabel="#{bundle.CreateAdminTitle_username}"  > </f:selectItem>                            
+                                    </c:if>
+                                </h:selectOneMenu>
+                                <p:commandLink value="#{bundle.Search}"  styleClass="btn btn-primary" action="#{userController.filterUsers()}" style="margin-top: 0px;float: right;color: #fcfcfc;" update="listUsersForm"  >
+
+                                </p:commandLink>
+                            </div> 
+                            &nbsp;
+                            <br />  
+                        </p:panel>
+                        <h:dataTable value="#{userController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass="responsive-table table-bordered" rendered="#{userController.items.rowCount > 0}">
+
+
+                            <h:column>
+                                <f:facet name="header" >
+
+                                    <h:outputText value="#{bundle.NO}"/>
+                                </f:facet>
+
+                                <h:outputText   value="#{userController.items.rowIndex+1}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header" >
+
+                                    <h:outputText value="#{bundle.ListUserTitle_firstname}"/>
+                                </f:facet>
+
+                                <h:outputText rendered="#{item.firstname!=''}" value="#{item.firstname}"/>
+                                <h:outputText rendered="#{item.firstname==''}" value="#{bundle.Undefined}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_lastname}"/>
+                                </f:facet>
+                                <h:outputText rendered="#{item.lastname!=''}" value="#{item.lastname}"/>
+                                <h:outputText rendered="#{item.lastname==''}" value="#{bundle.Undefined}"/>
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_username}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.username}"/>
+                            </h:column>                        
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_email}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.email}"/>
+                                <h:outputText rendered="#{item.email=='' or item.email==null }" value="#{bundle.Undefined}"/>
+
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_accesslevel}"/>
+                                </f:facet>
+                                <h:outputText value="#{bundle.CreateAdminTitle_username}" rendered="#{item.accesslevel==0}"/>
+                                <h:outputText value="#{bundle.CreateAgentTitle_username}" rendered="#{item.accesslevel==1}"/>
+                                <h:outputText value="#{bundle.CreateCustomerTitle_username}" rendered="#{item.accesslevel==2}"/>
+                                <h:outputText value="#{bundle.CreateAdminDistributorTitle_username}" rendered="#{item.accesslevel==3}"/>
+                            </h:column>
+
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_dateofbirth}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.dateofbirth}" rendered="#{item.dateofbirth!=null}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                                <h:outputText rendered="#{item.dateofbirth==null}"  value="#{bundle.Undefined}" />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_phonenumber}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.phonenumber}"/>
+                                <h:outputText rendered="#{item.phonenumber=='' or item.phonenumber==null }"  value="#{bundle.Undefined}" />
+                            </h:column>
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListUserTitle_createdby}"/>
+                                </f:facet>
+                                <h4> <h:outputText value="#{item.createdby.username}"/></h4>
+                                <h:outputText rendered="#{item.createdby==null }"  value="#{bundle.Undefined}" />
+
+                            </h:column>
+                            <h:column class="td-actions">
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.Action}"/>
+                                </f:facet>
+                                <h:commandLink action="#{userController.prepareView}" title="#{bundle.More}" >                            
+                                    <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                    </i>
+                                </h:commandLink>
+
+
+                                <h:commandLink action="#{userController.prepareEdit}" title="#{bundle.Edit}">
+
+                                    <i class="btn-icon-only icon-edit" style="color: #D98200"> 
+                                    </i>
+
+                                </h:commandLink>
+
+
+                                <a >
+                                    <i  class="btn-icon-only icon-remove openRemoveuser" style="color: #A40000" data-id="#{item.userid}" onclick="PF('confirmDestroyUser').show();" title="#{bundle.Destroy}"> 
+
+                                    </i>
+                                </a>
+
+
+                            </h:column>
+                        </h:dataTable>
+                        <center>  <h:outputText value="#{userController.pagination.pageFirstItem + 1}..#{userController.pagination.pageLastItem + 1}/#{userController.pagination.itemsCount}" rendered="#{userController.filter==false}"  /></center>
+
+                        <!--confirm destroy widget-->
+                        <p:dialog header="#{bundle.ConfirmDestroyUserMessageTitle}" widgetVar="confirmDestroyUser"   resizable="false">
+
+                            <div class="controls">
+                                <h:outputText value="#{bundle.ConfirmDestroyUserMessageContent}"/>	 
+                            </div>
+                            <input type="hidden" name="usertoremove" id="usertoremove"/>
+                            <h:commandButton styleClass="btn btn-danger" value="#{bundle.Confirm}" style="margin-right: 5px;" action="#{userController.destroyWithConfirm()}"/> 
+
+                            <h:commandButton type="button" value="#{bundle.Cancel}"  styleClass="btn"   onclick="PF('confirmDestroyUser').hide();"  immediate ="true" />
+
+                        </p:dialog>
+                    </h:panelGroup>
+                    <script>
+                        $(document).on("click", ".openRemoveuser", function () {
+                            var selectedrow = $(this).data('id');
+                            $('#usertoremove').val(selectedrow);
+                        });
+                    </script>
+
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home" />
+            </h:panelGroup>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>

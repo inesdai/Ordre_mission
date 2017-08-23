@@ -1,0 +1,35 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title>Login Page</title>
+
+    </h:head>
+    <h:body>
+        <ui:composition template="/offlinetemplate.xhtml">
+            <ui:define name="body">
+
+                <h:panelGroup id="GoogleMapForm" style="height: 400px;margin: 0px;padding: 400px;"  >
+                    <div id="devv2"  style="height: 480px;margin: 0px; padding: 0px 400px 0px; "  ></div>
+                    <h:outputScript >googlemapcontactinitialize();</h:outputScript>
+
+
+                </h:panelGroup>  
+                <h:panelGrid style ="margin-left: 43px;">
+                    <br/>
+                    Adresse VEGATECH <br/>
+
+                    Adresse: Bvd. 14 Janvier Im. Ons<br/>
+                    Ville: Sousse, 4089 Tunisie<br/>
+                    T: +216 73 817 066<br/>
+                    Email<br/>
+                    Info: info@vegatech.com.tn<br/>
+                </h:panelGrid>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditDevicedistributorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditDevicedistributorLabel_devicedistributerid}" for="devicedistributerid" />
+                    <h:inputText id="devicedistributerid" value="#{devicedistributorController.selected.devicedistributerid}" title="#{bundle.EditDevicedistributorTitle_devicedistributerid}" required="true" requiredMessage="#{bundle.EditDevicedistributorRequiredMessage_devicedistributerid}"/>
+                    <h:outputLabel value="#{bundle.EditDevicedistributorLabel_assigned}" for="assigned" />
+                    <h:inputText id="assigned" value="#{devicedistributorController.selected.assigned}" title="#{bundle.EditDevicedistributorTitle_assigned}" />
+                    <h:outputLabel value="#{bundle.EditDevicedistributorLabel_createdate}" for="createdate" />
+                    <h:inputText id="createdate" value="#{devicedistributorController.selected.createdate}" title="#{bundle.EditDevicedistributorTitle_createdate}" required="true" requiredMessage="#{bundle.EditDevicedistributorRequiredMessage_createdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditDevicedistributorLabel_addedby}" for="addedby" />
+                    <h:selectOneMenu id="addedby" value="#{devicedistributorController.selected.addedby}" title="#{bundle.EditDevicedistributorTitle_addedby}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDevicedistributorLabel_distributerid}" for="distributerid" />
+                    <h:selectOneMenu id="distributerid" value="#{devicedistributorController.selected.distributerid}" title="#{bundle.EditDevicedistributorTitle_distributerid}" >
+                        <f:selectItems value="#{distributerController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDevicedistributorLabel_deviceid}" for="deviceid" />
+                    <h:selectOneMenu id="deviceid" value="#{devicedistributorController.selected.deviceid}" title="#{bundle.EditDevicedistributorTitle_deviceid}" >
+                        <f:selectItems value="#{deviceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditDevicedistributorLabel_customerid}" for="customerid" />
+                    <h:selectOneMenu id="customerid" value="#{devicedistributorController.selected.customerid}" title="#{bundle.EditDevicedistributorTitle_customerid}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{devicedistributorController.update}" value="#{bundle.EditDevicedistributorSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditDevicedistributorViewLink}"/>
+                <br />
+                <h:commandLink action="#{devicedistributorController.prepareList}" value="#{bundle.EditDevicedistributorShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditDevicedistributorIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

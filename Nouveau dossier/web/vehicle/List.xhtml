@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="vehicle"/>
+        <ui:define name="titleunderpage">
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">     <h:outputText value="#{bundle.ListVehiculesTitle}"></h:outputText></h3>
+        </ui:define>
+        <ui:define name="body">
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" />
+
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                <h:form styleClass="jsfcrud_list_form">
+
+
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup> 
+
+                    <h:outputText escape="false" value="#{bundle.ListVehicleEmpty}" rendered="#{vehicleController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{vehicleController.items.rowCount > 0}">
+                        &nbsp;                   
+                        <h:commandLink action="#{vehicleController.previous}" value="#{bundle.Previous} #{vehicleController.pagination.pageSize}" rendered="#{vehicleController.pagination.hasPreviousPage}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                        <h:commandLink action="#{vehicleController.next}" value="#{bundle.Next} #{vehicleController.pagination.pageSize}" rendered="#{vehicleController.pagination.hasNextPage}" style ="float:right;">
+                            <i class="icon-large icon-arrow-right"></i>
+
+                        </h:commandLink>
+
+                        <h:dataTable value="#{vehicleController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass ="responsive-table table-bordered" >
+
+
+                            <h:column>
+                                <f:facet name="header" >
+
+                                    <h:outputText value="#{bundle.NO}"/>
+                                </f:facet>
+
+                                <h:outputText   value="#{vehicleController.items.rowIndex+1}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVehicleTitle_description}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.description}"/>
+                                <h:outputText rendered="#{item.description==null }"  value="#{bundle.Undefined}" />
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVehicleTitle_mark}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.mark}"/>
+                                <h:outputText rendered="#{item.mark==null or item.mark==''}"  value="#{bundle.Undefined}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVehicleTitle_model}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.model}"/>
+                                <h:outputText rendered="#{item.model==null or item.model==''}"  value="#{bundle.Undefined}" />
+                            </h:column> 
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.CreateDeviceTitle_imei}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.device.imei}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVehicleTitle_typefuel}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.typefuel}"/>
+                                <h:outputText rendered="#{item.typefuel=='' or item.typefuel==null }"  value="#{bundle.Undefined}" />
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVehicleTitle_isactive}"/>
+                                </f:facet>       
+                                <h:panelGroup rendered="#{item.isactive==0}">
+
+                                    <center><i class="icon-remove" ></i></center>
+                                </h:panelGroup>
+
+                                <h:panelGroup rendered="#{item.isactive==1}">
+
+                                    <center> <i class="icon-ok" ></i></center>
+                                </h:panelGroup>
+
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListVehicleTitle_startkm}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.startkm}"/>
+                                <h:outputText rendered="#{item.startkm==null or item.startkm==''}"  value="#{bundle.Undefined}" />
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.Action}"/>
+                                </f:facet>
+                                <h:commandLink action="#{vehicleController.prepareView}" title="#{bundle.More}">
+                                    <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                    </i>
+                                </h:commandLink>
+
+                                <h:commandLink action="#{vehicleController.prepareEdit}" title="#{bundle.Edit}">
+                                    <i class="btn-icon-only icon-edit" style="color: #D98200"> 
+                                    </i>
+                                </h:commandLink>
+
+
+                            </h:column>
+                        </h:dataTable>
+                        <center> <h:outputText value="#{vehicleController.pagination.pageFirstItem + 1}..#{vehicleController.pagination.pageLastItem + 1}/#{vehicleController.pagination.itemsCount}"/>&nbsp;</center>
+                    </h:panelGroup>
+                    <br />
+
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>

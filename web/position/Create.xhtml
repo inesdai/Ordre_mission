@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreatePositionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_positionid}" for="positionid" />
+                    <h:inputText id="positionid" value="#{positionController.selected.positionid}" title="#{bundle.CreatePositionTitle_positionid}" required="true" requiredMessage="#{bundle.CreatePositionRequiredMessage_positionid}"/>
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_address}" for="address" />
+                    <h:inputText id="address" value="#{positionController.selected.address}" title="#{bundle.CreatePositionTitle_address}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_altitude}" for="altitude" />
+                    <h:inputText id="altitude" value="#{positionController.selected.altitude}" title="#{bundle.CreatePositionTitle_altitude}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_course}" for="course" />
+                    <h:inputText id="course" value="#{positionController.selected.course}" title="#{bundle.CreatePositionTitle_course}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_latitude}" for="latitude" />
+                    <h:inputText id="latitude" value="#{positionController.selected.latitude}" title="#{bundle.CreatePositionTitle_latitude}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_longitude}" for="longitude" />
+                    <h:inputText id="longitude" value="#{positionController.selected.longitude}" title="#{bundle.CreatePositionTitle_longitude}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_other}" for="other" />
+                    <h:inputText id="other" value="#{positionController.selected.other}" title="#{bundle.CreatePositionTitle_other}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_powers}" for="powers" />
+                    <h:inputText id="powers" value="#{positionController.selected.powers}" title="#{bundle.CreatePositionTitle_powers}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_speed}" for="speed" />
+                    <h:inputText id="speed" value="#{positionController.selected.speed}" title="#{bundle.CreatePositionTitle_speed}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_timecreate}" for="timecreate" />
+                    <h:inputText id="timecreate" value="#{positionController.selected.timecreate}" title="#{bundle.CreatePositionTitle_timecreate}" required="true" requiredMessage="#{bundle.CreatePositionRequiredMessage_timecreate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_valid}" for="valid" />
+                    <h:inputText id="valid" value="#{positionController.selected.valid}" title="#{bundle.CreatePositionTitle_valid}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_mileage}" for="mileage" />
+                    <h:inputText id="mileage" value="#{positionController.selected.mileage}" title="#{bundle.CreatePositionTitle_mileage}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_accstatus}" for="accstatus" />
+                    <h:inputText id="accstatus" value="#{positionController.selected.accstatus}" title="#{bundle.CreatePositionTitle_accstatus}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_batteryincharge}" for="batteryincharge" />
+                    <h:inputText id="batteryincharge" value="#{positionController.selected.batteryincharge}" title="#{bundle.CreatePositionTitle_batteryincharge}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_vibrationstatus}" for="vibrationstatus" />
+                    <h:inputText id="vibrationstatus" value="#{positionController.selected.vibrationstatus}" title="#{bundle.CreatePositionTitle_vibrationstatus}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_relaystatus}" for="relaystatus" />
+                    <h:inputText id="relaystatus" value="#{positionController.selected.relaystatus}" title="#{bundle.CreatePositionTitle_relaystatus}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_sosbuttonstatus}" for="sosbuttonstatus" />
+                    <h:inputText id="sosbuttonstatus" value="#{positionController.selected.sosbuttonstatus}" title="#{bundle.CreatePositionTitle_sosbuttonstatus}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_signalgpsstatus}" for="signalgpsstatus" />
+                    <h:inputText id="signalgpsstatus" value="#{positionController.selected.signalgpsstatus}" title="#{bundle.CreatePositionTitle_signalgpsstatus}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_gprsstatus}" for="gprsstatus" />
+                    <h:inputText id="gprsstatus" value="#{positionController.selected.gprsstatus}" title="#{bundle.CreatePositionTitle_gprsstatus}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_batterylevel}" for="batterylevel" />
+                    <h:inputText id="batterylevel" value="#{positionController.selected.batterylevel}" title="#{bundle.CreatePositionTitle_batterylevel}" />
+                    <h:outputLabel value="#{bundle.CreatePositionLabel_deviceid}" for="deviceid" />
+                    <h:selectOneMenu id="deviceid" value="#{positionController.selected.deviceid}" title="#{bundle.CreatePositionTitle_deviceid}" >
+                        <f:selectItems value="#{deviceController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{positionController.create}" value="#{bundle.CreatePositionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{positionController.prepareList}" value="#{bundle.CreatePositionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreatePositionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

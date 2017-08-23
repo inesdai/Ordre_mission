@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/hometemplate.xhtml">      
+        <ui:param name="activeclass" value="statistics"/>
+        <ui:define name="titleunderpage">
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">    <h:outputText value="#{bundle.AlarmOverview}"></h:outputText></h3>
+        </ui:define>
+
+
+
+        <ui:define name="body" >
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+            <!--<h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >-->
+
+            <h:form id="formAlarmOverview" styleClass="jsfcrud_list_form">
+                <div class="tab-pane active" id="jscontrols">
+
+
+                    <div class="faq-toc" style="margin-top: 0px;">
+                        <div class="control-group">
+
+                            <div class="controls">
+
+                                <h:outputText value="#{bundle.DailyDetails}"/>&nbsp;
+                                <p:calendar a:placeholder="#{bundle.From}" id="fromDateAlarmOverview" value="#{vehicleController.fromStatistics}" locale="de" navigator="true" pattern="dd-MM-yyyy HH:mm:ss" yearRange="c-60:c+60" title="#{bundle.From}"    />
+                                &nbsp;
+                                <p:calendar a:placeholder="#{bundle.To}" id="toDateAlarmOverview" value="#{vehicleController.toStatistics}" locale="de" navigator="true" pattern="dd-MM-yyyy HH:mm:ss" yearRange="c-60:c+60" title="#{bundle.To}"  />
+                                &nbsp;
+                                <h:outputText value="#{bundle.FilterByVehicleTitle}"  />
+
+                                &nbsp;
+                                <h:selectOneMenu id="deviceid1" value="#{vehicleController.vehicleFilter}" label="#{bundle.CreateDevicedistributorTitle_deviceid}" style="width: 180px;" >
+                                    <f:selectItem itemLabel="#{bundle.AllVehicles}"  itemValue="#{null}" /> 
+                                    <f:selectItems value="#{vehicleController.vehicles}"   />
+                                    <p:ajax  listener ="#{vehicleController.prepareAlarmOverviewFilter()}" update="formAlarmOverview" />
+                                </h:selectOneMenu>
+                                <div>     
+                                    <p:commandButton value="#{bundle.Search}" styleClass="button btn btn-success btn-large"  action="#{vehicleController.alarmOverview()}" style="margin-top: 0px!important;" update="formAlarmOverview"/>
+
+                                </div>     
+                                &nbsp;
+                                <br />  
+
+
+
+                            </div> <!-- /controls -->	
+                        </div> <!-- /control-group -->
+                    </div>
+
+
+                </div>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <br />                  
+
+                <h:outputText escape="false" value="#{bundle.ListAlarmsEmpty}" rendered="#{vehicleController.items.rowCount == 0}"/>
+
+                <h:panelGroup rendered="#{vehicleController.items.rowCount > 0}">
+
+                    &nbsp;
+
+
+
+                    <h:dataTable value="#{vehicleController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass="responsive-table table-bordered">
+
+
+                        <h:column>
+                            <f:facet name="header" >
+
+                                <h:outputText value="#{bundle.NO}"/>
+                            </f:facet>
+
+                            <h:outputText   value="#{vehicleController.items.rowIndex+1}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTargetNameTitle}"/>
+                            </f:facet>
+
+                            <h:outputText value="#{item.mark}"  />
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListTimeTitle}"/>
+                            </f:facet>                            
+                            <h:outputText value="#{item.timeStatistics}">
+                                <f:convertDateTime pattern="yyyy/MM/dd" timeZone="GMT+1" />
+
+                            </h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.LowBatteryAlarmTitle}"/>
+                            </f:facet>                            
+                            <h:outputText value="#{item.lowBattery}">
+
+                            </h:outputText>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListCutOffAlarmTitle}"/>
+                            </f:facet>
+
+                            <h:outputText   value="#{item.cut_Off}">
+
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListShocksAlarmTitle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.shocks}"/>
+                        </h:column>
+
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListSosAlarmTitle}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.sos}"/>
+
+
+                        </h:column>
+                         <br/>
+                    </h:dataTable>
+                <br/>
+               
+                 
+                </h:panelGroup>
+         
+                <h:panelGrid columns="1" style="position: absolute;bottom: 10px;right: 10px;">
+                    <h:commandLink action="#{vehicleController.generateDownloadPDFAlarmO()}">
+                        <p:graphicImage value="../resources/images/pdf-icon.png"/>
+                    </h:commandLink>
+                </h:panelGrid>
+            </h:form> 
+            <!--
+                        </h:panelGroup>
+            
+                        <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                            <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                            <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+                        </h:panelGroup>-->
+        </ui:define>
+    </ui:composition>
+
+</html>

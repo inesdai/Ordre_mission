@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
+    <context-param>
+        <param-name>javax.faces.PROJECT_STAGE</param-name>
+        <param-value>Development</param-value>
+    </context-param>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.jsf</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.faces</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>*.xhtml</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>
+            60
+        </session-timeout>
+    </session-config>
+    <!--   log with loginbean -->
+    <welcome-file-list>
+        <!--        <welcome-file>/logingpstracker.xhtml</welcome-file>-->
+        <welcome-file>faces/login.xhtml</welcome-file>
+    </welcome-file-list>
+    
+    <!--    errors pages-->
+    <error-page>
+        <error-code>404</error-code>
+        <location>/faces/login.xhtml</location>
+    </error-page> 
+    <error-page>
+        <error-code>403</error-code>
+        <location>/faces/login.xhtml</location>
+    </error-page>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/faces/login.xhtml</location>
+    </error-page>
+    <!-- 
+-->
+<!--   <security-constraint>
+        <display-name>admin</display-name>
+        <web-resource-collection>
+            <web-resource-name>protected admin area</web-resource-name>
+            <description>path of welcome page admin</description>
+            <url-pattern>/alert/*</url-pattern>
+            <url-pattern>/faces/alert/*</url-pattern>
+            <url-pattern>/applicationsetting/*</url-pattern>
+            <url-pattern>/faces/applicationsetting/*</url-pattern>
+            <url-pattern>/device/*</url-pattern>
+            <url-pattern>/faces/device/*</url-pattern>
+            <url-pattern>/devicedistributor/*</url-pattern>
+            <url-pattern>/faces/devicedistributor/*</url-pattern>
+            <url-pattern>/distributer/*</url-pattern>
+            <url-pattern>/faces/distributer/*</url-pattern>
+            <url-pattern>/driver/*</url-pattern>
+            <url-pattern>/faces/driver/*</url-pattern>
+            <url-pattern>/geofence/*</url-pattern>
+            <url-pattern>/faces/geofence/*</url-pattern>
+            <url-pattern>/notification/*</url-pattern>
+            <url-pattern>/faces/notification/*</url-pattern>
+            <url-pattern>/position/*</url-pattern>
+            <url-pattern>/faces/position/*</url-pattern>
+            <url-pattern>/user/*</url-pattern>
+            <url-pattern>/faces/user/*</url-pattern>
+            <url-pattern>/logs/*</url-pattern>
+            <url-pattern>/faces/logs/*</url-pattern>
+            <url-pattern>/vehicle/*</url-pattern>
+            <url-pattern>/faces/vehicle/*</url-pattern>
+            <url-pattern>/faces/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>admin</description>
+            <role-name>admin</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>agent</display-name>
+        <web-resource-collection>
+            <web-resource-name>protected admin area</web-resource-name>
+            <description>path of welcome page admin</description>
+            <url-pattern>/alert/*</url-pattern>
+            <url-pattern>/faces/alert/*</url-pattern>
+            <url-pattern>/applicationsetting/*</url-pattern>
+            <url-pattern>/faces/applicationsetting/*</url-pattern>
+            <url-pattern>/device/*</url-pattern>
+            <url-pattern>/faces/device/*</url-pattern>
+            <url-pattern>/devicedistributor/*</url-pattern>
+            <url-pattern>/faces/devicedistributor/*</url-pattern>
+            <url-pattern>/distributer/*</url-pattern>
+            <url-pattern>/faces/distributer/*</url-pattern>
+            <url-pattern>/driver/*</url-pattern>
+            <url-pattern>/faces/driver/*</url-pattern>
+            <url-pattern>/geofence/*</url-pattern>
+            <url-pattern>/faces/geofence/*</url-pattern>
+            <url-pattern>/notification/*</url-pattern>
+            <url-pattern>/faces/notification/*</url-pattern>
+            <url-pattern>/position/*</url-pattern>
+            <url-pattern>/faces/position/*</url-pattern>
+            <url-pattern>/user/*</url-pattern>
+            <url-pattern>/faces/user/*</url-pattern>
+            <url-pattern>/logs/*</url-pattern>
+            <url-pattern>/faces/logs/*</url-pattern>
+            <url-pattern>/vehicle/*</url-pattern>
+            <url-pattern>/faces/vehicle/*</url-pattern>
+            <url-pattern>/faces/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>agent</description>
+            <role-name>agent</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>customer</display-name>
+        <web-resource-collection>
+            <web-resource-name>protected customer area</web-resource-name>
+            <description/>
+            <url-pattern>/alert/*</url-pattern>
+            <url-pattern>/faces/alert/*</url-pattern>
+            <url-pattern>/applicationsetting/*</url-pattern>
+            <url-pattern>/faces/applicationsetting/*</url-pattern>
+            <url-pattern>/device/*</url-pattern>
+            <url-pattern>/faces/device/*</url-pattern>
+            <url-pattern>/devicedistributor/*</url-pattern>
+            <url-pattern>/faces/devicedistributor/*</url-pattern>
+            <url-pattern>/distributer/*</url-pattern>
+            <url-pattern>/faces/distributer/*</url-pattern>
+            <url-pattern>/driver/*</url-pattern>
+            <url-pattern>/faces/driver/*</url-pattern>
+            <url-pattern>/geofence/*</url-pattern>
+            <url-pattern>/faces/geofence/*</url-pattern>
+            <url-pattern>/notification/*</url-pattern>
+            <url-pattern>/faces/notification/*</url-pattern>
+            <url-pattern>/position/*</url-pattern>
+            <url-pattern>/faces/position/*</url-pattern>
+            <url-pattern>/user/*</url-pattern>
+            <url-pattern>/faces/user/*</url-pattern>
+            <url-pattern>/logs/*</url-pattern>
+            <url-pattern>/faces/logs/*</url-pattern>
+            <url-pattern>/vehicle/*</url-pattern>
+            <url-pattern>/faces/vehicle/*</url-pattern>
+            <url-pattern>/faces/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description/>
+            <role-name>customer</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-constraint>
+        <display-name>admindistributor</display-name>
+        <web-resource-collection>
+            <web-resource-name>protected admindistributor area</web-resource-name>
+            <description/>
+            <url-pattern>/alert/*</url-pattern>
+            <url-pattern>/faces/alert/*</url-pattern>
+            <url-pattern>/applicationsetting/*</url-pattern>
+            <url-pattern>/faces/applicationsetting/*</url-pattern>
+            <url-pattern>/device/*</url-pattern>
+            <url-pattern>/faces/device/*</url-pattern>
+            <url-pattern>/devicedistributor/*</url-pattern>
+            <url-pattern>/faces/devicedistributor/*</url-pattern>
+            <url-pattern>/distributer/*</url-pattern>
+            <url-pattern>/faces/distributer/*</url-pattern>
+            <url-pattern>/driver/*</url-pattern>
+            <url-pattern>/faces/driver/*</url-pattern>
+            <url-pattern>/geofence/*</url-pattern>
+            <url-pattern>/faces/geofence/*</url-pattern>
+            <url-pattern>/notification/*</url-pattern>
+            <url-pattern>/faces/notification/*</url-pattern>
+            <url-pattern>/position/*</url-pattern>
+            <url-pattern>/faces/position/*</url-pattern>
+            <url-pattern>/user/*</url-pattern>
+            <url-pattern>/faces/user/*</url-pattern>
+            <url-pattern>/logs/*</url-pattern>
+            <url-pattern>/faces/logs/*</url-pattern>
+            <url-pattern>/vehicle/*</url-pattern>
+            <url-pattern>/faces/vehicle/*</url-pattern>
+            <url-pattern>/faces/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.xhtml</url-pattern>
+            <url-pattern>/indexinitial.jsf</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <description>admindistributor</description>
+            <role-name>admindistributor</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <description/>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+   
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>JDBCRealm</realm-name>
+        <form-login-config>
+            <form-login-page>/faces/login.xhtml</form-login-page>
+            <form-error-page>/faces/loginerror.xhtml</form-error-page>
+        </form-login-config>
+    </login-config>
+    
+    <security-role>
+        <description>Administration role</description>
+        <role-name>admin</role-name>
+    </security-role>
+    <security-constraint>
+        <display-name>All Access</display-name>
+        <web-resource-collection>
+            <web-resource-name>None Protected User Area</web-resource-name>
+            <description/>
+            <url-pattern>/resource/*</url-pattern>
+        </web-resource-collection>
+        <user-data-constraint>
+            <transport-guarantee>NONE</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
+    <security-role>
+        <description>Agent role</description>
+        <role-name>agent</role-name>
+    </security-role>
+    <security-role>
+        <description>customer role</description>
+        <role-name>customer</role-name>
+    </security-role>
+    <security-role>
+        <description>admindistributor role</description>
+        <role-name>admindistributor</role-name>
+    </security-role>
+    -->
+</web-app>

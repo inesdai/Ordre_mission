@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="device"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.AffectDeviceToUser}"></h:outputText></h3>
+        </ui:define>
+        <ui:define name="body">
+
+
+            <style>
+
+                ul#my-tree	{margin:0; padding:10px 5px; color:#666;}
+                ul#my-tree	li		{margin:8px 0;}
+                div.desc	{margin:20px 0; color:#aaa; font-size:11px; text-align:left;}
+            </style>
+            <h:form prependId="false">
+                <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+                    <h:panelGrid columns="2"   >                       
+
+
+
+                        <h:outputLabel for="ChooseTheUser" value="#{bundle.ChooseTheUser}" styleClass="searchfilevehicletitle"/>                
+
+                        <p:selectOneListbox id="ChooseTheUser" value="#{devicedistributorController.selected.customerid}" 
+                                            var="u" filter="true" filterMatchMode="contains" scrollHeight="75" required="true" requiredMessage="#{bundle.usernamerequiremessage}">
+                            <f:selectItems value="#{userController.users}" var="user" 
+                                           itemLabel="#{user.username}" itemValue="#{user}"   />
+
+                            <p:column>
+                                <h:outputText value="#{u.username}" style="#{u.isdeleted==1 ? 'color: red' : ''}"/>
+                            </p:column>
+                        </p:selectOneListbox>
+
+
+
+
+
+                        <h:outputText value=" "  />
+                        <h:outputText value="* #{bundle.UserDeleted}" style="color: red"/>
+
+
+                        <h:outputLabel for="ChooseTheDevice" value="#{bundle.ChooseTheDevice}" styleClass="searchfilevehicletitle"/>                               
+                        <p:selectOneListbox id="ChooseTheDevice" value="#{devicedistributorController.selected.deviceid}" 
+                                            var="t" filter="true" filterMatchMode="contains" scrollHeight="75"  rendered="#{userController.connectedUser.accesslevel==0}" required="true" requiredMessage="#{bundle.Requiredmessageimeidevice}"> 
+                            <f:selectItems value="#{deviceController.devices}" var="device" 
+                                           itemLabel="#{device.imei}"  itemValue="#{device}"   />
+
+                            <p:column>
+                                <h:outputText value="#{t.imei}" title="#{bundle.Affected} #{deviceController.affectedTo(t.deviceid)}" style="#{t.devicedistributorCollection.isEmpty() ? '' : 'color: red'}" />
+                            </p:column>
+                        </p:selectOneListbox>
+
+                        <p:selectOneListbox  value="#{devicedistributorController.selected.deviceid}" 
+                                             var="d" filter="true" filterMatchMode="contains" scrollHeight="75"  rendered="#{userController.connectedUser.accesslevel==3 or userController.connectedUser.accesslevel==1}" required="true" requiredMessage="#{bundle.Requiredmessageimeidevice}"> 
+                            <f:selectItems value="#{devicedistributorController.devices}" var="device" 
+                                           itemLabel="#{device.imei}"  itemValue="#{device}"   />
+
+                            <p:column>
+                                <h:outputText value="#{d.imei}" style="#{d.devicedistributorCollection.size()>1 ? 'color: red' : ''}" />
+                            </p:column>
+                        </p:selectOneListbox>
+
+                        <h:inputText id="my-search" style="">
+                            
+                       <span class="ui-icon ui-icon-search"></span>
+                        </h:inputText>
+                        <p:tree  id="my-tree" value="#{devicedistributorController.root}"  selectionMode="single" var="node" selection="#{devicedistributorController.selectedNodes}"  >
+                            <p:treeNode >
+                                <p:graphicImage value="../resources/images/delivery-truck.png" rendered="#{node['class'].simpleName eq 'Distributer'}"/><h:outputText value=" #{node.contact}" rendered="#{node['class'].simpleName eq 'Distributer'}" style="font-weight:bold;"/> 
+                                <p:graphicImage value="../resources/images/user.png" rendered="#{node['class'].simpleName eq 'User'}"/><h:outputText value=" #{node.username}" rendered="#{node['class'].simpleName eq 'User'}" />
+
+                            </p:treeNode>
+                        </p:tree>
+
+
+
+                        <br />
+                        <h:outputText value="* #{bundle.AffectedDevice}" style="color: red"/>
+                        <h:commandLink action="#{devicedistributorController.affectdevice}" value="#{bundle.CreateDeviceSaveLink}" styleClass="button btn btn-primary btn-large"/> 
+
+                    </h:panelGrid>
+
+
+                </h:panelGroup>
+
+                <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                    <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                    <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+                </h:panelGroup>
+
+                <h:outputScript name="js/jquery.treefilter.js"/> 
+
+                <script>
+
+
+
+                    $(function () {
+
+                        var tree = new treefilter($("#my-tree"), {
+                            searcher: $("input#my-search")
+                        });
+                    });
+                </script>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+
+</html>

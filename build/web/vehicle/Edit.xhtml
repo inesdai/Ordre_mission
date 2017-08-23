@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="vehicle"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;"> <h:outputText value="#{bundle.EditVehicleTitle}"></h:outputText></h3>
+        </ui:define>
+        <ui:define name="body">
+
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+
+
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+
+                        <li>
+                            <h2>#{vehicleController.selected.description} (IMEI:#{vehicleController.selected.device.imei})</h2>	
+                        </li>
+                    </ul>
+
+
+
+                    <div class="tab-content" style="margin-left: 0px!important;">
+                        <div class="tab-pane active" id="edit-profile-vehicule">
+                            <h:form id="editprofilevehiculeform" class="form-horizontal" prependId="false">
+
+                                <h:panelGroup id="messagePanel" layout="block">
+                                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                </h:panelGroup> 
+                                <fieldset style="margin-left: 0px!important;">
+                                    <div class="row" style="margin-left: 0px!important;">
+
+                                        <div class="span12" style="margin-left: 0px!important;">
+
+
+                                            <div class="row-fluid stats-box" >
+                                                <div class="span6" style="margin-left: 0px!important;">
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label" for="description">#{bundle.CreateVehicleLabel_description}</label>
+                                                        <div class="controls">
+                                                            <p:inputText a:placeholder="* #{bundle.CreateVehicleTitle_description}"  id="description" value="#{vehicleController.selected.description}" title="#{bundle.CreateVehicleTitle_description}" required="true" requiredMessage="#{bundle.DescriptionRequireMessage}" styleClass="span3" />
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="mark">#{bundle.CreateVehicleLabel_mark}</label>
+                                                        <div class="controls">
+                                                            <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_mark}"  id="mark" value="#{vehicleController.selected.mark}" title="#{bundle.CreateVehicleTitle_mark}" styleClass="span3"/>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="model">#{bundle.CreateVehicleLabel_model}</label>
+                                                        <div class="controls">
+                                                            <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_model}"  id="model" value="#{vehicleController.selected.model}" title="#{bundle.CreateVehicleTitle_model}" styleClass="span3"/>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+
+                                                    <div class="control-group">	
+                                                        <label class="control-label" for="icon">#{bundle.CreateVehicleLabel_icon}</label>
+                                                        <div class="controls">
+                                                            <p:selectOneMenu  value="#{vehicleController.iconVehicule}"  panelStyle="width:180px" 
+                                                                              var="ic" style="width: 65%!important;" converter="IconConverter"  height="190">
+                                                                <f:selectItems value="#{vehicleController.icons}" var="icon" itemLabel="#{icon.name}" itemValue="#{icon}"  />                                                           
+                                                                <p:column>  
+                                                                    <p:graphicImage value="/img/#{ic.displayName}Move.png" width="40" height="50"/>  
+                                                                </p:column>  
+                                                                <p:column>
+                                                                    <h:outputText value="#{ic.name}" />
+                                                                </p:column>
+                                                            </p:selectOneMenu>
+                                                        </div> <!-- /controls -->
+                                                    </div> <!-- /control-group -->			
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="typefuel">#{bundle.CreateVehicleLabel_typefuel}</label>
+                                                        <div class="controls">
+                                                            <h:selectOneMenu   id="typefuel" value="#{vehicleController.selected.typefuel}" required="true"  requiredMessage="#{bundle.RequiredMessageFuelTypePlease}" styleClass="span3" style="height: 29px!important;"  >                                        
+
+                                                                <f:selectItem itemValue="Gasoline" itemLabel="#{bundle.Gasoline}" ></f:selectItem>
+                                                                <f:selectItem itemValue="Diesel" itemLabel="#{bundle.Diesel}"  ></f:selectItem>
+                                                                <f:selectItem itemValue="Gas" itemLabel="#{bundle.Gas}"  ></f:selectItem>
+                                                                <f:selectItem itemValue="Other" itemLabel="#{bundle.Other}"  ></f:selectItem>                                        
+                                                            </h:selectOneMenu>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="fuelconsumption">#{bundle.CreateVehicleLabel_fuelconsumption}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append"> 
+                                                                <p:inputText a:placeholder="* #{bundle.CreateVehicleTitle_fuelconsumption}"  id="fuelconsumption" value="#{vehicleController.selected.fuelconsumption}" title="#{bundle.CreateVehicleTitle_fuelconsumption}" styleClass="span3" required="true" requiredMessage="#{bundle.FuelConsumptionrequiremessage}" />
+                                                                <span class="add-on">L/Km</span>
+                                                            </div> <!-- /controls -->
+                                                        </div>
+                                                    </div> <!-- /control-group -->
+
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="startkm">#{bundle.CreateVehicleLabel_startkm}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append">                                               
+                                                                <p:inputText a:placeholder="#{bundle.CreateVehicleTitle_startkm}" id="startkm" value="#{vehicleController.selected.startkm}" title="#{bundle.CreateVehicleTitle_startkm}"  styleClass="span3" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) if (event.which != 8) return false;"/>
+                                                                <span class="add-on">Km</span>
+                                                            </div>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="problemsvehicle">#{bundle.CreateVehicleLabel_problemsvehicle}</label>
+                                                        <div class="controls">
+                                                            
+                                                            <p:inputTextarea a:placeholder="#{bundle.CreateVehicleTitle_problemsvehicle}"  style="width: 63%;" cols="80" rows="5" maxlength="2000" id="problemsvehicle" value="#{vehicleController.selected.problemsvehicle}" title="#{bundle.CreateVehicleTitle_problemsvehicle}" validatorMessage="#{bundle.RemarquesValidation}"  />
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                       
+                                                     
+                                                </div>
+
+                                                <div class="span6" style="margin-left: -5px!important;">
+                                                     <div class="control-group">											
+                                                        <label class="control-label" for="dateassurance2">#{bundle.CreateVehicleLabel_dateassurance}</label>
+                                                        <div class="controls">
+                                                            <p:calendar a:placeholder="#{bundle.CreateVehicleTitle_dateassurance}" id="dateassurance2" value="#{vehicleController.selected.dateassurance}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-120:c+2" title="#{bundle.CreateVehicleTitle_dateassurance}"  onfocus="blur();"  />
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                        <div class="control-group">											
+                                                        <label class="control-label" for="periodeassurance">#{bundle.CreateVehicleTitle_periodassurance}</label>
+                                                        <div class="controls">
+                                                            <h:selectOneMenu id="periodeassurance" value="#{vehicleController.selected.periodassurance}"     styleClass="span3" style="height: 29px!important;">                                        
+                                                                <f:selectItem itemValue="1" itemLabel="#{bundle.Year}"  ></f:selectItem>
+                                                                <f:selectItem itemValue="2" itemLabel="#{bundle.Semester}" ></f:selectItem>
+                                                                <f:selectItem itemValue="3" itemLabel="#{bundle.Quarter}"  ></f:selectItem>
+                                                            </h:selectOneMenu>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="lastoilchange">#{bundle.CreateVehicleLabel_lastoilchange}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append">
+                                                                <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_lastoilchange}" id="lastoilchange"   value="#{vehicleController.selected.lastoilchange}" title="#{bundle.CreateVehicleTitle_lastoilchange}" styleClass="span3" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) if (event.which != 8) return false;">
+                                                                </h:inputText>
+                                                                <span class="add-on">Km</span>
+                                                            </div> <!-- /controls -->	
+                                                        </div>
+                                                    </div> <!-- /control-group -->
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="periodoilchange">#{bundle.ChangeEvery}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append">
+                                                                <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_periodoilchange}" id="periodoilchange"  value="#{vehicleController.selected.periodoilchange}" title="#{bundle.CreateVehicleTitle_periodoilchange}" styleClass="span3" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) if (event.which != 8) return false;"/>
+                                                                <span class="add-on">Km</span>
+                                                            </div>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="RemmeberBefore">#{bundle.RemmeberBefore}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append">
+                                                                <h:inputText a:placeholder="#{bundle.RemmeberBeforeTitle}" id="RemmeberBefore"  value="#{vehicleController.selected.rememberbeforeoil}" title="#{bundle.RemmeberBeforeTitle}" styleClass="span3" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) if (event.which != 8) return false;"/>
+                                                                <span class="add-on">Km</span>
+                                                            </div>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="insurancephone">#{bundle.CreateVehicleLabel_insurancephone}</label>
+                                                        <div class="controls">
+                                                            <p:inputText a:placeholder="#{bundle.CreateVehicleTitle_insurancephone}" id="insurancephone" value="#{vehicleController.selected.insurancephone}" title="#{bundle.CreateVehicleTitle_insurancephone}"  styleClass="span3"  />
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                           
+
+
+                                                
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="technicalInspectionDate">#{bundle.TechnicalInspectionDate}</label>
+                                                        <div class="controls">
+                                                            <p:calendar a:placeholder="#{bundle.TechnicalInspectionDateTitle}" id="technicalInspectionDate" value="#{vehicleController.selected.technicalInspectionDate}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-120:c+2" title="#{bundle.TechnicalInspectionDateTitle}" onfocus="blur();"  />
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="technicalInspectiondPeriod">#{bundle.technicalInspectiondPeriod}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append">
+                                                                <h:selectOneMenu id="technicalInspectiondPeriod" value="#{vehicleController.selected.technicalInspectiondPeriod}"  styleClass="span3" style="height: 29px!important;">                                        
+                                                                    <f:selectItem itemValue="6" itemLabel="6"  ></f:selectItem>
+                                                                    <f:selectItem itemValue="5" itemLabel="5"  ></f:selectItem>
+                                                                    <f:selectItem itemValue="4" itemLabel="4" ></f:selectItem>
+                                                                    <f:selectItem itemValue="3" itemLabel="3"  ></f:selectItem>
+                                                                    <f:selectItem itemValue="2" itemLabel="2"  ></f:selectItem>
+                                                                    <f:selectItem itemValue="1" itemLabel="1" ></f:selectItem>
+                                                                </h:selectOneMenu>
+                                                                <span class="add-on">#{bundle.Years}</span>
+                                                            </div>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="RemmeberBeforetechnecal">#{bundle.RemmeberBefore}</label>
+                                                        <div class="controls">
+                                                            <div class="t-prepend input-append">
+                                                                <h:inputText a:placeholder="#{bundle.RemmeberBeforeTitle}" id="RemmeberBeforetechnecal"  value="#{vehicleController.selected.rememberbeforetechnical}" title="#{bundle.RemmeberBeforeTitle}" styleClass="span3" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) if (event.which != 8) return false;"/>
+                                                                <span class="add-on">#{bundle.RememberDays}</span>
+                                                            </div>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                    <div class="control-group">											
+                                                        <label class="control-label" for="OverSpeedVehicle">#{bundle.OverSpeedVehicle}</label>
+                                                        <div class="controls">
+                                                            <p:inputText a:placeholder="* #{bundle.OverSpeedVehicletitle}" id="OverSpeedVehicle" value="#{vehicleController.selected.maxSpeed}" title="#{bundle.OverSpeedVehicletitle}" required="true"  requiredMessage="#{bundle.RequiredMessageOverSpeed}" styleClass="span3" validatorMessage="#{bundle.SurvitesseValidationMessage}" onkeypress="if (event.which &lt; 48 || event.which &gt; 57) if (event.which != 8) return false;"> 
+                                                                <f:validateLongRange minimum="1" maximum="1000" />
+                                                            </p:inputText>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+                                                </div>
+
+
+                                            </div>
+
+                                            &nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;#{bundle.Requiredfield}
+
+
+
+                                        </div>
+                                    </div> 
+                                    <br></br>
+
+                                </fieldset>
+
+                                <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                    <center> <h:commandLink action="#{vehicleController.update}" value="#{bundle.EditVehicleSaveLink}" class="btn btn-primary"/>&nbsp;                                          
+                                        <h:link outcome="/vehicle/List?faces-redirect=true" value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                                </div> <!-- /form-actions -->
+
+                            </h:form>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</html>

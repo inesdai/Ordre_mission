@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewDevicedistributorTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewDevicedistributorLabel_devicedistributerid}"/>
+                    <h:outputText value="#{devicedistributorController.selected.devicedistributerid}" title="#{bundle.ViewDevicedistributorTitle_devicedistributerid}"/>
+                    <h:outputText value="#{bundle.ViewDevicedistributorLabel_assigned}"/>
+                    <h:outputText value="#{devicedistributorController.selected.assigned}" title="#{bundle.ViewDevicedistributorTitle_assigned}"/>
+                    <h:outputText value="#{bundle.ViewDevicedistributorLabel_createdate}"/>
+                    <h:outputText value="#{devicedistributorController.selected.createdate}" title="#{bundle.ViewDevicedistributorTitle_createdate}">
+                        <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewDevicedistributorLabel_addedby}"/>
+                    <h:outputText value="#{devicedistributorController.selected.addedby}" title="#{bundle.ViewDevicedistributorTitle_addedby}"/>
+                    <h:outputText value="#{bundle.ViewDevicedistributorLabel_distributerid}"/>
+                    <h:outputText value="#{devicedistributorController.selected.distributerid}" title="#{bundle.ViewDevicedistributorTitle_distributerid}"/>
+                    <h:outputText value="#{bundle.ViewDevicedistributorLabel_deviceid}"/>
+                    <h:outputText value="#{devicedistributorController.selected.deviceid}" title="#{bundle.ViewDevicedistributorTitle_deviceid}"/>
+                    <h:outputText value="#{bundle.ViewDevicedistributorLabel_customerid}"/>
+                    <h:outputText value="#{devicedistributorController.selected.customerid}" title="#{bundle.ViewDevicedistributorTitle_customerid}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{devicedistributorController.destroyAndView}" value="#{bundle.ViewDevicedistributorDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewDevicedistributorEditLink}"/>
+                <br />
+                <h:commandLink action="#{devicedistributorController.prepareCreate}" value="#{bundle.ViewDevicedistributorCreateLink}" />
+                <br />
+                <h:commandLink action="#{devicedistributorController.prepareList}" value="#{bundle.ViewDevicedistributorShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewDevicedistributorIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

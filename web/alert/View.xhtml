@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="alerts"/>
+
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+
+        <ui:define name="titlewidget">
+
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.Moredetails}"></h:outputText></h3>
+        </ui:define>
+
+
+
+        <ui:define name="body">
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+
+                <div class="tabbable">
+
+
+
+
+                    <div class="tab-content" style="margin-left: 0px!important;">
+                        <div class="tab-pane active" id="edit-profile-vehicule">
+                            <h:form id="EditAlertform" class="form-horizontal" prependId="false">
+                                <h:panelGroup id="messagePanel" layout="block">
+                                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                </h:panelGroup> 
+                                <fieldset style="margin-left: 0px!important;">
+                                    <div class="row" style="margin-left: 0px!important;">
+
+                                        <div class="span12" style="margin-left: 0px!important;">
+                                            <div class="row-fluid stats-box" >
+                                                <div class="span6" style="margin-left: 0px!important;">
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label"  >#{bundle.CreateTypeAlert}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{bundle.Washing}" rendered="#{alertController.selected.typealert==1}"/>
+                                                            <h:outputText value="#{alertController.selected.othertype}" rendered="#{alertController.selected.typealert!=1}"/>
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label"  >#{bundle.CreateAlertLabel_action}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{alertController.selected.action}" />
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label"  >#{bundle.CreateAlertLabel_receiver}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{alertController.selected.userid.username}" />                                                      
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                </div>
+                                                <div class="span6" style="margin-left: 0px!important;">
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label"  >#{bundle.CreateAlertLabel_startdate}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="startdate" value="#{alertController.selected.startdate}" >
+                                                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                            </h:outputText>
+
+
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+                                                    <div  class ="control-group">											
+                                                        <label class="control-label"  >#{bundle.CreateAlertLabel_endtime}</label>
+                                                        <div class="controls">
+
+                                                            <h:outputText id="enddate" value="#{alertController.selected.enddate}" >
+                                                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                            </h:outputText>
+                                                        </div> <!-- /controls -->				
+                                                    </div> <!-- /control-group -->
+
+
+
+
+
+
+                                                    <!-- not implemented for this version                                
+                                                    <h:inputText id="duration" value="#{alertController.selected.duration}" title="#{bundle.CreateAlertTitle_duration}" >
+                                                                                        <f:convertDateTime pattern="HH:mm:ss" />
+                                                                                    </h:inputText> 
+                                                    
+                                                                                    <h:inputText id="recurencetype" value="#{alertController.selected.recurencetype}" title="#{bundle.CreateAlertTitle_recurencetype}" />
+                                                    
+                                                                                    <h:inputText id="everyweek" value="#{alertController.selected.everyweek}" title="#{bundle.CreateAlertTitle_everyweek}" />
+                                                    
+                                                                                    <h:inputText id="everydayonweek" value="#{alertController.selected.everydayonweek}" title="#{bundle.CreateAlertTitle_everydayonweek}" />
+                                                    
+                                                                                    <h:inputText id="endoccurence" value="#{alertController.selected.endoccurence}" title="#{bundle.CreateAlertTitle_endoccurence}" />
+                                                    
+                                                    
+                                                    
+                                                                                     
+                                                                                    not impemented at this version
+                                                                                                                    <h:inputText id="startkm" value="#{alertController.selected.startkm}" title="#{bundle.CreateAlertTitle_startkm}" />
+                                                                                    
+                                                                                                                    <h:inputText id="endkm" value="#{alertController.selected.endkm}" title="#{bundle.CreateAlertTitle_endkm}" />-->
+
+
+                                                </div>
+
+
+                                            </div>
+
+                                            &nbsp;&nbsp;&nbsp;*&nbsp;&nbsp;&nbsp;#{bundle.Requiredfield}
+
+
+
+                                        </div>
+                                    </div> 
+                                    <br></br>
+
+                                </fieldset>
+
+                                <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                    <center>
+
+                                        <h:link outcome="Edit" value="#{bundle.ViewDeviceEditLink}" styleClass="btn btn-small btn-success">
+                                            <i class="btn-icon-only icon-edit"></i>
+                                        </h:link> &nbsp;
+                                        &nbsp;
+                                        <h:link outcome="/alert/List?faces-redirect=true" value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                                </div> <!-- /form-actions -->
+
+                            </h:form>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

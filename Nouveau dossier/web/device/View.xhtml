@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="device"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">  <h:outputText value="#{bundle.MoreDetailsDevice}"></h:outputText></h3>
+        </ui:define>
+        <ui:define name="body">
+
+            <div class="tabbable">
+                <ul class="nav nav-tabs">
+
+                    <li>
+                        <h2>#{deviceController.selected.imei}</h2>	
+                    </li>
+
+                </ul>
+
+                <div class="tab-content" style="margin-left: 0px!important;">
+                    <div class="tab-pane active" id="edit-profile-vehicule">
+                        <h:form id="viewdeviceform" class="form-horizontal" prependId="false">
+
+                            <h:panelGroup id="messagePanel" layout="block">
+                                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                            </h:panelGroup>
+                            <fieldset style="margin-left: 0px!important;">
+                                <div class="row" style="margin-left: 0px!important;">
+
+                                    <div class="span12" style="margin-left: 0px!important;">
+
+
+                                        <div class="row-fluid stats-box" >
+                                            <div class="span6" style="margin-left: 0px!important;">
+
+
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="imei" >#{bundle.ViewDeviceLabel_imei}</label>
+                                                    <div class="controls">
+                                                        <h:outputText id="imei" value="#{deviceController.selected.imei}" title="#{bundle.ViewDeviceTitle_imei}"/>
+
+
+                                                    </div>
+                                                </div>
+
+<!--                                                <div  class ="control-group">
+                                                    <label class="control-label" for="name" >#{bundle.ViewDeviceLabel_name}</label>
+                                                    <div class="controls">
+                                                        <h:outputText  id="name" value="#{deviceController.selected.name}" title="#{bundle.ViewDeviceTitle_name}"/>
+                                                        <h:outputText value="#{bundle.Undefined}" rendered="#{deviceController.selected.name==''}" title="#{bundle.ViewDeviceTitle_urgentnumber12}"/>
+
+
+                                                    </div>
+                                                </div>-->
+
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="simcard" >#{bundle.ViewDeviceLabel_simcard}</label>
+                                                    <div class="controls">
+                                                        <h:outputText id="simcard" value="#{deviceController.selected.simcard}" title="#{bundle.ViewDeviceTitle_simcard2}"/>
+                                                        <h:outputText value="#{bundle.Undefined}" rendered="#{deviceController.selected.simcard==''}" title="#{bundle.ViewDeviceTitle_urgentnumber12}"/>
+
+
+                                                    </div>
+                                                </div>
+
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="urgentnumber1" >#{bundle.ViewDeviceLabel_urgentnumber1}</label>
+                                                    <div class="controls">
+                                                        <h:outputText id="urgentnumber1" value="#{deviceController.selected.urgentnumber1}" title="#{bundle.ViewDeviceTitle_urgentnumber12}"/>
+                                                        <h:outputText value="#{bundle.Undefined}" rendered="#{deviceController.selected.urgentnumber1==''}" title="#{bundle.ViewDeviceTitle_urgentnumber12}"/>
+
+
+                                                    </div>
+                                                </div>
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="urgentnumber2" >#{bundle.ViewDeviceLabel_urgentnumber2}</label>
+                                                    <div class="controls">
+                                                        <h:outputText id="urgentnumber2" value="#{deviceController.selected.urgentnumber2}" title="#{bundle.ViewDeviceTitle_urgentnumber22}"/>
+                                                        <h:outputText value="#{bundle.Undefined}" rendered="#{deviceController.selected.urgentnumber2==''}" title="#{bundle.ViewDeviceTitle_urgentnumber32}"/>
+
+                                                    </div>
+                                                </div>
+
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="urgentnumber3" >#{bundle.ViewDeviceLabel_urgentnumber3}</label>
+                                                    <div class="controls">
+                                                        <h:outputText value="#{deviceController.selected.urgentnumber3}" title="#{bundle.ViewDeviceTitle_urgentnumber32}"/>
+                                                        <h:outputText value="#{bundle.Undefined}" rendered="#{deviceController.selected.urgentnumber3==''}" title="#{bundle.ViewDeviceTitle_urgentnumber32}"/>
+
+                                                    </div>
+                                                </div>
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="description" >#{bundle.ViewDeviceLabel_vehicleid}</label>
+                                                    <div class="controls">
+                                                        <h:outputText id="description" value="#{deviceController.selected.vehicleid.description}" title="#{bundle.Vehicle}"/>
+                                                        <h:outputText value="#{bundle.Undefined}" rendered="#{deviceController.selected.vehicleid.description==null}" title="#{bundle.Vehicle}"/>
+
+                                                    </div>
+                                                </div>
+
+
+
+                                                <!--                                                    <div  class ="control-group">
+                                                                                                        <label class="control-label"  >#{bundle.ViewDeviceLabel_isdeleted}</label>
+                                                                                                        <div class="controls">
+                                                                                                            <c:if test="#{deviceController.selected.isdeleted==0}">
+                                                
+                                                                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-ok"></i> #{bundle.Notdeleted}</a>
+                                                                                                            </c:if>
+                                                
+                                                                                                            <c:if test="#{deviceController.selected.isdeleted==1}">
+                                                
+                                                                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-remove"></i> #{bundle.Deleted}</a>
+                                                                                                            </c:if>
+                                                
+                                                
+                                                                                                        </div>
+                                                                                                    </div>-->
+                                                <!--                                                    <div  class ="control-group">
+                                                                                                        <label class="control-label"   >#{bundle.ViewDeviceLabel_isactive2}</label>
+                                                                                                        <div class="controls">
+                                                                                                            <c:if test="#{deviceController.selected.isactive==1}">
+                                                
+                                                                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-ok"></i> #{bundle.Active}</a>
+                                                                                                            </c:if>
+                                                
+                                                                                                            <c:if test="#{deviceController.selected.isactive==0}">
+                                                
+                                                                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-remove"></i> #{bundle.Desactive}</a>
+                                                                                                            </c:if>  
+                                                
+                                                
+                                                                                                        </div>
+                                                                                                    </div>-->
+                                            </div>
+
+
+                                            <div class="span6" style="margin-left: 0px!important;">
+
+
+                                                <c:if test="#{userController.connectedUser.accesslevel==0}">
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="username" >#{bundle.ViewDeviceLabel_addedby}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="username" value="#{deviceController.selected.addedby.username}" title="#{bundle.ViewDeviceTitle_addedby}"/>
+
+
+                                                        </div>
+                                                    </div>
+
+ 
+                                                </c:if>
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="activatedate" >#{bundle.ViewDeviceLabel_activationdate}</label>
+                                                    <div class="controls">
+
+                                                        <h:outputText id="activatedate" value="#{deviceController.selected.activatedate}" title="#{bundle.ViewDeviceTitle_activationdate}">
+                                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                        </h:outputText>
+
+                                                    </div>
+                                                </div>
+
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="expirationdate" >#{bundle.ViewDeviceLabel_expirationdate}</label>
+                                                    <div class="controls">
+
+                                                        <h:outputText id="expirationdate" value="#{deviceController.selected.expirationdate}" title="#{bundle.ViewDeviceTitle_expirationdate2}">
+                                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                        </h:outputText>
+
+                                                    </div>
+                                                </div>
+
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="useractivationdate" >#{bundle.ViewDeviceLabel_useractivationdate}</label>
+                                                    <div class="controls">
+
+
+                                                        <h:outputText id="useractivationdate" value="#{deviceController.selected.useractivationdate}" title="#{bundle.ViewDeviceTitle_useractivationdate2}">
+                                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                        </h:outputText>
+
+                                                    </div>
+                                                </div>
+                                                <div  class ="control-group">
+                                                    <label class="control-label" for="userexpirationdate" >#{bundle.ViewDeviceLabel_userexpirationdate}</label>
+                                                    <div class="controls">
+
+
+                                                        <h:outputText id="userexpirationdate" value="#{deviceController.selected.userexpirationdate}" title="#{bundle.ViewDeviceTitle_userexpirationdate2}">
+                                                            <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                        </h:outputText>
+
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+
+
+                                        </div>
+
+
+
+
+                                    </div>
+                                </div> 
+
+
+                            </fieldset>
+
+                            <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                <center>                                                   
+                                    <h:link outcome="Edit" value="#{bundle.ViewDeviceEditLink}" styleClass="btn btn-small btn-success">
+                                        <i class="btn-icon-only icon-edit"></i>
+                                    </h:link> &nbsp;
+                                    &nbsp;                                          
+                                    <h:commandLink  action="#{deviceController.prepareList()}"   value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                            </div> <!-- /form-actions -->
+
+                        </h:form>
+
+                    </div>
+
+
+                </div>
+
+
+            </div>
+
+
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

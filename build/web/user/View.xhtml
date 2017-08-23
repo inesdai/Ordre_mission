@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="user"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+
+        <ui:define name="titlewidget">
+
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.Moredetails}"></h:outputText></h3>
+        </ui:define>
+
+
+
+        <ui:define name="body">
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+
+                <div class="tabbable">
+                    <ul class="nav nav-tabs">
+
+                        <li>
+                            <h2>#{userController.selected.firstname}  #{userController.selected.lastname}</h2>	
+                        </li>
+
+                    </ul>
+
+
+
+                    <div class="tab-content" style="margin-left: 0px!important;">
+                        <div class="tab-pane active" id="edit-profile-vehicule">
+                            <h:form id="viewdeviceform" class="form-horizontal" prependId="false">
+
+                                <h:panelGroup id="messagePanel" layout="block">
+                                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                </h:panelGroup>
+                                <fieldset style="margin-left: 0px!important;">
+                                    <div class="row" style="margin-left: 0px!important;">
+
+                                        <div class="span12" style="margin-left: 0px!important;">
+
+
+                                            <div class="row-fluid stats-box" >
+                                                <div class="span6" style="margin-left: 0px!important;">
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="firstname" >#{bundle.ViewUserLabel_firstname}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="firstname" value="#{userController.selected.firstname}" title="#{bundle.ViewUserTitle_firstname}"/>
+                                                            <h:outputText rendered="#{userController.selected.firstname==''}"  value="#{bundle.Undefined}" />
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="lastname" >#{bundle.ViewUserLabel_lastname}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="lastname" value="#{userController.selected.lastname}" title="#{bundle.ViewUserTitle_lastname}"/>
+                                                            <h:outputText rendered="#{userController.selected.lastname==''}"  value="#{bundle.Undefined}" />
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="username" >#{bundle.ViewUserLabel_username}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="username" value="#{userController.selected.username}" title="#{bundle.ViewUserTitle_username}"/>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="email" >#{bundle.ViewUserLabel_email}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="email" value="#{userController.selected.email}" title="#{bundle.ViewUserTitle_email}"/>
+                                                            <h:outputText rendered="#{userController.selected.email=='' or userController.selected.email==null}"  value="#{bundle.Undefined}" />
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="accesslevel" >#{bundle.ViewUserLabel_accesslevel}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{bundle.CreateAdminTitle_username}" rendered="#{userController.selected.accesslevel==0}"/>
+                                                            <h:outputText value="#{bundle.CreateAgentTitle_username}" rendered="#{userController.selected.accesslevel==1}"/>
+                                                            <h:outputText value="#{bundle.CreateCustomerTitle_username}" rendered="#{userController.selected.accesslevel==2}"/>
+                                                            <h:outputText value="#{bundle.CreateAdminDistributorTitle_username}" rendered="#{userController.selected.accesslevel==3}"/>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="admincreateaccess" >#{bundle.ViewUserLabel_admincreateaccess}</label>
+                                                        <div class="controls">
+                                                            <c:if test="#{userController.selected.admincreateaccess==1}">
+
+                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-ok"></i> #{bundle.truecreate}</a>
+                                                            </c:if>
+
+                                                            <c:if test="#{userController.selected.admincreateaccess==2}">
+
+                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-remove"></i> #{bundle.falsecreate}</a>
+                                                            </c:if>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="accesslevel" >#{bundle.ViewUserLabel_resetpassword}</label>
+                                                        <div class="controls">
+                                                            <c:if test="#{userController.selected.resetpassword==1}">
+
+                                                                #{bundle.Defaultpassword}
+                                                            </c:if>
+
+                                                            <c:if test="#{userController.selected.resetpassword==0}">
+
+                                                                &nbsp;&nbsp;&nbsp; #{bundle.Modifiedpassword}
+                                                            </c:if>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                                                                <div class="span6" style="margin-left: 0px!important;">
+
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="dateofbirth" >#{bundle.ViewUserLabel_dateofbirth}</label>
+                                                        <div class="controls">
+                                                            <h:outputText id="dateofbirth" value="#{userController.selected.dateofbirth}" rendered="#{userController.selected.dateofbirth!=null}">
+                                                                <f:convertDateTime pattern="yyyy/MM/dd" />
+                                                            </h:outputText>
+                                                            <h:outputText rendered="#{userController.selected.dateofbirth==null}"  value="#{bundle.Undefined}" />
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="phonenumber" >#{bundle.ViewUserLabel_phonenumber}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{userController.selected.phonenumber}" rendered="#{userController.selected.phonenumber!=''}"/>
+                                                            <h:outputText rendered="#{userController.selected.phonenumber==''}"  value="#{bundle.Undefined}" />
+
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="phonenumber" >#{bundle.ViewUserLabel_isactive}</label>
+                                                        <div class="controls">
+                                                            <c:if test="#{userController.selected.isactive==1}">
+
+                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-ok"></i> #{bundle.Active}</a>
+                                                            </c:if>
+
+                                                            <c:if test="#{userController.selected.isactive==0}">
+
+                                                                &nbsp;&nbsp;&nbsp; <a class="btn btn-small" ><i class="icon-remove"></i> #{bundle.Desactive}</a>
+                                                            </c:if>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="phonenumber" >#{bundle.ViewUserLabel_createdby}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value=" #{userController.selected.createdby.username}" title="#{bundle.ViewUserTitle_createdby}"/>
+
+
+                                                        </div>
+                                                    </div>
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="phonenumber" >#{bundle.ViewUserLabel_createdate}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{userController.selected.createdate}" title="#{bundle.ViewUserTitle_createdate}">
+                                                                <f:convertDateTime pattern="yyyy/MM/dd HH:mm:ss" />
+                                                            </h:outputText>
+
+                                                        </div>
+                                                    </div>
+
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="phonenumber" >#{bundle.ViewUserLabel_distributername}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{userController.selected.distributerid.contact}" title="#{bundle.ViewUserTitle_distributerid}" rendered="#{userController.selected.distributerid!=null}"/>
+
+                                                        </div>
+                                                    </div>
+
+
+                                                    <div  class ="control-group">
+                                                        <label class="control-label" for="phonenumber" >#{bundle.ViewUserLabel_distributername}</label>
+                                                        <div class="controls">
+                                                            <h:outputText value="#{userController.selected.distributerid.contact}" title="#{bundle.ViewUserTitle_distributerid}" rendered="#{userController.selected.distributerid!=null}"/>
+                                                            <h:outputText value="#{bundle.NotAssociated}" rendered="#{userController.selected.distributerid==null}"/>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+
+
+
+                                        </div>
+                                    </div> 
+
+
+                                </fieldset>
+
+                                <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+                                    <center>                                                   
+                                        <h:link outcome="EditAdmin" value="#{bundle.ViewDeviceEditLink}" styleClass="btn btn-small btn-success">
+                                            <i class="btn-icon-only icon-edit"></i>
+                                        </h:link> &nbsp;
+                                        &nbsp;                                          
+                                        <h:link outcome="/user/List?faces-redirect=true" value="#{bundle.Cancel}" class="btn"/>      </center>
+
+                                </div> <!-- /form-actions -->
+
+                            </h:form>
+
+                        </div>
+
+
+                    </div>
+
+
+                </div>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

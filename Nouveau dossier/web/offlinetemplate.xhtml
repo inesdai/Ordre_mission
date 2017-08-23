@@ -1,0 +1,72 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//FR" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:head>
+        <title>login page</title>
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>#{bundle.applicationname}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/>    
+        <link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/resources/images/favicon.ico"/>
+
+        <h:outputStylesheet name="css/bootstrap.min.css"  />
+        <h:outputStylesheet name="css/bootstrap-responsive.min.css"/>
+
+        <h:outputStylesheet name="css/font-awesome.css"/>
+
+        <!--        <script src="https://maps.googleapis.com/maps/api/js?libraries=drawing"></script>-->
+        <h:outputStylesheet name="css/style.css"/>
+        <h:outputStylesheet name="css/offlinetemplate.css"/>        
+        <h:outputStylesheet name="css/pages/signin.css"/>   
+ 
+
+        <h:outputScript name="js/base.js"/>
+        <!--pushmenu test-->
+        <h:outputStylesheet  name="PushMenu/css/hamburger.css"/>
+        <h:outputScript name="PushMenu/js/jquery-1.10.2.js"/> 
+        <h:outputScript name="PushMenu/js/jquery-ui.min.js"/> 
+        <h:outputScript name="PushMenu/js/hamburgerMenu.js"/> 
+        <f:view locale="#{language.locale}"/>
+    </h:head>
+    
+    <h:body class="bg_login" style="padding-left: 0px; padding-right: 0px;">
+        <div >
+        <div style="height:150px;padding-top:20px">
+
+
+
+            <div   style="padding-right: 10px;">.
+                <img style="width:200px;float:left" src="#{facesContext.externalContext.requestContextPath}/resources/images/logo-version-negative.png"/>					
+                <h:form  prependId="false"  styleClass="nav pull-right" style="margin-right: 10px;margin-top: 22px;" >
+                    <h:commandButton action="#{language.changeLanguage('fr')}"
+                                     value="Francais" image="/resources/images/fr.png" >
+
+
+                    </h:commandButton>
+                    <h:commandButton action="#{language.changeLanguage('en')}"
+                                     value="English" image="/resources/images/gb.png" >
+
+
+                    </h:commandButton>&nbsp;
+
+                </h:form>
+
+            </div>
+        </div>
+            </div>
+
+        <p>
+            <ui:insert name="body">Default Body</ui:insert>
+        </p>
+
+
+
+
+    </h:body>
+
+</html>

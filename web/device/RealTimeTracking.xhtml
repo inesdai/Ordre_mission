@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html  xmlns="http://www.w3.org/1999/xhtml"
+       xmlns:h="http://xmlns.jcp.org/jsf/html"
+       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+       xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+       xmlns:p="http://primefaces.org/ui"
+       xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+
+    <!--    <script src="https://code.jquery.com/jquery-1.11.2.min.js"/>-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol.js"/>
+    <!--<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCs2n9svhqi7H1mddr3OEj6acbw7kQlx_o"></script>-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=geometry"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?libraries=drawing"></script>
+
+    <h:outputScript name="js/turf.min.js" />           
+    <!--<h:outputScript name="js/jquery-1.7.2.min.js" />-->
+    <h:outputScript name="js/bootstrap.js" />
+    <h:outputScript name="js/markerwithlabel.js" />
+    <h:outputScript name="js/base.js"/>
+
+
+    <h:outputScript name="PushMenu/js/jquery-1.10.2.js"/> 
+    <h:outputScript name="PushMenu/js/jquery-ui.min.js"/> 
+    <h:outputScript name="PushMenu/js/hamburgerMenu.js"/> 
+
+    <h:outputScript name="js/excanvas.min.js"/> 
+    <h:outputScript name="js/chart.min.js"/> 
+    <h:outputScript name="js/moment.min.js"/> 
+
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>#{bundle.applicationname}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
+        <meta name="apple-mobile-web-app-capable" content="yes"/> 
+        <!--        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>  -->
+        <!--         <link  href="http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600" rel="stylesheet" />-->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ol3/3.5.0/ol.css" type="text/css"/>
+        <h:outputStylesheet name="css/style.css" />
+    </h:head>
+
+    <h:body  >
+        <div id="realTimeMaps"  style="height: 96vh;margin: 0px; padding: 0px 400px 0px; "  ></div>
+        <h:form id="allMaps">
+            <h:inputHidden id="arrayRealTime" value="#{positionController.arrayRealTime}" ></h:inputHidden> 
+              <h:outputScript >setLanguage("#{language.language}");</h:outputScript>
+
+            <h:outputScript >realTimeTrackingInitialize();</h:outputScript>
+            <!--<h:outputScript >googlemapRealTimeInitialize();</h:outputScript>-->
+            <p:poll interval="20"   listener ="#{positionController.refreshPositionRealTime()}" update="arrayRealTime" />
+            <p:poll interval="25" oncomplete="realTimeTracking();"  />
+            
+        </h:form>
+
+    </h:body>
+</html>

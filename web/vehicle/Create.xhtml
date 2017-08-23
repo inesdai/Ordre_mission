@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="vehicle"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.CreateVehicleTitle}"></h:outputText></h3>
+        </ui:define>
+        <ui:define name="body" >
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                <div class="account-container register" >
+
+                    <div class="content clearfix">
+
+                        <h:form >
+
+                            <h1>#{bundle.NewVehicle}</h1>			
+
+                            <div class="login-fields">
+                                <h:panelGrid columns="1">
+
+
+
+                                    <h:panelGroup id="messagePanel" layout="block">
+                                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                                    </h:panelGroup> 
+
+
+                                    <p:inputText a:placeholder="*#{bundle.CreateVehicleTitle_description}"  id="description" value="#{vehicleController.selected.description}" title="#{bundle.CreateVehicleTitle_description}" required="true" requiredMessage="#{bundle.DescriptionRequireMessage}" />
+
+                                    <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_mark}"  id="mark" value="#{vehicleController.selected.mark}" title="#{bundle.CreateVehicleTitle_mark}" />
+
+                                    <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_model}" id="model" value="#{vehicleController.selected.model}" title="#{bundle.CreateVehicleTitle_model}" />                                                                  
+
+                                    <p:selectOneMenu value="#{vehicleController.selected.icon}"  required="true"  converterMessage="#{bundle.RequiredMessageChooseTheTypeOfVehicle}" style="width: 320px;">                                        
+                                        <f:selectItem itemValue="null" itemLabel="#{bundle.ChooseTheTypeOfVehicle}" ></f:selectItem>
+                                        <f:selectItem itemValue="1" itemLabel="#{bundle.Car}" ></f:selectItem>
+                                        <f:selectItem itemValue="2" itemLabel="#{bundle.TruckTransportation}"  ></f:selectItem>
+                                        <f:selectItem itemValue="3" itemLabel="#{bundle.TowTruck}"  ></f:selectItem>
+                                        <f:selectItem itemValue="4" itemLabel="#{bundle.MoneyTransportationTruck}"  ></f:selectItem>                                        
+                                    </p:selectOneMenu>
+                                    <p:selectOneMenu   value="#{vehicleController.selected.typefuel}" required="true"  requiredMessage="#{bundle.RequiredMessageFuelTypePlease}" style="width: 320px;" >                                        
+                                        <f:selectItem itemValue="" itemLabel="#{bundle.FuelType}" ></f:selectItem>
+                                        <f:selectItem itemValue="Gasoline" itemLabel="#{bundle.Gasoline}" ></f:selectItem>
+                                        <f:selectItem itemValue="Diesel" itemLabel="#{bundle.Diesel}"  ></f:selectItem>
+                                        <f:selectItem itemValue="Gas" itemLabel="#{bundle.Gas}"  ></f:selectItem>
+                                        <f:selectItem itemValue="Other" itemLabel="#{bundle.Other}"  ></f:selectItem>                                        
+                                    </p:selectOneMenu>
+
+
+
+
+                                    <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_lastoilchange}" id="lastoilchange"  value="#{vehicleController.selected.lastoilchange}" title="#{bundle.CreateVehicleTitle_lastoilchange}" />
+
+
+
+                                    <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_periodoilchange}" id="periodoilchange"  value="#{vehicleController.selected.periodoilchange}" title="#{bundle.CreateVehicleTitle_periodoilchange}" />
+
+                                    <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_problemsvehicle}" id="problemsvehicle" value="#{vehicleController.selected.problemsvehicle}" title="#{bundle.CreateVehicleTitle_problemsvehicle}" />
+
+                                    <h:inputText a:placeholder="#{bundle.CreateVehicleTitle_fuelconsumption}"  id="fuelconsumption" value="#{vehicleController.selected.fuelconsumption}" title="#{bundle.CreateVehicleTitle_fuelconsumption}" />
+
+
+
+
+
+
+
+                                    <p:inputText a:placeholder="#{bundle.CreateVehicleTitle_insurancephone}" id="insurancephone" value="#{vehicleController.selected.insurancephone}" title="#{bundle.CreateVehicleTitle_insurancephone}" />
+
+                                    <p:calendar a:placeholder="#{bundle.CreateVehicleTitle_dateassurance}" id="dateassurance" value="#{vehicleController.selected.dateassurance}" locale="de" navigator="true" pattern="yyyy-MM-dd" yearRange="c-2:c+120" title="#{bundle.CreateVehicleTitle_dateassurance}"  onfocus="blur();"/>
+
+
+
+                                    <p:selectOneMenu  value="#{vehicleController.selected.periodassurance}"  required="true"  converterMessage="#{bundle.RequiredMessageAssurancePeriode}"  style="width: 320px;">                                        
+                                        <f:selectItem itemValue="null" itemLabel="#{bundle.AssurancePeriode}" ></f:selectItem>
+                                        <f:selectItem itemValue="1" itemLabel="#{bundle.Semester}" ></f:selectItem>
+                                        <f:selectItem itemValue="2" itemLabel="#{bundle.Quarter}"  ></f:selectItem>
+                                        <f:selectItem itemValue="3" itemLabel="#{bundle.Year}"  ></f:selectItem>
+
+                                    </p:selectOneMenu>
+
+
+
+
+                                    <h:panelGrid columns="1" style="margin-bottom: 10px;height: 29px!important;">
+                                        <h:outputText id="output" value="#{bundle.CreateVehicleTitle_durationplayback} #{vehicleController.selected.durationplayback} #{bundle.Days}" />
+                                        <h:inputHidden id="txt2" value="#{vehicleController.selected.durationplayback}" />
+                                        <p:slider for="txt2" display="output" style="width: 200px" displayTemplate="#{bundle.CreateVehicleTitle_durationplayback} {value} #{bundle.Days}" />
+                                    </h:panelGrid>
+
+
+
+
+
+                                    <p:inputText a:placeholder="#{bundle.CreateVehicleTitle_startkm}" id="startkm" value="#{vehicleController.selected.startkm}" title="#{bundle.CreateVehicleTitle_startkm}" styleClass="span3"/>
+                                </h:panelGrid>
+                                <br />
+                                <h:outputText value="* #{bundle.Requiredfield}"/>
+                                <br /> 
+                                <br />
+                                <h:commandLink action="#{vehicleController.create}" value="#{bundle.CreateVehicleSaveLink}" class="button btn btn-primary btn-large"/>                            
+                                <br />
+                                <br />
+
+                            </div>
+                        </h:form>
+                    </div>
+                </div>
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>

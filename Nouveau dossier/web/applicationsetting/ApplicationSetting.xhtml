@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <h:body>
+        <ui:composition template="/hometemplate.xhtml">
+            <ui:param name="activeclass" value=""/>
+            <ui:define name="titleunderpage">
+                <h:outputText value=""></h:outputText>
+            </ui:define>
+
+            <ui:define name="titlewidget">
+                <h3 style="top:0px;">    <h:outputText value="#{bundle.SettingList}"></h:outputText></h3>
+            </ui:define>
+            <ui:define name="body">   
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==0}" >
+
+                <div class="account-container register">
+
+                    <div class="content clearfix">
+                        <h:panelGroup id="messagePanel" layout="block" >
+                            <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"  />
+                        </h:panelGroup>
+                        <h:form id="formsetting">
+                            <div class="login-fields">
+
+                                <h:panelGrid columns="2">  
+
+                                    <h3>#{bundle.LastUpdate}:</h3>                          
+                                    <c:if test="#{applicationsettingController.lastUpdate=='' or applicationsettingController.lastUpdate==null }" >
+                                        <h5>#{bundle.NoapplicationSetting}</h5>	
+                                    </c:if>
+                                    <c:otherwise>
+                                        <h5>#{applicationsettingController.lastUpdate}</h5>	 
+                                    </c:otherwise>
+                                </h:panelGrid>
+
+                                <br/>
+                                <p:messages id="messages1"  for="ipAddress" autoUpdate="true"/>
+                                <p:messages id="messages2"  for="portNumber" autoUpdate="true"/>
+                                <p:messages id="messages3"  for="GpsProtocol" autoUpdate="true"/>
+                                <p:messages id="messages4"   for="ImageFolderPath" autoUpdate="true"/>
+                                <p:messages id="messages5"   for="timeZone" autoUpdate="true"/>
+                                <h:panelGrid columns="1" id="applicationsettingpanel" >  
+                                    <h:inputText a:placeholder="*#{bundle.IpAddress}"  id="ipAddress" value="#{applicationsettingController.ipAddress}" title="#{bundle.IpAddress}" required="true" requiredMessage="#{bundle.IpAddressrequired}" readonly="#{userController.connectedUser.admincreateaccess==0}">
+                                        <f:validator validatorId="IpValidator"/>
+                                    </h:inputText>
+                                    <h:inputText a:placeholder="*#{bundle.PortNumber}"  id="portNumber" value="#{applicationsettingController.portNumber}" title="#{bundle.PortNumber}" required="true" requiredMessage="#{bundle.PortNumberrequired}" readonly="#{userController.connectedUser.admincreateaccess==0}"/>
+                                    <h:inputText a:placeholder="*#{bundle.GpsProtocol}"  id="GpsProtocol" value="#{applicationsettingController.gpsProtocol}" title="#{bundle.GpsProtocol}"  required="true" requiredMessage="#{bundle.GpsProtocolrequired}" readonly="#{userController.connectedUser.admincreateaccess==0}"/>
+                                    <h:inputText a:placeholder="*#{bundle.ImageFolderPath}"  id="ImageFolderPath" value="#{applicationsettingController.imageFolderPath}" title="#{bundle.ImageFolderPath}"  required="true" requiredMessage="#{bundle.ImageFolderPathrequired}" readonly="#{userController.connectedUser.admincreateaccess==0}"/>
+                                    <h:outputText value="#{bundle.TimeZone}"/>
+                                    <h:selectOneMenu value="#{applicationsettingController.timeZone}" id="timeZone">
+                                         <f:selectItem itemValue="0" itemLabel="UTC" />	 
+                                        <f:selectItem itemValue="1" itemLabel="UTC+1" />
+                                         							
+                                    </h:selectOneMenu>	
+                                </h:panelGrid>
+                                <br />
+                                <h:outputText value="* required field"/>
+                                <br /> 
+                            </div>
+
+                            <p:commandButton value="#{bundle.CreateUserSaveLink}" update="applicationsettingpanel"  styleClass="btn btn-danger btn-large"  action ="#{applicationsettingController.confirmPassword()}" rendered="#{userController.connectedUser.admincreateaccess==1}"/> 
+
+                        </h:form>
+                        <h:form id="forConfirmPassword">
+
+                            <p:dialog header="#{bundle.ConfirmPassword}"  resizable="false" widgetVar="dlglog" minHeight="40">
+
+                                <p:messages id="messages5" autoUpdate="true"  />
+                                <h:panelGrid columns="2" cellpadding="3" id="panelgridlogin">
+                                    <h:outputText value=""/>                                                    
+                                    <h:message id="message1" for="password" style="color:red;" /> <br/> 
+
+                                    <br/>     
+                                    <h:outputLabel value=""/> 
+                                    <h:outputLabel value="#{bundle.CreateUserLabel_password}"/> 
+                                    <p:password  id="password" styleClass ="login password-field" value="#{applicationsettingController.password}" required="true" requiredMessage="password required" />                                    
+                                    <h:outputText value=""/>                                        
+
+                                </h:panelGrid>
+
+                                <p:commandButton value="#{bundle.Next}"  styleClass="btn btn-primary btn-large" action="#{applicationsettingController.create()}" />
+                                <p:commandButton value="#{bundle.Cancel}"  styleClass="btn btn-danger btn-large"   onclick="PF('dlglog').hide();" />
+
+
+                            </p:dialog>
+
+                        </h:form>
+
+
+
+
+                    </div> <!-- /content -->
+
+                </div>
+            </h:panelGroup>
+            </ui:define>
+        </ui:composition>
+    </h:body>
+
+</html>

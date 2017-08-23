@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/hometemplate.xhtml">
+        <ui:param name="activeclass" value="driver"/>
+        <ui:define name="titleunderpage">
+
+        </ui:define>
+
+        <ui:define name="titlewidget">
+
+            <h3 style="top:0px;"> <h:outputText value="#{bundle.ListDriverTitle}"></h:outputText></h3>
+            <h:form style="float: right;margin-right: 4px;"> <h:commandLink action="#{driverController.prepareCreate}" value="#{bundle.ListAlertCreateLink}" styleClass="btn btn-primary"/></h:form>
+        </ui:define>
+        <ui:define name="body">
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                <h:form styleClass="jsfcrud_list_form">
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+                    
+                        
+                    
+                        
+                    <h:outputText escape="false" value="#{bundle.ListDriverEmpty}" rendered="#{driverController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{driverController.items.rowCount > 0}">
+                        <h:commandLink action="#{driverController.previous}" value="#{bundle.Previous} #{driverController.pagination.pageSize}" rendered="#{driverController.pagination.hasPreviousPage}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                        <h:commandLink action="#{driverController.next}" value="#{bundle.Next} #{driverController.pagination.pageSize}" rendered="#{driverController.pagination.hasNextPage}" style ="float:right;">&nbsp;
+                            <i class="icon-large icon-arrow-right"></i>
+                        </h:commandLink>
+                        <h:dataTable value="#{driverController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass="responsive-table table-bordered">
+        <h:column>
+                                <f:facet name="header" >
+
+                                    <h:outputText value="#{bundle.NO}"/>
+                                </f:facet>
+
+            <h:outputText   value="#{driverController.items.rowIndex+1}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDriverTitle_firstname}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.firstname}"/>
+                                <h:outputText rendered="#{item.firstname==null or item.firstname==''}"  value="#{bundle.Undefined}" />
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDriverTitle_lastname}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.lastname}"/>
+                                <h:outputText rendered="#{item.lastname==null or item.lastname==''}"  value="#{bundle.Undefined}" />
+
+                            </h:column>
+                          
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDriverTitle_cinorpassport}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.cinorpassport}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDriverTitle_gender}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.gender}"/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDriverTitle_licensevalidity}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.licensevalidity}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                                <h:outputText rendered="#{item.licensevalidity==null or item.licensevalidity==''}"  value="#{bundle.Undefined}" />
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListDriverTitle_fuelvolume}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fuelvolume}"/>
+                                <h:outputText rendered="#{item.fuelvolume==null or item.fuelvolume==''}"  value="#{bundle.Undefined}" />
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.Drive}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.vehicleCollection.get(0).description}"/>
+                                              
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.Action}"/>
+                                </f:facet>
+                                <h:commandLink action="#{driverController.prepareView}" title="#{bundle.More}">                            
+                                    <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                    </i>
+                                </h:commandLink>
+
+
+                                <h:commandLink action="#{driverController.prepareEdit}" title="#{bundle.Edit}">
+                                    <i class="btn-icon-only icon-edit" style="color: #D98200"> 
+                                    </i>
+                                </h:commandLink>
+
+
+                                <h:commandLink action="#{driverController.destroy}" title="#{bundle.Destroy}">
+                                    <i class="btn-icon-only icon-remove" style="color: #A40000"> 
+                                    </i> 
+                                </h:commandLink>                                                        
+                            </h:column>
+                        </h:dataTable>
+                        <!--<center><h:outputText value="#{driverController.pagination.pageFirstItem + 1}..#{driverController.pagination.pageLastItem + 1}/#{driverController.pagination.itemsCount}"/></center>-->
+
+                    </h:panelGroup>
+                    <br />
+
+                </h:form>
+            </h:panelGroup>
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>

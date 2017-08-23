@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+
+    <ui:composition template="/hometemplate.xhtml">      
+        <ui:param name="activeclass" value="alerts"/>
+        <ui:define name="titleunderpage">
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;"> <h:outputText value="#{bundle.ListMessageTitle}"></h:outputText></h3>
+            <h:form style="float: right;margin-right: 4px;">  <h:commandLink action="#{alertController.prepareCreate}" value="#{bundle.ListAlertCreateLink}" styleClass="btn btn-primary"/></h:form>
+
+        </ui:define>
+
+
+
+        <ui:define name="body" >
+            <h:outputScript name="js/responsivescript.js"/>
+            <h:outputStylesheet  name="css/responsivestyle.css" /> 
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}" >
+                <h:form styleClass="jsfcrud_list_form">
+
+                    <h:panelGroup id="messagePanel" layout="block">
+                        <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                    </h:panelGroup>
+
+
+ 
+
+                    <h:inputHidden rendered="#{alertController.prepareList()}"/>
+
+                    <h:outputText escape="false" value="#{bundle.ListAlertEmpty}" rendered="#{alertController.items.rowCount == 0}"/>
+                    <h:panelGroup rendered="#{alertController.items.rowCount > 0}">
+                        &nbsp;
+
+                        <h:commandLink action="#{alertController.previous}" value="#{bundle.Previous} #{alertController.pagination.pageSize}" rendered="#{alertController.pagination.hasPreviousPage}" styleClass="icon-large icon-arrow-left" style="float:left;"/>&nbsp;
+                        <h:commandLink action="#{alertController.next}" value="#{bundle.Next} #{alertController.pagination.pageSize}" rendered="#{alertController.pagination.hasNextPage}" style ="float:right;">&nbsp;
+                            <i class="icon-large icon-arrow-right"></i>
+                        </h:commandLink>
+
+
+                        <h:dataTable value="#{alertController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 2px;width: 100%;" styleClass="responsive-table table-bordered">
+                                   <h:column>
+                                <f:facet name="header" >
+
+                                    <h:outputText value="#{bundle.NO}"/>
+                                </f:facet>
+
+                                       <h:outputText   value="#{alertController.items.rowIndex+1}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_typealert}"/>
+                                </f:facet>
+                                <h:outputText value="#{bundle.Oilchange}" rendered="#{item.typealert==0}"/>
+                                <h:outputText value="#{bundle.Washing}" rendered="#{item.typealert==1}"/>
+                                <h:outputText value="#{bundle.Undefined}" rendered="#{ item.typealert lt 0 or item.typealert gt 1 }"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_action}"/>
+                                </f:facet>                            
+                                <h:outputText value="#{item.action}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_isgenerated}"/>
+                                </f:facet>
+                                <h:outputText rendered="#{item.isgenerated==1}" value="#{bundle.Yes}"/>
+                                <h:outputText rendered="#{item.isgenerated==0}" value="#{bundle.No}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_receiver}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.receiver}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_activeted}"/>
+                                </f:facet>
+                                <h:outputText value="#{bundle.Yes}" rendered="#{item.activeted==1}"/>
+                                <h:outputText value="#{bundle.No}" rendered="#{item.activeted==0}"/>
+
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_recurencetype}"/>
+                                </f:facet>
+                                <h:outputText value="#{bundle.Daily}" rendered='#{item.recurencetype==0}'/>
+                                <h:outputText value="#{bundle.Weekly}" rendered='#{item.recurencetype==1}'/>
+                                <h:outputText value="#{bundle.Monthly}" rendered='#{item.recurencetype==2}'/>
+                                <h:outputText value="#{bundle.Yearly}" rendered='#{item.recurencetype==3}'/>
+                            </h:column>
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_startdate}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.startdate}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.ListAlertTitle_enddate}"/>
+                                </f:facet>
+                                <h:outputText value="#{item.enddate}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                            </h:column>
+
+
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="#{bundle.Action}"/>
+                                </f:facet>
+                                <h:commandLink action="#{alertController.prepareView}" title="#{bundle.More}">                            
+                                    <i class="btn-icon-only icon-plus" style="color: #19bc9c"> 
+                                    </i>
+                                </h:commandLink>
+
+                                <h:commandLink action="#{alertController.prepareEdit}" title="#{bundle.Edit}">
+                                    <i class="btn-icon-only icon-edit" style="color: #D98200"> 
+                                    </i>
+                                </h:commandLink>
+                                <h:commandLink action="#{alertController.destroy}" title="#{bundle.Destroy}">
+                                    <i class="btn-icon-only icon-remove" style="color: #A40000"> 
+                                    </i>
+                                </h:commandLink>
+
+                            </h:column>
+                        </h:dataTable>
+                        <center>   <h:outputText value="#{alertController.pagination.pageFirstItem + 1}..#{alertController.pagination.pageLastItem + 1}/#{alertController.pagination.itemsCount}"/></center>
+                    </h:panelGroup>
+
+                </h:form> 
+
+            </h:panelGroup>
+
+            <h:panelGroup rendered="#{userController.connectedUser.accesslevel!=2}" >
+                <h:outputLabel value="You do not have permissions to access this page !" style="color: red"/>
+                <p:link outcome="/indexinitial.xhtml" value="Back to home"/>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+
+</html>
