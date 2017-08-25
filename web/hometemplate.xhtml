@@ -370,7 +370,30 @@
                                 </h:form>    				
                             </li>
                         </h:panelGroup> 
+                        
+                        
+                        
+                          <h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">
+                            <li class="#{(activeclass=='notification')?'active dropdown':'dropdown'}" >				
+                                <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">
+                                    <i class="icon-large icon-list"></i>
+                                    <span>#{bundle.Mission}</span>
+                                    <b class="caret"></b>
+                                </a>	
 
+                                <h:form > <ul class="dropdown-menu">
+                                        <li>      <h:commandLink  action="#{distributerController.prepareCreate}"   >                              
+
+                                                <z><span >#{bundle.EditMissionShowAllLink}</span></z>
+
+                                            </h:commandLink></li> 
+                                       
+
+                                    </ul>
+                                </h:form>    				
+                            </li>
+                        </h:panelGroup> 
+                        
                         <!--<h:panelGroup rendered="#{userController.connectedUser.accesslevel==2}">-->
                         <li class="#{(activeclass=='statistics')?'active dropdown':'dropdown'}" >				
                             <a href="javascript:;" class="dropdown-toggle" data-toggle="dropdown">

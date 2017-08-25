@@ -59,6 +59,43 @@ import org.codehaus.jackson.annotate.JsonIgnore;
     @NamedQuery(name = "User.findByIsdeleted", query = "SELECT u FROM User u WHERE u.isdeleted = :isdeleted")})
 public class User implements Serializable {
 
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 255)
+    @Column(name = "CINORPASSPORT")
+    private String cinorpassport;
+    @Basic(optional = false)
+    @NotNull
+    @Size(min = 1, max = 20)
+    @Column(name = "VILLE")
+    private String ville;
+    @Column(name = "LICENSEVALIDITY")
+    @Temporal(TemporalType.DATE)
+    private Date licensevalidity;
+    @Size(max = 10)
+    @Column(name = "Colonne_23")
+    private String colonne23;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
+    @Column(name = "FUELVOLUME")
+    private Double fuelvolume;
+    @Size(max = 255)
+    @Column(name = "GENDER")
+    private String gender;
+    @Column(name = "POSTAL_CODE")
+    private Integer postalCode;
+    @Size(max = 255)
+    @Column(name = "TITLE")
+    private String title;
+    @Size(max = 255)
+    @Column(name = "PICTUREPATH")
+    private String picturepath;
+    @OneToMany(mappedBy = "userid")
+    private Collection<Mission> missionCollection;
+    @OneToMany(mappedBy = "userid")
+    private Collection<Responsible> responsibleCollection;
+    @OneToMany(mappedBy = "resUserid")
+    private Collection<Responsible> responsibleCollection1;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -410,6 +447,110 @@ public class User implements Serializable {
      */
     public void setConfirmPassword(String confirmPassword) {
         this.confirmPassword = confirmPassword;
+    }
+
+    public String getCinorpassport() {
+        return cinorpassport;
+    }
+
+    public void setCinorpassport(String cinorpassport) {
+        this.cinorpassport = cinorpassport;
+    }
+
+    public String getVille() {
+        return ville;
+    }
+
+    public void setVille(String ville) {
+        this.ville = ville;
+    }
+
+    public Date getLicensevalidity() {
+        return licensevalidity;
+    }
+
+    public void setLicensevalidity(Date licensevalidity) {
+        this.licensevalidity = licensevalidity;
+    }
+
+    public String getColonne23() {
+        return colonne23;
+    }
+
+    public void setColonne23(String colonne23) {
+        this.colonne23 = colonne23;
+    }
+
+    public Double getFuelvolume() {
+        return fuelvolume;
+    }
+
+    public void setFuelvolume(Double fuelvolume) {
+        this.fuelvolume = fuelvolume;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public Integer getPostalCode() {
+        return postalCode;
+    }
+
+    public void setPostalCode(Integer postalCode) {
+        this.postalCode = postalCode;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getPicturepath() {
+        return picturepath;
+    }
+
+    public void setPicturepath(String picturepath) {
+        this.picturepath = picturepath;
+    }
+
+
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<Mission> getMissionCollection() {
+        return missionCollection;
+    }
+
+    public void setMissionCollection(Collection<Mission> missionCollection) {
+        this.missionCollection = missionCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<Responsible> getResponsibleCollection() {
+        return responsibleCollection;
+    }
+
+    public void setResponsibleCollection(Collection<Responsible> responsibleCollection) {
+        this.responsibleCollection = responsibleCollection;
+    }
+
+    @XmlTransient
+    @JsonIgnore
+    public Collection<Responsible> getResponsibleCollection1() {
+        return responsibleCollection1;
+    }
+
+    public void setResponsibleCollection1(Collection<Responsible> responsibleCollection1) {
+        this.responsibleCollection1 = responsibleCollection1;
     }
 
 }

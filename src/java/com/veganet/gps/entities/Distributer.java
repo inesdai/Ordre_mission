@@ -46,6 +46,8 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "Distributer.findByIsactive", query = "SELECT d FROM Distributer d WHERE d.isactive = :isactive")})
 public class Distributer implements Serializable {
 
+  
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -225,5 +227,6 @@ public class Distributer implements Serializable {
     public String toString() {
         return "com.veganet.gps.entities.Distributer[ distributerid=" + distributerid + " ]";
     }
+
 
 }

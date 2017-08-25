@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditMissionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditMissionLabel_missionId}" for="missionId" />
+                    <h:inputText id="missionId" value="#{missionController.selected.missionId}" title="#{bundle.EditMissionTitle_missionId}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_missionId}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_vehiculeId}" for="vehiculeId" />
+                    <h:inputText id="vehiculeId" value="#{missionController.selected.vehiculeId}" title="#{bundle.EditMissionTitle_vehiculeId}" />
+                    <h:outputLabel value="#{bundle.EditMissionLabel_persId}" for="persId" />
+                    <h:inputText id="persId" value="#{missionController.selected.persId}" title="#{bundle.EditMissionTitle_persId}" />
+                    <h:outputLabel value="#{bundle.EditMissionLabel_path}" for="path" />
+                    <h:inputTextarea rows="4" cols="30" id="path" value="#{missionController.selected.path}" title="#{bundle.EditMissionTitle_path}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_path}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_object}" for="object" />
+                    <h:inputTextarea rows="4" cols="30" id="object" value="#{missionController.selected.object}" title="#{bundle.EditMissionTitle_object}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_object}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_numberOfNights}" for="numberOfNights" />
+                    <h:inputText id="numberOfNights" value="#{missionController.selected.numberOfNights}" title="#{bundle.EditMissionTitle_numberOfNights}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_numberOfNights}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_numberOfTickets}" for="numberOfTickets" />
+                    <h:inputText id="numberOfTickets" value="#{missionController.selected.numberOfTickets}" title="#{bundle.EditMissionTitle_numberOfTickets}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_numberOfTickets}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_totalAmount}" for="totalAmount" />
+                    <h:inputText id="totalAmount" value="#{missionController.selected.totalAmount}" title="#{bundle.EditMissionTitle_totalAmount}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_totalAmount}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_quantityGs}" for="quantityGs" />
+                    <h:inputText id="quantityGs" value="#{missionController.selected.quantityGs}" title="#{bundle.EditMissionTitle_quantityGs}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_quantityGs}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_kmCourseGs}" for="kmCourseGs" />
+                    <h:inputText id="kmCourseGs" value="#{missionController.selected.kmCourseGs}" title="#{bundle.EditMissionTitle_kmCourseGs}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_kmCourseGs}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_amountGs}" for="amountGs" />
+                    <h:inputText id="amountGs" value="#{missionController.selected.amountGs}" title="#{bundle.EditMissionTitle_amountGs}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_amountGs}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_creationDate}" for="creationDate" />
+                    <h:inputText id="creationDate" value="#{missionController.selected.creationDate}" title="#{bundle.EditMissionTitle_creationDate}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_startDate}" for="startDate" />
+                    <h:inputText id="startDate" value="#{missionController.selected.startDate}" title="#{bundle.EditMissionTitle_startDate}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_endDate}" for="endDate" />
+                    <h:inputText id="endDate" value="#{missionController.selected.endDate}" title="#{bundle.EditMissionTitle_endDate}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_validationDate}" for="validationDate" />
+                    <h:inputText id="validationDate" value="#{missionController.selected.validationDate}" title="#{bundle.EditMissionTitle_validationDate}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_validationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_accompaying}" for="accompaying" />
+                    <h:inputTextarea rows="4" cols="30" id="accompaying" value="#{missionController.selected.accompaying}" title="#{bundle.EditMissionTitle_accompaying}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_accompaying}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_amountMeal}" for="amountMeal" />
+                    <h:inputText id="amountMeal" value="#{missionController.selected.amountMeal}" title="#{bundle.EditMissionTitle_amountMeal}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_amountMeal}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_amountHybergment}" for="amountHybergment" />
+                    <h:inputText id="amountHybergment" value="#{missionController.selected.amountHybergment}" title="#{bundle.EditMissionTitle_amountHybergment}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_amountHybergment}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_amountPg}" for="amountPg" />
+                    <h:inputText id="amountPg" value="#{missionController.selected.amountPg}" title="#{bundle.EditMissionTitle_amountPg}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_amountPg}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_amountParking}" for="amountParking" />
+                    <h:inputText id="amountParking" value="#{missionController.selected.amountParking}" title="#{bundle.EditMissionTitle_amountParking}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_amountParking}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_globalM}" for="globalM" />
+                    <h:inputText id="globalM" value="#{missionController.selected.globalM}" title="#{bundle.EditMissionTitle_globalM}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_globalM}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_reimbursement}" for="reimbursement" />
+                    <h:inputText id="reimbursement" value="#{missionController.selected.reimbursement}" title="#{bundle.EditMissionTitle_reimbursement}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_reimbursement}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_arrangment}" for="arrangment" />
+                    <h:inputText id="arrangment" value="#{missionController.selected.arrangment}" title="#{bundle.EditMissionTitle_arrangment}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_arrangment}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_status}" for="status" />
+                    <h:inputText id="status" value="#{missionController.selected.status}" title="#{bundle.EditMissionTitle_status}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_status}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_note}" for="note" />
+                    <h:inputTextarea rows="4" cols="30" id="note" value="#{missionController.selected.note}" title="#{bundle.EditMissionTitle_note}" required="true" requiredMessage="#{bundle.EditMissionRequiredMessage_note}"/>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_vehicleid}" for="vehicleid" />
+                    <h:selectOneMenu id="vehicleid" value="#{missionController.selected.vehicleid}" title="#{bundle.EditMissionTitle_vehicleid}" >
+                        <f:selectItems value="#{vehicleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditMissionLabel_userid}" for="userid" />
+                    <h:selectOneMenu id="userid" value="#{missionController.selected.userid}" title="#{bundle.EditMissionTitle_userid}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{missionController.update}" value="#{bundle.EditMissionSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditMissionViewLink}"/>
+                <br />
+                <h:commandLink action="#{missionController.prepareList}" value="#{bundle.EditMissionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditMissionIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

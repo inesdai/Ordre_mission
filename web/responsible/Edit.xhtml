@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.EditResponsibleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.EditResponsibleLabel_res1Id}" for="res1Id" />
+                    <h:inputText id="res1Id" value="#{responsibleController.selected.res1Id}" title="#{bundle.EditResponsibleTitle_res1Id}" required="true" requiredMessage="#{bundle.EditResponsibleRequiredMessage_res1Id}"/>
+                    <h:outputLabel value="#{bundle.EditResponsibleLabel_nameResp}" for="nameResp" />
+                    <h:inputText id="nameResp" value="#{responsibleController.selected.nameResp}" title="#{bundle.EditResponsibleTitle_nameResp}" />
+                    <h:outputLabel value="#{bundle.EditResponsibleLabel_ordre}" for="ordre" />
+                    <h:inputText id="ordre" value="#{responsibleController.selected.ordre}" title="#{bundle.EditResponsibleTitle_ordre}" required="true" requiredMessage="#{bundle.EditResponsibleRequiredMessage_ordre}"/>
+                    <h:outputLabel value="#{bundle.EditResponsibleLabel_userid}" for="userid" />
+                    <h:selectOneMenu id="userid" value="#{responsibleController.selected.userid}" title="#{bundle.EditResponsibleTitle_userid}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.EditResponsibleLabel_resUserid}" for="resUserid" />
+                    <h:selectOneMenu id="resUserid" value="#{responsibleController.selected.resUserid}" title="#{bundle.EditResponsibleTitle_resUserid}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <h:commandLink action="#{responsibleController.update}" value="#{bundle.EditResponsibleSaveLink}"/>
+                <br />
+                <br />
+                <h:link outcome="View" value="#{bundle.EditResponsibleViewLink}"/>
+                <br />
+                <h:commandLink action="#{responsibleController.prepareList}" value="#{bundle.EditResponsibleShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.EditResponsibleIndexLink}" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

@@ -26,5 +26,9 @@ http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
                 <to-view-id>/login.xhtml</to-view-id>
             </navigation-case>
         </navigation-rule>
+        <resource-bundle>
+            <base-name>/Bundle9</base-name>
+            <var>bundle9</var>
+        </resource-bundle>
     </application>
 </faces-config>
