@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewResponsibleTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewResponsibleLabel_res1Id}"/>
+                    <h:outputText value="#{responsibleController.selected.res1Id}" title="#{bundle.ViewResponsibleTitle_res1Id}"/>
+                    <h:outputText value="#{bundle.ViewResponsibleLabel_nameResp}"/>
+                    <h:outputText value="#{responsibleController.selected.nameResp}" title="#{bundle.ViewResponsibleTitle_nameResp}"/>
+                    <h:outputText value="#{bundle.ViewResponsibleLabel_ordre}"/>
+                    <h:outputText value="#{responsibleController.selected.ordre}" title="#{bundle.ViewResponsibleTitle_ordre}"/>
+                    <h:outputText value="#{bundle.ViewResponsibleLabel_userid}"/>
+                    <h:outputText value="#{responsibleController.selected.userid}" title="#{bundle.ViewResponsibleTitle_userid}"/>
+                    <h:outputText value="#{bundle.ViewResponsibleLabel_resUserid}"/>
+                    <h:outputText value="#{responsibleController.selected.resUserid}" title="#{bundle.ViewResponsibleTitle_resUserid}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{responsibleController.destroyAndView}" value="#{bundle.ViewResponsibleDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewResponsibleEditLink}"/>
+                <br />
+                <h:commandLink action="#{responsibleController.prepareCreate}" value="#{bundle.ViewResponsibleCreateLink}" />
+                <br />
+                <h:commandLink action="#{responsibleController.prepareList}" value="#{bundle.ViewResponsibleShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewResponsibleIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

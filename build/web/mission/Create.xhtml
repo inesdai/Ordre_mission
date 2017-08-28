@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.CreateMissionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_missionId}" for="missionId" />
+                    <h:inputText id="missionId" value="#{missionController.selected.missionId}" title="#{bundle.CreateMissionTitle_missionId}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_missionId}"/>
+                   
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_vehiculeId}" for="vehiculeId" />
+                    <h:inputText id="vehiculeId" value="#{missionController.selected.vehiculeId}" title="#{bundle.CreateMissionTitle_vehiculeId}" />
+                    
+                    
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_persId}" for="persId" />
+                    <h:inputText id="persId" value="#{missionController.selected.persId}" title="#{bundle.CreateMissionTitle_persId}" />
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_path}" for="path" />
+                    <h:inputTextarea rows="4" cols="30" id="path" value="#{missionController.selected.path}" title="#{bundle.CreateMissionTitle_path}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_path}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_object}" for="object" />
+                    <h:inputTextarea rows="4" cols="30" id="object" value="#{missionController.selected.object}" title="#{bundle.CreateMissionTitle_object}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_object}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_numberOfNights}" for="numberOfNights" />
+                    <h:inputText id="numberOfNights" value="#{missionController.selected.numberOfNights}" title="#{bundle.CreateMissionTitle_numberOfNights}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_numberOfNights}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_numberOfTickets}" for="numberOfTickets" />
+                    <h:inputText id="numberOfTickets" value="#{missionController.selected.numberOfTickets}" title="#{bundle.CreateMissionTitle_numberOfTickets}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_numberOfTickets}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_totalAmount}" for="totalAmount" />
+                    <h:inputText id="totalAmount" value="#{missionController.selected.totalAmount}" title="#{bundle.CreateMissionTitle_totalAmount}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_totalAmount}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_quantityGs}" for="quantityGs" />
+                    <h:inputText id="quantityGs" value="#{missionController.selected.quantityGs}" title="#{bundle.CreateMissionTitle_quantityGs}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_quantityGs}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_kmCourseGs}" for="kmCourseGs" />
+                    <h:inputText id="kmCourseGs" value="#{missionController.selected.kmCourseGs}" title="#{bundle.CreateMissionTitle_kmCourseGs}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_kmCourseGs}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_amountGs}" for="amountGs" />
+                    <h:inputText id="amountGs" value="#{missionController.selected.amountGs}" title="#{bundle.CreateMissionTitle_amountGs}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_amountGs}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_creationDate}" for="creationDate" />
+                    <h:inputText id="creationDate" value="#{missionController.selected.creationDate}" title="#{bundle.CreateMissionTitle_creationDate}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_startDate}" for="startDate" />
+                    <h:inputText id="startDate" value="#{missionController.selected.startDate}" title="#{bundle.CreateMissionTitle_startDate}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_endDate}" for="endDate" />
+                    <h:inputText id="endDate" value="#{missionController.selected.endDate}" title="#{bundle.CreateMissionTitle_endDate}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_validationDate}" for="validationDate" />
+                    <h:inputText id="validationDate" value="#{missionController.selected.validationDate}" title="#{bundle.CreateMissionTitle_validationDate}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_validationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:inputText>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_accompaying}" for="accompaying" />
+                    <h:inputTextarea rows="4" cols="30" id="accompaying" value="#{missionController.selected.accompaying}" title="#{bundle.CreateMissionTitle_accompaying}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_accompaying}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_amountMeal}" for="amountMeal" />
+                    <h:inputText id="amountMeal" value="#{missionController.selected.amountMeal}" title="#{bundle.CreateMissionTitle_amountMeal}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_amountMeal}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_amountHybergment}" for="amountHybergment" />
+                    <h:inputText id="amountHybergment" value="#{missionController.selected.amountHybergment}" title="#{bundle.CreateMissionTitle_amountHybergment}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_amountHybergment}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_amountPg}" for="amountPg" />
+                    <h:inputText id="amountPg" value="#{missionController.selected.amountPg}" title="#{bundle.CreateMissionTitle_amountPg}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_amountPg}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_amountParking}" for="amountParking" />
+                    <h:inputText id="amountParking" value="#{missionController.selected.amountParking}" title="#{bundle.CreateMissionTitle_amountParking}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_amountParking}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_globalM}" for="globalM" />
+                    <h:inputText id="globalM" value="#{missionController.selected.globalM}" title="#{bundle.CreateMissionTitle_globalM}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_globalM}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_reimbursement}" for="reimbursement" />
+                    <h:inputText id="reimbursement" value="#{missionController.selected.reimbursement}" title="#{bundle.CreateMissionTitle_reimbursement}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_reimbursement}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_arrangment}" for="arrangment" />
+                    <h:inputText id="arrangment" value="#{missionController.selected.arrangment}" title="#{bundle.CreateMissionTitle_arrangment}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_arrangment}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_status}" for="status" />
+                    <h:inputText id="status" value="#{missionController.selected.status}" title="#{bundle.CreateMissionTitle_status}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_status}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_note}" for="note" />
+                    <h:inputTextarea rows="4" cols="30" id="note" value="#{missionController.selected.note}" title="#{bundle.CreateMissionTitle_note}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_note}"/>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_vehicleid}" for="vehicleid" />
+                    <h:selectOneMenu id="vehicleid" value="#{missionController.selected.vehicleid}" title="#{bundle.CreateMissionTitle_vehicleid}" >
+                        <f:selectItems value="#{vehicleController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                    <h:outputLabel value="#{bundle.CreateMissionLabel_userid}" for="userid" />
+                    <h:selectOneMenu id="userid" value="#{missionController.selected.userid}" title="#{bundle.CreateMissionTitle_userid}" >
+                        <f:selectItems value="#{userController.itemsAvailableSelectOne}"/>
+                    </h:selectOneMenu>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{missionController.create}" value="#{bundle.CreateMissionSaveLink}" />
+                <br />
+                <br />
+                <h:commandLink action="#{missionController.prepareList}" value="#{bundle.CreateMissionShowAllLink}" immediate="true"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.CreateMissionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

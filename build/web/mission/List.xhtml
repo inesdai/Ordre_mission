@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ListMissionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:form styleClass="jsfcrud_list_form">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+                </h:panelGroup>
+                <h:outputText escape="false" value="#{bundle.ListMissionEmpty}" rendered="#{missionController.items.rowCount == 0}"/>
+                <h:panelGroup rendered="#{missionController.items.rowCount > 0}">
+                    <h:outputText value="#{missionController.pagination.pageFirstItem + 1}..#{missionController.pagination.pageLastItem + 1}/#{missionController.pagination.itemsCount}"/>&nbsp;
+                    <h:commandLink action="#{missionController.previous}" value="#{bundle.Previous} #{missionController.pagination.pageSize}" rendered="#{missionController.pagination.hasPreviousPage}"/>&nbsp;
+                    <h:commandLink action="#{missionController.next}" value="#{bundle.Next} #{missionController.pagination.pageSize}" rendered="#{missionController.pagination.hasNextPage}"/>&nbsp;
+                    <h:dataTable value="#{missionController.items}" var="item" border="0" cellpadding="2" cellspacing="0" rowClasses="jsfcrud_odd_row,jsfcrud_even_row" rules="all" style="border:solid 1px">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_missionId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.missionId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_vehiculeId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vehiculeId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_persId}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.persId}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_path}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.path}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_object}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.object}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_numberOfNights}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numberOfNights}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_numberOfTickets}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.numberOfTickets}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_totalAmount}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.totalAmount}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_quantityGs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.quantityGs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_kmCourseGs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.kmCourseGs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_amountGs}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amountGs}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_creationDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.creationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_startDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.startDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_endDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.endDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_validationDate}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.validationDate}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_accompaying}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.accompaying}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_amountMeal}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amountMeal}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_amountHybergment}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amountHybergment}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_amountPg}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amountPg}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_amountParking}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.amountParking}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_globalM}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.globalM}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_reimbursement}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.reimbursement}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_arrangment}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.arrangment}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_status}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.status}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_note}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.note}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_vehicleid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.vehicleid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{bundle.ListMissionTitle_userid}"/>
+                            </f:facet>
+                            <h:outputText value="#{item.userid}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="&nbsp;"/>
+                            </f:facet>
+                            <h:commandLink action="#{missionController.prepareView}" value="#{bundle.ListMissionViewLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{missionController.prepareEdit}" value="#{bundle.ListMissionEditLink}"/>
+                            <h:outputText value=" "/>
+                            <h:commandLink action="#{missionController.destroy}" value="#{bundle.ListMissionDestroyLink}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+                <br />
+                <h:commandLink action="#{missionController.prepareCreate}" value="#{bundle.ListMissionCreateLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ListMissionIndexLink}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>

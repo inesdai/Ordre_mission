@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="title">
+            <h:outputText value="#{bundle.ViewMissionTitle}"></h:outputText>
+        </ui:define>
+        <ui:define name="body">
+            <h:panelGroup id="messagePanel" layout="block">
+                <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
+            </h:panelGroup>
+            <h:form>
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{bundle.ViewMissionLabel_missionId}"/>
+                    <h:outputText value="#{missionController.selected.missionId}" title="#{bundle.ViewMissionTitle_missionId}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_vehiculeId}"/>
+                    <h:outputText value="#{missionController.selected.vehiculeId}" title="#{bundle.ViewMissionTitle_vehiculeId}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_persId}"/>
+                    <h:outputText value="#{missionController.selected.persId}" title="#{bundle.ViewMissionTitle_persId}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_path}"/>
+                    <h:outputText value="#{missionController.selected.path}" title="#{bundle.ViewMissionTitle_path}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_object}"/>
+                    <h:outputText value="#{missionController.selected.object}" title="#{bundle.ViewMissionTitle_object}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_numberOfNights}"/>
+                    <h:outputText value="#{missionController.selected.numberOfNights}" title="#{bundle.ViewMissionTitle_numberOfNights}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_numberOfTickets}"/>
+                    <h:outputText value="#{missionController.selected.numberOfTickets}" title="#{bundle.ViewMissionTitle_numberOfTickets}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_totalAmount}"/>
+                    <h:outputText value="#{missionController.selected.totalAmount}" title="#{bundle.ViewMissionTitle_totalAmount}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_quantityGs}"/>
+                    <h:outputText value="#{missionController.selected.quantityGs}" title="#{bundle.ViewMissionTitle_quantityGs}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_kmCourseGs}"/>
+                    <h:outputText value="#{missionController.selected.kmCourseGs}" title="#{bundle.ViewMissionTitle_kmCourseGs}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_amountGs}"/>
+                    <h:outputText value="#{missionController.selected.amountGs}" title="#{bundle.ViewMissionTitle_amountGs}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_creationDate}"/>
+                    <h:outputText value="#{missionController.selected.creationDate}" title="#{bundle.ViewMissionTitle_creationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewMissionLabel_startDate}"/>
+                    <h:outputText value="#{missionController.selected.startDate}" title="#{bundle.ViewMissionTitle_startDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewMissionLabel_endDate}"/>
+                    <h:outputText value="#{missionController.selected.endDate}" title="#{bundle.ViewMissionTitle_endDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy HH:mm:ss" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewMissionLabel_validationDate}"/>
+                    <h:outputText value="#{missionController.selected.validationDate}" title="#{bundle.ViewMissionTitle_validationDate}">
+                        <f:convertDateTime pattern="MM/dd/yyyy" />
+                    </h:outputText>
+                    <h:outputText value="#{bundle.ViewMissionLabel_accompaying}"/>
+                    <h:outputText value="#{missionController.selected.accompaying}" title="#{bundle.ViewMissionTitle_accompaying}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_amountMeal}"/>
+                    <h:outputText value="#{missionController.selected.amountMeal}" title="#{bundle.ViewMissionTitle_amountMeal}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_amountHybergment}"/>
+                    <h:outputText value="#{missionController.selected.amountHybergment}" title="#{bundle.ViewMissionTitle_amountHybergment}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_amountPg}"/>
+                    <h:outputText value="#{missionController.selected.amountPg}" title="#{bundle.ViewMissionTitle_amountPg}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_amountParking}"/>
+                    <h:outputText value="#{missionController.selected.amountParking}" title="#{bundle.ViewMissionTitle_amountParking}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_globalM}"/>
+                    <h:outputText value="#{missionController.selected.globalM}" title="#{bundle.ViewMissionTitle_globalM}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_reimbursement}"/>
+                    <h:outputText value="#{missionController.selected.reimbursement}" title="#{bundle.ViewMissionTitle_reimbursement}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_arrangment}"/>
+                    <h:outputText value="#{missionController.selected.arrangment}" title="#{bundle.ViewMissionTitle_arrangment}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_status}"/>
+                    <h:outputText value="#{missionController.selected.status}" title="#{bundle.ViewMissionTitle_status}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_note}"/>
+                    <h:outputText value="#{missionController.selected.note}" title="#{bundle.ViewMissionTitle_note}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_vehicleid}"/>
+                    <h:outputText value="#{missionController.selected.vehicleid}" title="#{bundle.ViewMissionTitle_vehicleid}"/>
+                    <h:outputText value="#{bundle.ViewMissionLabel_userid}"/>
+                    <h:outputText value="#{missionController.selected.userid}" title="#{bundle.ViewMissionTitle_userid}"/>
+                </h:panelGrid>
+                <br />
+                <h:commandLink action="#{missionController.destroyAndView}" value="#{bundle.ViewMissionDestroyLink}"/>
+                <br />
+                <br />
+                <h:link outcome="Edit" value="#{bundle.ViewMissionEditLink}"/>
+                <br />
+                <h:commandLink action="#{missionController.prepareCreate}" value="#{bundle.ViewMissionCreateLink}" />
+                <br />
+                <h:commandLink action="#{missionController.prepareList}" value="#{bundle.ViewMissionShowAllLink}"/>
+                <br />
+                <br />
+                <h:link outcome="/index" value="#{bundle.ViewMissionIndexLink}"/>
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+
+</html>
