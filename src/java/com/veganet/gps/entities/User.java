@@ -60,12 +60,10 @@ import org.codehaus.jackson.annotate.JsonIgnore;
 public class User implements Serializable {
 
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 255)
     @Column(name = "CINORPASSPORT")
     private String cinorpassport;
     @Basic(optional = false)
-    @NotNull
     @Size(min = 1, max = 20)
     @Column(name = "VILLE")
     private String ville;
@@ -142,7 +140,6 @@ public class User implements Serializable {
     @Column(name = "PHONENUMBER")
     private String phonenumber;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "CREATEDATE")
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdate;
@@ -432,7 +429,7 @@ public class User implements Serializable {
 
     @Override
     public String toString() {
-        return "com.veganet.gps.entities.User[ userid=" + userid + " ]";
+        return  firstname + " "+lastname;
     }
 
     /**

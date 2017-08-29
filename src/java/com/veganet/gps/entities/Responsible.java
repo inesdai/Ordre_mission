@@ -9,6 +9,8 @@ import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -35,15 +37,14 @@ public class Responsible implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @NotNull
     @Column(name = "RES1_ID")
     private Integer res1Id;
     @Size(max = 100)
     @Column(name = "NAME_RESP")
     private String nameResp;
     @Basic(optional = false)
-    @NotNull
     @Column(name = "ORDRE")
     private int ordre;
     @JoinColumn(name = "USERID", referencedColumnName = "USERID")
