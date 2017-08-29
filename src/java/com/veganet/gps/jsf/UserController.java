@@ -307,6 +307,8 @@ public class UserController implements Serializable {
                     current.setCreatedate(new Date());
 
                     
+                    
+                    
                     getFacade().create(current);
                     
                     for (User us : users) {
