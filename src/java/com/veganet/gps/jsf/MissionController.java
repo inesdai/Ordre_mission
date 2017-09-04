@@ -64,19 +64,19 @@ public class MissionController implements Serializable {
 
     public String prepareList() {
         recreateModel();
-        return "List";
+        return "/mission/List?faces-redirect=true";
     }
 
     public String prepareView() {
         current = (Mission) getItems().getRowData();
         selectedItemIndex = pagination.getPageFirstItem() + getItems().getRowIndex();
-        return "View";
+        return "/mission/View?faces-redirect=true";
     }
 
     public String prepareCreate() {
         current = new Mission();
         selectedItemIndex = -1;
-        return "Create";
+        return "/mission/Create?faces-redirect=true";
     }
 
     public String create() {

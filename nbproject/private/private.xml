@@ -3,12 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/src/java/com/veganet/gps/jsf/MissionController.java</file>
             <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/src/java/com/veganet/gps/jsf/UserController.java</file>
-            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/Nouveau%20dossier/web/device/Monitoring.xhtml</file>
-            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/src/java/com/veganet/gps/entities/Responsible.java</file>
-            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/src/java/com/veganet/gps/entities/User.java</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/web/device/Create.xhtml</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/web/devicedistributor/Create.xhtml</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/web/mission/CreateAdmin.xhtml</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/web/mission/Create.xhtml</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/src/java/com/veganet/gps/entities/Mission.java</file>
             <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/web/user/createadmin.xhtml</file>
-            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/Nouveau%20dossier/web/WEB-INF/classes/com/veganet/gps/jsf/VehicleConverter.java</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/web/hometemplate.xhtml</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/src/java/Bundle_fr.properties</file>
+            <file>file:/C:/Users/Ines/Documents/NetBeansProjects/GpsBackOffice/web/user/Create.xhtml</file>
         </group>
     </open-files>
 </project-private>

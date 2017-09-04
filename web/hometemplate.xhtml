@@ -341,7 +341,7 @@
                                                 <z><span >#{bundle.ViewAlertCreateLink}</span></z>
 
                                             </h:commandLink></li> 
-                                        <li>       <h:commandLink  action="#{alertController.prepareList()}" >                          
+                                            <li> <h:commandLink  action="#{alertController.prepareList()}" >                          
                                                 <span>#{bundle.ViewAlertShowAllLink}</span>
 
                                             </h:commandLink></li>
@@ -382,22 +382,24 @@
                                     <b class="caret"></b>
                                 </a>	
 
-                                <h:form > <ul class="dropdown-menu">
+                                <h:form > 
+                                <ul class="dropdown-menu">
                
                     <li> 
-                        <h:commandLink  action="#{distributerController.prepareCreate}">                              
+                        <h:commandLink  action="#{missionController.prepareCreate}">                              
 
                                             <z><span >#{bundle.EditMissionShowAllLink}</span></z>
 
                         </h:commandLink></li>  
 
                         <h:panelGroup rendered="#{userController.connectedUser.accesslevel eq 2}"> 
-                            <li>    
-                        <h:commandLink  action="#{distributerController.prepareCreate}"   >                              
+                        <li>    
+                            <h:commandLink  action="#{missionController.prepareList()}"   >                              
 
                             <z><span >#{bundle.TreatmentMissionShowAllLink}</span></z>
 
-                        </h:commandLink></li> </h:panelGroup> 
+                        </h:commandLink>
+                        </li> </h:panelGroup> 
 
                                     </ul>
                                 </h:form>    				
