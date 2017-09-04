@@ -9,15 +9,46 @@
         <ui:define name="title">
             <h:outputText value="#{bundle.CreateMissionTitle}"></h:outputText>
         </ui:define>
+        
+        
+        <ui:param name="activeclass" value="mission"/>
+        <ui:define name="titleunderpage">
+            <h:outputText value=""></h:outputText>
+        </ui:define>
+        <ui:define name="titlewidget">
+            <h3 style="top:0px;">   <h:outputText value="#{bundle.NewMission}"></h:outputText></h3>
+        </ui:define>
+        
+        
+        
+        
+        
         <ui:define name="body">
             <h:panelGroup id="messagePanel" layout="block">
                 <h:messages errorStyle="color: red" infoStyle="color: green" layout="table"/>
             </h:panelGroup>
             <h:form>
-                <h:panelGrid columns="2">
+                <ul class="nav nav-tabs">
+
+                        <li>
+                            <h2>#{bundle.NewMission}</h2>	
+                        </li>
+
+                    </ul>
+                
+                
+                
+           
+               <!-- <h:panelGrid columns="3"> -->
+<div class="tab-content" style="margin-left: 0px!important;">
+            <div class="span12" style="margin-left: 0px!important;">
+
+                    <div class="span6" style="margin-left: 0px!important;">
+
+
                     <div  class ="control-group">	
                         
-                    <h:outputLabel value="#{bundle.CreateMissionLabel_missionId}" for="missionId" />
+                        <h:outputLabel value="#{bundle.CreateMissionLabel_missionId}" for="missionId" />
                     <div class="controls">
                     <h:inputText id="missionId" value="#{missionController.selected.missionId}" title="#{bundle.CreateMissionTitle_missionId}" required="true" requiredMessage="#{bundle.CreateMissionRequiredMessage_missionId}"/>
                     </div> <!-- /controls -->				
@@ -114,7 +145,9 @@
                     </h:inputText>
                     </div> <!-- /controls -->				
                         </div> <!-- /control-group -->
-                    
+                                                    </div>
+                <div class="span6" style="margin-right: 0px!important;">
+                                                    
                      <div  class ="control-group">
                     <h:outputLabel value="#{bundle.CreateMissionLabel_endDate}" for="endDate" />
                     <div class="controls">
@@ -223,16 +256,26 @@
                     </div> <!-- /controls -->				
                         </div> <!-- /control-group -->
                     
-                    
-                    
-                </h:panelGrid>
+                                                     </div>
+                                                
+                                            </div>
+</div>
+               <!-- </h:panelGrid> -->
                 <br />
-                <h:commandLink action="#{missionController.create}" value="#{bundle.CreateMissionSaveLink}" />
+                
+                <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
+
+                    <center><h:commandLink action="#{missionController.create}" value="#{bundle.CreateMissionSaveLink}" class="btn btn-primary" /> </center>
+                
+                
+                
+                
                 <br />
                 <br />
-                <h:commandLink action="#{missionController.prepareList}" value="#{bundle.CreateMissionShowAllLink}" immediate="true"/>
+                <center><h:commandLink action="#{missionController.prepareList}" value="#{bundle.CreateMissionShowAllLink}" immediate="true"/></center>
                 <br />
                 <br />
+                  </div>
                 <h:link outcome="/index" value="#{bundle.CreateMissionIndexLink}"/>
             </h:form>
         </ui:define>
