@@ -265,18 +265,14 @@
                 
                 <div class="form-actions" style="margin-left: -20px; margin-right: -20px; padding-left: 0px!important;">
 
-                    <center><h:commandLink action="#{missionController.create}" value="#{bundle.CreateMissionSaveLink}" class="btn btn-primary" /> </center>
+                    <center><h:commandLink action="#{missionController.create}" value="#{bundle.CreateMissionSaveLink}" class="btn btn-primary" />
+                        <h:commandLink action="#{missionController.List}" value="#{bundle.CreateMissionCancelLink}" class="btn" /></center>
                 
                 
                 
                 
-                <br />
-                <br />
-                <center><h:commandLink action="#{missionController.prepareList}" value="#{bundle.CreateMissionShowAllLink}" immediate="true"/></center>
-                <br />
-                <br />
+              
                   </div>
-                <h:link outcome="/index" value="#{bundle.CreateMissionIndexLink}"/>
             </h:form>
         </ui:define>
     </ui:composition>
